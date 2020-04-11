@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package genproto;
+option go_package="genproto/courier_service";
+
+import "courier.proto";
+
+service CourierService {
+	rpc Create(Courier) returns (CreateCourierResponse) {}
+	rpc Update(Courier) returns (UpdateCourierResponse) {}
+}
+
+message CreateCourierResponse {
+	Courier courier = 1;
+}
+
+message UpdateCourierResponse {
+	Courier courier = 1;
+}

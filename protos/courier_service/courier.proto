@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package genproto;
+option go_package="genproto/courier_service";
+
+
+message Courier {
+    string id = 1;
+    string phone = 2;
+    string first_name = 3;
+    string last_name = 4;
+    string create_at = 5;
+    bool status = 6;
+}
+
+message CourierDetails {
+    string courier_id = 1;
+    string passport_number = 2;
+    string gender = 3;
+    string birth_date = 4;
+    string address = 5;
+    string img = 6;
+    string lisense_number = 7;
+    string lisense_given_date = 8;
+    string lisense_expiry_date = 9;
+}
+
+message CourierFare {
+    string courier_id = 1;
+    string fare_id = 2;
+}
+
+message CourierVehicle {
+    string id = 1;
+    string courier_id = 2;
+    string model = 3;
+    string vehicle_number = 4;
+    string created_at = 5;
+    bool status = 6;
+}
+
+
+
+
+

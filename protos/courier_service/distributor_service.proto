@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package genproto;
+option go_package="genproto/courier_service";
+
+import "distributor.proto";
+
+service DistributorService {
+	rpc Create(Distributor) returns (CreateDistributorResponse) {}
+	rpc Update(Distributor) returns (UpdateDistributorResponse) {}
+}
+
+message CreateDistributorResponse {
+	Distributor distributor = 1;
+}
+
+message UpdateDistributorResponse {
+	Distributor distributor = 1;
+}
+
