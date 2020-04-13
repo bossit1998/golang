@@ -107,129 +107,118 @@ func (s *CourierService) Delete(ctx context.Context, req *pb.DeleteCourierReques
 
 // CourierDetails
 func (s *CourierService) CreateCourierDetails(ctx context.Context, req *pb.CourierDetails) (*pb.CreateCourierDetailsResponse, error) {
-	// var err error
 
-	// courier, err := s.storage.Courier().Create(req)
-	// if err != nil {
-	// 	s.logger.Error("Error while creating event", l.Error(err), l.Any("req", req))
-	// 	return nil, status.Error(codes.Internal, err.Error())
-	// }
-	// return &pb.CreateCourierResponse{
-	// 	Courier: courier,
-	// }, nil
-	return nil, nil
+	cd, err := s.storage.Courier().CreateCourierDetails(req)
+	if err != nil {
+		s.logger.Error("Error while creating event", l.Error(err), l.Any("req", req))
+		return nil, status.Error(codes.Internal, err.Error())
+	}
+	return &pb.CreateCourierDetailsResponse{
+		CourierDetails: cd,
+	}, nil
 }
 
 func (s *CourierService) UpdateCourierDetails(ctx context.Context, req *pb.CourierDetails) (*pb.UpdateCourierDetailsResponse, error) {
-	// courier, err := s.storage.Courier().Update(req)
+	cd, err := s.storage.Courier().UpdateCourierDetails(req)
 
-	// if err == sql.ErrNoRows {
-	// 	s.logger.Error("Error while updating event, Not Found", l.Any("req", req))
-	// 	return nil, status.Error(codes.NotFound, "Not found")
-	// } else if err != nil {
-	// 	s.logger.Error("Error while updating event", l.Error(err), l.Any("req", req))
-	// 	return nil, status.Error(codes.Internal, "Internal server error")
-	// }
+	if err == sql.ErrNoRows {
+		s.logger.Error("Error while updating event, Not Found", l.Any("req", req))
+		return nil, status.Error(codes.NotFound, "Not found")
+	} else if err != nil {
+		s.logger.Error("Error while updating event", l.Error(err), l.Any("req", req))
+		return nil, status.Error(codes.Internal, "Internal server error")
+	}
 
-	// return &pb.UpdateCourierResponse{
-	// 	Courier: courier,
-	// }, nil
-	return nil, nil
+	return &pb.UpdateCourierDetailsResponse{
+		CourierDetails: cd,
+	}, nil
 }
 
 func (s *CourierService) GetCourierDetails(ctx context.Context, req *pb.GetCourierDetailsRequest) (*pb.GetCourierDetailsResponse, error) {
-	// var courier *pb.Courier
-	// courier, err := s.storage.Courier().GetCourier(req.Id)
-	// if err == sql.ErrNoRows {
-	// 	s.logger.Error("Error while getting an event, Not found", l.Any("req", req))
-	// 	return nil, status.Error(codes.NotFound, "Not found")
-	// } else if err != nil {
-	// 	s.logger.Error("Error while getting event", l.Error(err), l.Any("req", req))
-	// 	return nil, status.Error(codes.Internal, "Internal server error")
-	// }
+	var cd *pb.CourierDetails
+	cd, err := s.storage.Courier().GetCourierDetails(req.CourierId)
+	if err == sql.ErrNoRows {
+		s.logger.Error("Error while getting an event, Not found", l.Any("req", req))
+		return nil, status.Error(codes.NotFound, "Not found")
+	} else if err != nil {
+		s.logger.Error("Error while getting event", l.Error(err), l.Any("req", req))
+		return nil, status.Error(codes.Internal, "Internal server error")
+	}
 
-	// return &pb.GetCourierResponse{
-	// 	Courier: courier,
-	// }, nil
-	return nil, nil
+	return &pb.GetCourierDetailsResponse{
+		CourierDetails: cd,
+	}, nil
 }
 
 // CourierVehicle
 func (s *CourierService) CreateCourierVehicle(ctx context.Context, req *pb.CourierVehicle) (*pb.CreateCourierVehicleResponse, error) {
-	// var err error
-
-	// courier, err := s.storage.Courier().Create(req)
-	// if err != nil {
-	// 	s.logger.Error("Error while creating event", l.Error(err), l.Any("req", req))
-	// 	return nil, status.Error(codes.Internal, err.Error())
-	// }
-	// return &pb.CreateCourierResponse{
-	// 	Courier: courier,
-	// }, nil
-	return nil, nil
+	cv, err := s.storage.Courier().CreateCourierVehicle(req)
+	if err != nil {
+		s.logger.Error("Error while creating event", l.Error(err), l.Any("req", req))
+		return nil, status.Error(codes.Internal, err.Error())
+	}
+	return &pb.CreateCourierVehicleResponse{
+		CourierVehicle: cv,
+	}, nil
 }
 
 func (s *CourierService) UpdateCourierVehicle(ctx context.Context, req *pb.CourierVehicle) (*pb.UpdateCourierVehicleResponse, error) {
-	// courier, err := s.storage.Courier().Update(req)
+	cv, err := s.storage.Courier().UpdateCourierVehicle(req)
 
-	// if err == sql.ErrNoRows {
-	// 	s.logger.Error("Error while updating event, Not Found", l.Any("req", req))
-	// 	return nil, status.Error(codes.NotFound, "Not found")
-	// } else if err != nil {
-	// 	s.logger.Error("Error while updating event", l.Error(err), l.Any("req", req))
-	// 	return nil, status.Error(codes.Internal, "Internal server error")
-	// }
+	if err == sql.ErrNoRows {
+		s.logger.Error("Error while updating event, Not Found", l.Any("req", req))
+		return nil, status.Error(codes.NotFound, "Not found")
+	} else if err != nil {
+		s.logger.Error("Error while updating event", l.Error(err), l.Any("req", req))
+		return nil, status.Error(codes.Internal, "Internal server error")
+	}
 
-	// return &pb.UpdateCourierResponse{
-	// 	Courier: courier,
-	// }, nil
-	return nil, nil
+	return &pb.UpdateCourierVehicleResponse{
+		CourierVehicle: cv,
+	}, nil
 }
 
 func (s *CourierService) GetCourierVehicle(ctx context.Context, req *pb.GetCourierVehicleRequest) (*pb.GetCourierVehicleResponse, error) {
-	// var courier *pb.Courier
-	// courier, err := s.storage.Courier().GetCourier(req.Id)
-	// if err == sql.ErrNoRows {
-	// 	s.logger.Error("Error while getting an event, Not found", l.Any("req", req))
-	// 	return nil, status.Error(codes.NotFound, "Not found")
-	// } else if err != nil {
-	// 	s.logger.Error("Error while getting event", l.Error(err), l.Any("req", req))
-	// 	return nil, status.Error(codes.Internal, "Internal server error")
-	// }
+	var cv *pb.CourierVehicle
+	cv, err := s.storage.Courier().GetCourierVehicle(req.Id)
+	if err == sql.ErrNoRows {
+		s.logger.Error("Error while getting an event, Not found", l.Any("req", req))
+		return nil, status.Error(codes.NotFound, "Not found")
+	} else if err != nil {
+		s.logger.Error("Error while getting event", l.Error(err), l.Any("req", req))
+		return nil, status.Error(codes.Internal, "Internal server error")
+	}
 
-	// return &pb.GetCourierResponse{
-	// 	Courier: courier,
-	// }, nil
-	return nil, nil
+	return &pb.GetCourierVehicleResponse{
+		CourierVehicle: cv,
+	}, nil
 }
 
 func (s *CourierService) GetAllCourierVehicles(ctx context.Context, req *pb.GetAllCourierVehiclesRequest) (*pb.GetAllCourierVehiclesResponse, error) {
-	// var couriers []*pb.Courier
+	var cv []*pb.CourierVehicle
 
-	// couriers, count, err := s.storage.Courier().GetAllCouriers(req.Page, req.Limit)
-	// if err == sql.ErrNoRows {
-	// 	s.logger.Error("Error while getting all events, Not found", l.Any("req", req))
-	// 	return nil, status.Error(codes.NotFound, "Not found")
-	// } else if err != nil {
-	// 	s.logger.Error("Error while getting all events", l.Error(err), l.Any("req", req))
-	// 	return nil, status.Error(codes.Internal, "Internal server error")
-	// }
+	cv, err := s.storage.Courier().GetAllCourierVehicles(req.CourierId)
+	if err == sql.ErrNoRows {
+		s.logger.Error("Error while getting all events, Not found", l.Any("req", req))
+		return nil, status.Error(codes.NotFound, "Not found")
+	} else if err != nil {
+		s.logger.Error("Error while getting all events", l.Error(err), l.Any("req", req))
+		return nil, status.Error(codes.Internal, "Internal server error")
+	}
 
-	// return &pb.GetAllCouriersResponse{
-	// 	Couriers: couriers,
-	// 	Count:    count,
-	// }, nil
-	return nil, nil
+	return &pb.GetAllCourierVehiclesResponse{
+		CourierVehicles: cv,
+	}, nil
 }
 
 func (s *CourierService) DeleteCourierVehicle(ctx context.Context, req *pb.DeleteCourierVehicleRequest) (*gpb.Empty, error) {
-	// err := s.storage.Courier().Delete(req.Id)
-	// if err == sql.ErrNoRows {
-	// 	s.logger.Error("Error while deleting event, Not found", l.Any("req", req))
-	// 	return nil, status.Error(codes.NotFound, "Not found")
-	// } else if err != nil {
-	// 	s.logger.Error("Error while deleting event", l.Error(err), l.Any("req", req))
-	// 	return nil, status.Error(codes.Internal, "Internal server error")
-	// }
+	err := s.storage.Courier().DeleteCourierVehicle(req.Id)
+	if err == sql.ErrNoRows {
+		s.logger.Error("Error while deleting event, Not found", l.Any("req", req))
+		return nil, status.Error(codes.NotFound, "Not found")
+	} else if err != nil {
+		s.logger.Error("Error while deleting event", l.Error(err), l.Any("req", req))
+		return nil, status.Error(codes.Internal, "Internal server error")
+	}
 	return &gpb.Empty{}, nil
 }

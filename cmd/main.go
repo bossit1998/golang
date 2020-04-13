@@ -39,6 +39,7 @@ func main() {
 	}
 
 	courierService := service.NewCourierService(connDb, log)
+	distributorService := service.NewDistributorService(connDb, log)
 
 	lis, err := net.Listen("tcp", cfg.RPCPort)
 	if err != nil {
@@ -47,6 +48,7 @@ func main() {
 	s := grpc.NewServer()
 
 	pb.RegisterCourierServiceServer(s, courierService)
+	pb.RegisterDistributorServiceServer(s, distributorService)
 	reflection.Register(s)
 
 	log.Info("main: server running",

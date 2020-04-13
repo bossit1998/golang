@@ -3,6 +3,8 @@ syntax = "proto3";
 package genproto;
 option go_package="genproto/courier_service";
 
+import "google/protobuf/wrappers.proto";
+
 message Courier {
     string id = 1;
     string phone = 2;
@@ -15,10 +17,10 @@ message Courier {
 message CourierDetails {
     string courier_id = 1;
     string passport_number = 2;
-    string gender = 3;
+    google.protobuf.StringValue gender = 3;
     string birth_date = 4;
-    string address = 5;
-    string img = 6;
+    google.protobuf.StringValue address = 5;
+    google.protobuf.StringValue img = 6;
     string lisense_number = 7;
     string lisense_given_date = 8;
     string lisense_expiry_date = 9;
