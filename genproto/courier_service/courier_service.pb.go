@@ -7,6 +7,7 @@ import (
 	context "context"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
+	empty "github.com/golang/protobuf/ptypes/empty"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -102,26 +103,710 @@ func (m *UpdateCourierResponse) GetCourier() *Courier {
 	return nil
 }
 
+type DeleteCourierRequest struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *DeleteCourierRequest) Reset()         { *m = DeleteCourierRequest{} }
+func (m *DeleteCourierRequest) String() string { return proto.CompactTextString(m) }
+func (*DeleteCourierRequest) ProtoMessage()    {}
+func (*DeleteCourierRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_902b1fc4851aa94a, []int{2}
+}
+
+func (m *DeleteCourierRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DeleteCourierRequest.Unmarshal(m, b)
+}
+func (m *DeleteCourierRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DeleteCourierRequest.Marshal(b, m, deterministic)
+}
+func (m *DeleteCourierRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DeleteCourierRequest.Merge(m, src)
+}
+func (m *DeleteCourierRequest) XXX_Size() int {
+	return xxx_messageInfo_DeleteCourierRequest.Size(m)
+}
+func (m *DeleteCourierRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_DeleteCourierRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DeleteCourierRequest proto.InternalMessageInfo
+
+func (m *DeleteCourierRequest) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+type GetCourierRequest struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetCourierRequest) Reset()         { *m = GetCourierRequest{} }
+func (m *GetCourierRequest) String() string { return proto.CompactTextString(m) }
+func (*GetCourierRequest) ProtoMessage()    {}
+func (*GetCourierRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_902b1fc4851aa94a, []int{3}
+}
+
+func (m *GetCourierRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetCourierRequest.Unmarshal(m, b)
+}
+func (m *GetCourierRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetCourierRequest.Marshal(b, m, deterministic)
+}
+func (m *GetCourierRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetCourierRequest.Merge(m, src)
+}
+func (m *GetCourierRequest) XXX_Size() int {
+	return xxx_messageInfo_GetCourierRequest.Size(m)
+}
+func (m *GetCourierRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetCourierRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetCourierRequest proto.InternalMessageInfo
+
+func (m *GetCourierRequest) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+type GetCourierResponse struct {
+	Courier              *Courier `protobuf:"bytes,1,opt,name=courier,proto3" json:"courier,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetCourierResponse) Reset()         { *m = GetCourierResponse{} }
+func (m *GetCourierResponse) String() string { return proto.CompactTextString(m) }
+func (*GetCourierResponse) ProtoMessage()    {}
+func (*GetCourierResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_902b1fc4851aa94a, []int{4}
+}
+
+func (m *GetCourierResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetCourierResponse.Unmarshal(m, b)
+}
+func (m *GetCourierResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetCourierResponse.Marshal(b, m, deterministic)
+}
+func (m *GetCourierResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetCourierResponse.Merge(m, src)
+}
+func (m *GetCourierResponse) XXX_Size() int {
+	return xxx_messageInfo_GetCourierResponse.Size(m)
+}
+func (m *GetCourierResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetCourierResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetCourierResponse proto.InternalMessageInfo
+
+func (m *GetCourierResponse) GetCourier() *Courier {
+	if m != nil {
+		return m.Courier
+	}
+	return nil
+}
+
+type GetAllCouriersRequest struct {
+	Limit                uint64   `protobuf:"varint,1,opt,name=limit,proto3" json:"limit,omitempty"`
+	Page                 uint64   `protobuf:"varint,2,opt,name=page,proto3" json:"page,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetAllCouriersRequest) Reset()         { *m = GetAllCouriersRequest{} }
+func (m *GetAllCouriersRequest) String() string { return proto.CompactTextString(m) }
+func (*GetAllCouriersRequest) ProtoMessage()    {}
+func (*GetAllCouriersRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_902b1fc4851aa94a, []int{5}
+}
+
+func (m *GetAllCouriersRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetAllCouriersRequest.Unmarshal(m, b)
+}
+func (m *GetAllCouriersRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetAllCouriersRequest.Marshal(b, m, deterministic)
+}
+func (m *GetAllCouriersRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetAllCouriersRequest.Merge(m, src)
+}
+func (m *GetAllCouriersRequest) XXX_Size() int {
+	return xxx_messageInfo_GetAllCouriersRequest.Size(m)
+}
+func (m *GetAllCouriersRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetAllCouriersRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetAllCouriersRequest proto.InternalMessageInfo
+
+func (m *GetAllCouriersRequest) GetLimit() uint64 {
+	if m != nil {
+		return m.Limit
+	}
+	return 0
+}
+
+func (m *GetAllCouriersRequest) GetPage() uint64 {
+	if m != nil {
+		return m.Page
+	}
+	return 0
+}
+
+type GetAllCouriersResponse struct {
+	Couriers             []*Courier `protobuf:"bytes,1,rep,name=couriers,proto3" json:"couriers,omitempty"`
+	Count                uint64     `protobuf:"varint,2,opt,name=count,proto3" json:"count,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
+	XXX_unrecognized     []byte     `json:"-"`
+	XXX_sizecache        int32      `json:"-"`
+}
+
+func (m *GetAllCouriersResponse) Reset()         { *m = GetAllCouriersResponse{} }
+func (m *GetAllCouriersResponse) String() string { return proto.CompactTextString(m) }
+func (*GetAllCouriersResponse) ProtoMessage()    {}
+func (*GetAllCouriersResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_902b1fc4851aa94a, []int{6}
+}
+
+func (m *GetAllCouriersResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetAllCouriersResponse.Unmarshal(m, b)
+}
+func (m *GetAllCouriersResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetAllCouriersResponse.Marshal(b, m, deterministic)
+}
+func (m *GetAllCouriersResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetAllCouriersResponse.Merge(m, src)
+}
+func (m *GetAllCouriersResponse) XXX_Size() int {
+	return xxx_messageInfo_GetAllCouriersResponse.Size(m)
+}
+func (m *GetAllCouriersResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetAllCouriersResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetAllCouriersResponse proto.InternalMessageInfo
+
+func (m *GetAllCouriersResponse) GetCouriers() []*Courier {
+	if m != nil {
+		return m.Couriers
+	}
+	return nil
+}
+
+func (m *GetAllCouriersResponse) GetCount() uint64 {
+	if m != nil {
+		return m.Count
+	}
+	return 0
+}
+
+type CreateCourierDetailsResponse struct {
+	CourierDetails       *CourierDetails `protobuf:"bytes,1,opt,name=courier_details,json=courierDetails,proto3" json:"courier_details,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
+	XXX_unrecognized     []byte          `json:"-"`
+	XXX_sizecache        int32           `json:"-"`
+}
+
+func (m *CreateCourierDetailsResponse) Reset()         { *m = CreateCourierDetailsResponse{} }
+func (m *CreateCourierDetailsResponse) String() string { return proto.CompactTextString(m) }
+func (*CreateCourierDetailsResponse) ProtoMessage()    {}
+func (*CreateCourierDetailsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_902b1fc4851aa94a, []int{7}
+}
+
+func (m *CreateCourierDetailsResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CreateCourierDetailsResponse.Unmarshal(m, b)
+}
+func (m *CreateCourierDetailsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CreateCourierDetailsResponse.Marshal(b, m, deterministic)
+}
+func (m *CreateCourierDetailsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CreateCourierDetailsResponse.Merge(m, src)
+}
+func (m *CreateCourierDetailsResponse) XXX_Size() int {
+	return xxx_messageInfo_CreateCourierDetailsResponse.Size(m)
+}
+func (m *CreateCourierDetailsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_CreateCourierDetailsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CreateCourierDetailsResponse proto.InternalMessageInfo
+
+func (m *CreateCourierDetailsResponse) GetCourierDetails() *CourierDetails {
+	if m != nil {
+		return m.CourierDetails
+	}
+	return nil
+}
+
+type UpdateCourierDetailsResponse struct {
+	CourierDetails       *CourierDetails `protobuf:"bytes,1,opt,name=courier_details,json=courierDetails,proto3" json:"courier_details,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
+	XXX_unrecognized     []byte          `json:"-"`
+	XXX_sizecache        int32           `json:"-"`
+}
+
+func (m *UpdateCourierDetailsResponse) Reset()         { *m = UpdateCourierDetailsResponse{} }
+func (m *UpdateCourierDetailsResponse) String() string { return proto.CompactTextString(m) }
+func (*UpdateCourierDetailsResponse) ProtoMessage()    {}
+func (*UpdateCourierDetailsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_902b1fc4851aa94a, []int{8}
+}
+
+func (m *UpdateCourierDetailsResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UpdateCourierDetailsResponse.Unmarshal(m, b)
+}
+func (m *UpdateCourierDetailsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UpdateCourierDetailsResponse.Marshal(b, m, deterministic)
+}
+func (m *UpdateCourierDetailsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UpdateCourierDetailsResponse.Merge(m, src)
+}
+func (m *UpdateCourierDetailsResponse) XXX_Size() int {
+	return xxx_messageInfo_UpdateCourierDetailsResponse.Size(m)
+}
+func (m *UpdateCourierDetailsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_UpdateCourierDetailsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UpdateCourierDetailsResponse proto.InternalMessageInfo
+
+func (m *UpdateCourierDetailsResponse) GetCourierDetails() *CourierDetails {
+	if m != nil {
+		return m.CourierDetails
+	}
+	return nil
+}
+
+type GetCourierDetailsRequest struct {
+	CourierId            string   `protobuf:"bytes,1,opt,name=courier_id,json=courierId,proto3" json:"courier_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetCourierDetailsRequest) Reset()         { *m = GetCourierDetailsRequest{} }
+func (m *GetCourierDetailsRequest) String() string { return proto.CompactTextString(m) }
+func (*GetCourierDetailsRequest) ProtoMessage()    {}
+func (*GetCourierDetailsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_902b1fc4851aa94a, []int{9}
+}
+
+func (m *GetCourierDetailsRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetCourierDetailsRequest.Unmarshal(m, b)
+}
+func (m *GetCourierDetailsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetCourierDetailsRequest.Marshal(b, m, deterministic)
+}
+func (m *GetCourierDetailsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetCourierDetailsRequest.Merge(m, src)
+}
+func (m *GetCourierDetailsRequest) XXX_Size() int {
+	return xxx_messageInfo_GetCourierDetailsRequest.Size(m)
+}
+func (m *GetCourierDetailsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetCourierDetailsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetCourierDetailsRequest proto.InternalMessageInfo
+
+func (m *GetCourierDetailsRequest) GetCourierId() string {
+	if m != nil {
+		return m.CourierId
+	}
+	return ""
+}
+
+type GetCourierDetailsResponse struct {
+	CourierDetails       *CourierDetails `protobuf:"bytes,1,opt,name=courier_details,json=courierDetails,proto3" json:"courier_details,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
+	XXX_unrecognized     []byte          `json:"-"`
+	XXX_sizecache        int32           `json:"-"`
+}
+
+func (m *GetCourierDetailsResponse) Reset()         { *m = GetCourierDetailsResponse{} }
+func (m *GetCourierDetailsResponse) String() string { return proto.CompactTextString(m) }
+func (*GetCourierDetailsResponse) ProtoMessage()    {}
+func (*GetCourierDetailsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_902b1fc4851aa94a, []int{10}
+}
+
+func (m *GetCourierDetailsResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetCourierDetailsResponse.Unmarshal(m, b)
+}
+func (m *GetCourierDetailsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetCourierDetailsResponse.Marshal(b, m, deterministic)
+}
+func (m *GetCourierDetailsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetCourierDetailsResponse.Merge(m, src)
+}
+func (m *GetCourierDetailsResponse) XXX_Size() int {
+	return xxx_messageInfo_GetCourierDetailsResponse.Size(m)
+}
+func (m *GetCourierDetailsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetCourierDetailsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetCourierDetailsResponse proto.InternalMessageInfo
+
+func (m *GetCourierDetailsResponse) GetCourierDetails() *CourierDetails {
+	if m != nil {
+		return m.CourierDetails
+	}
+	return nil
+}
+
+type CreateCourierVehicleResponse struct {
+	CourierVehicle       *CourierVehicle `protobuf:"bytes,1,opt,name=courier_vehicle,json=courierVehicle,proto3" json:"courier_vehicle,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
+	XXX_unrecognized     []byte          `json:"-"`
+	XXX_sizecache        int32           `json:"-"`
+}
+
+func (m *CreateCourierVehicleResponse) Reset()         { *m = CreateCourierVehicleResponse{} }
+func (m *CreateCourierVehicleResponse) String() string { return proto.CompactTextString(m) }
+func (*CreateCourierVehicleResponse) ProtoMessage()    {}
+func (*CreateCourierVehicleResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_902b1fc4851aa94a, []int{11}
+}
+
+func (m *CreateCourierVehicleResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CreateCourierVehicleResponse.Unmarshal(m, b)
+}
+func (m *CreateCourierVehicleResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CreateCourierVehicleResponse.Marshal(b, m, deterministic)
+}
+func (m *CreateCourierVehicleResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CreateCourierVehicleResponse.Merge(m, src)
+}
+func (m *CreateCourierVehicleResponse) XXX_Size() int {
+	return xxx_messageInfo_CreateCourierVehicleResponse.Size(m)
+}
+func (m *CreateCourierVehicleResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_CreateCourierVehicleResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CreateCourierVehicleResponse proto.InternalMessageInfo
+
+func (m *CreateCourierVehicleResponse) GetCourierVehicle() *CourierVehicle {
+	if m != nil {
+		return m.CourierVehicle
+	}
+	return nil
+}
+
+type UpdateCourierVehicleResponse struct {
+	CourierVehicle       *CourierVehicle `protobuf:"bytes,1,opt,name=courier_vehicle,json=courierVehicle,proto3" json:"courier_vehicle,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
+	XXX_unrecognized     []byte          `json:"-"`
+	XXX_sizecache        int32           `json:"-"`
+}
+
+func (m *UpdateCourierVehicleResponse) Reset()         { *m = UpdateCourierVehicleResponse{} }
+func (m *UpdateCourierVehicleResponse) String() string { return proto.CompactTextString(m) }
+func (*UpdateCourierVehicleResponse) ProtoMessage()    {}
+func (*UpdateCourierVehicleResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_902b1fc4851aa94a, []int{12}
+}
+
+func (m *UpdateCourierVehicleResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UpdateCourierVehicleResponse.Unmarshal(m, b)
+}
+func (m *UpdateCourierVehicleResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UpdateCourierVehicleResponse.Marshal(b, m, deterministic)
+}
+func (m *UpdateCourierVehicleResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UpdateCourierVehicleResponse.Merge(m, src)
+}
+func (m *UpdateCourierVehicleResponse) XXX_Size() int {
+	return xxx_messageInfo_UpdateCourierVehicleResponse.Size(m)
+}
+func (m *UpdateCourierVehicleResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_UpdateCourierVehicleResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UpdateCourierVehicleResponse proto.InternalMessageInfo
+
+func (m *UpdateCourierVehicleResponse) GetCourierVehicle() *CourierVehicle {
+	if m != nil {
+		return m.CourierVehicle
+	}
+	return nil
+}
+
+type GetCourierVehicleRequest struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetCourierVehicleRequest) Reset()         { *m = GetCourierVehicleRequest{} }
+func (m *GetCourierVehicleRequest) String() string { return proto.CompactTextString(m) }
+func (*GetCourierVehicleRequest) ProtoMessage()    {}
+func (*GetCourierVehicleRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_902b1fc4851aa94a, []int{13}
+}
+
+func (m *GetCourierVehicleRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetCourierVehicleRequest.Unmarshal(m, b)
+}
+func (m *GetCourierVehicleRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetCourierVehicleRequest.Marshal(b, m, deterministic)
+}
+func (m *GetCourierVehicleRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetCourierVehicleRequest.Merge(m, src)
+}
+func (m *GetCourierVehicleRequest) XXX_Size() int {
+	return xxx_messageInfo_GetCourierVehicleRequest.Size(m)
+}
+func (m *GetCourierVehicleRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetCourierVehicleRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetCourierVehicleRequest proto.InternalMessageInfo
+
+func (m *GetCourierVehicleRequest) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+type GetCourierVehicleResponse struct {
+	CourierVehicle       *CourierVehicle `protobuf:"bytes,1,opt,name=courier_vehicle,json=courierVehicle,proto3" json:"courier_vehicle,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
+	XXX_unrecognized     []byte          `json:"-"`
+	XXX_sizecache        int32           `json:"-"`
+}
+
+func (m *GetCourierVehicleResponse) Reset()         { *m = GetCourierVehicleResponse{} }
+func (m *GetCourierVehicleResponse) String() string { return proto.CompactTextString(m) }
+func (*GetCourierVehicleResponse) ProtoMessage()    {}
+func (*GetCourierVehicleResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_902b1fc4851aa94a, []int{14}
+}
+
+func (m *GetCourierVehicleResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetCourierVehicleResponse.Unmarshal(m, b)
+}
+func (m *GetCourierVehicleResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetCourierVehicleResponse.Marshal(b, m, deterministic)
+}
+func (m *GetCourierVehicleResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetCourierVehicleResponse.Merge(m, src)
+}
+func (m *GetCourierVehicleResponse) XXX_Size() int {
+	return xxx_messageInfo_GetCourierVehicleResponse.Size(m)
+}
+func (m *GetCourierVehicleResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetCourierVehicleResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetCourierVehicleResponse proto.InternalMessageInfo
+
+func (m *GetCourierVehicleResponse) GetCourierVehicle() *CourierVehicle {
+	if m != nil {
+		return m.CourierVehicle
+	}
+	return nil
+}
+
+type GetAllCourierVehiclesRequest struct {
+	CourierId            string   `protobuf:"bytes,1,opt,name=courier_id,json=courierId,proto3" json:"courier_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetAllCourierVehiclesRequest) Reset()         { *m = GetAllCourierVehiclesRequest{} }
+func (m *GetAllCourierVehiclesRequest) String() string { return proto.CompactTextString(m) }
+func (*GetAllCourierVehiclesRequest) ProtoMessage()    {}
+func (*GetAllCourierVehiclesRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_902b1fc4851aa94a, []int{15}
+}
+
+func (m *GetAllCourierVehiclesRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetAllCourierVehiclesRequest.Unmarshal(m, b)
+}
+func (m *GetAllCourierVehiclesRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetAllCourierVehiclesRequest.Marshal(b, m, deterministic)
+}
+func (m *GetAllCourierVehiclesRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetAllCourierVehiclesRequest.Merge(m, src)
+}
+func (m *GetAllCourierVehiclesRequest) XXX_Size() int {
+	return xxx_messageInfo_GetAllCourierVehiclesRequest.Size(m)
+}
+func (m *GetAllCourierVehiclesRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetAllCourierVehiclesRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetAllCourierVehiclesRequest proto.InternalMessageInfo
+
+func (m *GetAllCourierVehiclesRequest) GetCourierId() string {
+	if m != nil {
+		return m.CourierId
+	}
+	return ""
+}
+
+type GetAllCourierVehiclesResponse struct {
+	CourierVehicles      []*CourierVehicle `protobuf:"bytes,1,rep,name=courier_vehicles,json=courierVehicles,proto3" json:"courier_vehicles,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}          `json:"-"`
+	XXX_unrecognized     []byte            `json:"-"`
+	XXX_sizecache        int32             `json:"-"`
+}
+
+func (m *GetAllCourierVehiclesResponse) Reset()         { *m = GetAllCourierVehiclesResponse{} }
+func (m *GetAllCourierVehiclesResponse) String() string { return proto.CompactTextString(m) }
+func (*GetAllCourierVehiclesResponse) ProtoMessage()    {}
+func (*GetAllCourierVehiclesResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_902b1fc4851aa94a, []int{16}
+}
+
+func (m *GetAllCourierVehiclesResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetAllCourierVehiclesResponse.Unmarshal(m, b)
+}
+func (m *GetAllCourierVehiclesResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetAllCourierVehiclesResponse.Marshal(b, m, deterministic)
+}
+func (m *GetAllCourierVehiclesResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetAllCourierVehiclesResponse.Merge(m, src)
+}
+func (m *GetAllCourierVehiclesResponse) XXX_Size() int {
+	return xxx_messageInfo_GetAllCourierVehiclesResponse.Size(m)
+}
+func (m *GetAllCourierVehiclesResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetAllCourierVehiclesResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetAllCourierVehiclesResponse proto.InternalMessageInfo
+
+func (m *GetAllCourierVehiclesResponse) GetCourierVehicles() []*CourierVehicle {
+	if m != nil {
+		return m.CourierVehicles
+	}
+	return nil
+}
+
+type DeleteCourierVehicleRequest struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *DeleteCourierVehicleRequest) Reset()         { *m = DeleteCourierVehicleRequest{} }
+func (m *DeleteCourierVehicleRequest) String() string { return proto.CompactTextString(m) }
+func (*DeleteCourierVehicleRequest) ProtoMessage()    {}
+func (*DeleteCourierVehicleRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_902b1fc4851aa94a, []int{17}
+}
+
+func (m *DeleteCourierVehicleRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DeleteCourierVehicleRequest.Unmarshal(m, b)
+}
+func (m *DeleteCourierVehicleRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DeleteCourierVehicleRequest.Marshal(b, m, deterministic)
+}
+func (m *DeleteCourierVehicleRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DeleteCourierVehicleRequest.Merge(m, src)
+}
+func (m *DeleteCourierVehicleRequest) XXX_Size() int {
+	return xxx_messageInfo_DeleteCourierVehicleRequest.Size(m)
+}
+func (m *DeleteCourierVehicleRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_DeleteCourierVehicleRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DeleteCourierVehicleRequest proto.InternalMessageInfo
+
+func (m *DeleteCourierVehicleRequest) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*CreateCourierResponse)(nil), "genproto.CreateCourierResponse")
 	proto.RegisterType((*UpdateCourierResponse)(nil), "genproto.UpdateCourierResponse")
+	proto.RegisterType((*DeleteCourierRequest)(nil), "genproto.DeleteCourierRequest")
+	proto.RegisterType((*GetCourierRequest)(nil), "genproto.GetCourierRequest")
+	proto.RegisterType((*GetCourierResponse)(nil), "genproto.GetCourierResponse")
+	proto.RegisterType((*GetAllCouriersRequest)(nil), "genproto.GetAllCouriersRequest")
+	proto.RegisterType((*GetAllCouriersResponse)(nil), "genproto.GetAllCouriersResponse")
+	proto.RegisterType((*CreateCourierDetailsResponse)(nil), "genproto.CreateCourierDetailsResponse")
+	proto.RegisterType((*UpdateCourierDetailsResponse)(nil), "genproto.UpdateCourierDetailsResponse")
+	proto.RegisterType((*GetCourierDetailsRequest)(nil), "genproto.GetCourierDetailsRequest")
+	proto.RegisterType((*GetCourierDetailsResponse)(nil), "genproto.GetCourierDetailsResponse")
+	proto.RegisterType((*CreateCourierVehicleResponse)(nil), "genproto.CreateCourierVehicleResponse")
+	proto.RegisterType((*UpdateCourierVehicleResponse)(nil), "genproto.UpdateCourierVehicleResponse")
+	proto.RegisterType((*GetCourierVehicleRequest)(nil), "genproto.GetCourierVehicleRequest")
+	proto.RegisterType((*GetCourierVehicleResponse)(nil), "genproto.GetCourierVehicleResponse")
+	proto.RegisterType((*GetAllCourierVehiclesRequest)(nil), "genproto.GetAllCourierVehiclesRequest")
+	proto.RegisterType((*GetAllCourierVehiclesResponse)(nil), "genproto.GetAllCourierVehiclesResponse")
+	proto.RegisterType((*DeleteCourierVehicleRequest)(nil), "genproto.DeleteCourierVehicleRequest")
 }
 
 func init() { proto.RegisterFile("courier_service.proto", fileDescriptor_902b1fc4851aa94a) }
 
 var fileDescriptor_902b1fc4851aa94a = []byte{
-	// 164 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x4d, 0xce, 0x2f, 0x2d,
-	0xca, 0x4c, 0x2d, 0x8a, 0x2f, 0x4e, 0x2d, 0x2a, 0xcb, 0x4c, 0x4e, 0xd5, 0x2b, 0x28, 0xca, 0x2f,
-	0xc9, 0x17, 0xe2, 0x48, 0x4f, 0xcd, 0x03, 0xb3, 0xa4, 0x78, 0xa1, 0x0a, 0x20, 0x12, 0x4a, 0x2e,
-	0x5c, 0xa2, 0xce, 0x45, 0xa9, 0x89, 0x25, 0xa9, 0xce, 0x10, 0xe1, 0xa0, 0xd4, 0xe2, 0x82, 0xfc,
-	0xbc, 0xe2, 0x54, 0x21, 0x6d, 0x2e, 0x76, 0xa8, 0x4a, 0x09, 0x46, 0x05, 0x46, 0x0d, 0x6e, 0x23,
-	0x41, 0x3d, 0x98, 0x19, 0x7a, 0x30, 0xb5, 0x30, 0x15, 0x20, 0x53, 0x42, 0x0b, 0x52, 0x28, 0x34,
-	0xc5, 0x68, 0x02, 0x23, 0x17, 0x1f, 0x54, 0x30, 0x18, 0xe2, 0x7a, 0x21, 0x3b, 0x2e, 0x36, 0x88,
-	0xf3, 0x84, 0x30, 0x35, 0x4a, 0xc9, 0x23, 0x09, 0x61, 0xf3, 0x83, 0x12, 0x03, 0x48, 0x3f, 0xc4,
-	0x61, 0x04, 0xf4, 0x63, 0x75, 0xbd, 0x12, 0x83, 0x93, 0x54, 0x94, 0x04, 0x4c, 0x8d, 0x3e, 0x5a,
-	0xc8, 0x26, 0xb1, 0x81, 0x85, 0x8d, 0x01, 0x01, 0x00, 0x00, 0xff, 0xff, 0x4b, 0xd6, 0xe1, 0xc7,
-	0x73, 0x01, 0x00, 0x00,
+	// 615 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x56, 0x5d, 0x6f, 0xd3, 0x30,
+	0x14, 0xed, 0xca, 0x28, 0xdd, 0x45, 0x74, 0xcc, 0x6a, 0xa7, 0xe0, 0x76, 0xac, 0xf2, 0x44, 0x41,
+	0xa0, 0xa5, 0xd2, 0x78, 0xe2, 0x01, 0xa4, 0xae, 0x45, 0xd3, 0x5e, 0x8b, 0x06, 0xd2, 0x24, 0x86,
+	0xba, 0xc4, 0x94, 0xa0, 0xac, 0x09, 0x49, 0x3a, 0x89, 0xdf, 0xcc, 0x9f, 0x40, 0x89, 0xed, 0x24,
+	0x76, 0xec, 0x76, 0x7c, 0xf4, 0x2d, 0xb6, 0xef, 0x3d, 0xe7, 0xfa, 0xd8, 0xf7, 0x38, 0xd0, 0x71,
+	0x82, 0x65, 0xe4, 0xd1, 0xe8, 0x4b, 0x4c, 0xa3, 0x5b, 0xcf, 0xa1, 0x76, 0x18, 0x05, 0x49, 0x80,
+	0x9a, 0x73, 0xba, 0xc8, 0xbe, 0x70, 0x77, 0x1e, 0x04, 0x73, 0x9f, 0x0e, 0xb3, 0xd1, 0xf5, 0xf2,
+	0xeb, 0x90, 0xde, 0x84, 0xc9, 0x4f, 0x16, 0x86, 0x1f, 0xf1, 0x6c, 0x36, 0x24, 0x13, 0xe8, 0x8c,
+	0x23, 0x3a, 0x4b, 0xe8, 0x98, 0x4d, 0x4f, 0x69, 0x1c, 0x06, 0x8b, 0x98, 0xa2, 0x57, 0xf0, 0x80,
+	0x47, 0x5a, 0x5b, 0xfd, 0xad, 0x17, 0x0f, 0x4f, 0xf6, 0x6c, 0x41, 0x60, 0x8b, 0x58, 0x11, 0x91,
+	0xa2, 0x5c, 0x84, 0xee, 0xbf, 0xa2, 0x0c, 0xa0, 0x3d, 0xa1, 0x3e, 0x2d, 0xa1, 0xfc, 0x58, 0xd2,
+	0x38, 0x41, 0x2d, 0xa8, 0x7b, 0x6e, 0x96, 0xbf, 0x33, 0xad, 0x7b, 0x2e, 0x39, 0x82, 0xbd, 0x33,
+	0x9a, 0xac, 0x09, 0x1a, 0x01, 0x2a, 0x07, 0xfd, 0x4d, 0x3d, 0x23, 0xe8, 0x9c, 0xd1, 0x64, 0xe4,
+	0xfb, 0x7c, 0x25, 0x16, 0x5c, 0x6d, 0xb8, 0xef, 0x7b, 0x37, 0x5e, 0x92, 0x61, 0x6c, 0x4f, 0xd9,
+	0x00, 0x21, 0xd8, 0x0e, 0x67, 0x73, 0x6a, 0xd5, 0xb3, 0xc9, 0xec, 0x9b, 0x7c, 0x86, 0x7d, 0x15,
+	0x82, 0x57, 0x72, 0x0c, 0x4d, 0xce, 0x13, 0x5b, 0x5b, 0xfd, 0x7b, 0xfa, 0x52, 0xf2, 0x90, 0x94,
+	0xd2, 0x09, 0x96, 0x8b, 0x84, 0xa3, 0xb3, 0x01, 0x99, 0x41, 0x4f, 0x3a, 0xbd, 0x09, 0x4d, 0x66,
+	0x9e, 0x5f, 0x90, 0x8c, 0x60, 0x57, 0x5c, 0x16, 0x97, 0x2d, 0xf1, 0x6d, 0x5b, 0x15, 0x2e, 0x91,
+	0xda, 0x72, 0xa4, 0x71, 0x4a, 0x21, 0x1d, 0xed, 0x06, 0x28, 0xde, 0x80, 0x55, 0x1c, 0x55, 0x8e,
+	0xcf, 0xa4, 0x3e, 0x00, 0x10, 0xf0, 0xf9, 0xf1, 0xee, 0xf0, 0x99, 0x73, 0x97, 0x5c, 0xc1, 0x13,
+	0x4d, 0xea, 0x7f, 0xdd, 0xbd, 0x24, 0xf0, 0x47, 0xfa, 0xcd, 0x73, 0x7c, 0xaa, 0xa3, 0xb8, 0x65,
+	0x4b, 0x46, 0x0a, 0x91, 0x2a, 0x28, 0xf8, 0xb8, 0x22, 0xf0, 0x06, 0x28, 0x5e, 0x96, 0x05, 0xce,
+	0xf1, 0xf5, 0x7d, 0x23, 0x29, 0xba, 0x81, 0x5a, 0xde, 0x42, 0x4f, 0xea, 0x08, 0x3e, 0x7f, 0xd7,
+	0x03, 0x77, 0xe1, 0xc0, 0x90, 0xce, 0x4b, 0x1c, 0xc3, 0x63, 0xa5, 0x44, 0xd1, 0x5f, 0xe6, 0x1a,
+	0x77, 0xe5, 0x1a, 0x63, 0x72, 0x0c, 0x5d, 0xc9, 0x89, 0x56, 0x6b, 0x76, 0xf2, 0xab, 0x09, 0x2d,
+	0x1e, 0xf9, 0x81, 0x79, 0x32, 0x7a, 0x07, 0x0d, 0x76, 0x71, 0x50, 0xb5, 0xad, 0xf1, 0x61, 0x69,
+	0x4a, 0x67, 0xbe, 0xa4, 0x96, 0xe6, 0xb3, 0x5b, 0xb1, 0x26, 0x5f, 0x6b, 0xbb, 0xa4, 0x86, 0xce,
+	0x01, 0x8a, 0x63, 0x44, 0xdd, 0x22, 0xa1, 0xe2, 0x9c, 0xb8, 0xa7, 0x5f, 0xcc, 0xa1, 0x2e, 0xa0,
+	0x25, 0x7b, 0x18, 0x3a, 0x94, 0x32, 0xaa, 0x06, 0x89, 0xfb, 0xe6, 0x80, 0x1c, 0xf6, 0x14, 0x1a,
+	0x4c, 0x63, 0xf4, 0xb4, 0x88, 0xd6, 0xf9, 0x3f, 0xde, 0xb7, 0xd9, 0x83, 0x66, 0x8b, 0x07, 0xcd,
+	0x7e, 0x9f, 0x3e, 0x68, 0xa4, 0x86, 0x2e, 0xa1, 0xad, 0xf3, 0x3f, 0x64, 0x6c, 0x70, 0x3c, 0x30,
+	0x48, 0xaf, 0x78, 0x07, 0xc3, 0xd6, 0x19, 0xdf, 0xdd, 0xb0, 0x57, 0x59, 0x26, 0xa9, 0xa1, 0xab,
+	0xf2, 0x0b, 0x26, 0x80, 0x89, 0xee, 0x1c, 0x64, 0x3b, 0xc4, 0x47, 0x2b, 0x63, 0xca, 0xb5, 0xeb,
+	0x6c, 0x0b, 0x19, 0x5b, 0xc0, 0xa8, 0x8b, 0xe2, 0x00, 0x1a, 0x5d, 0xfe, 0x08, 0x7b, 0x95, 0xd3,
+	0xa9, 0xba, 0x08, 0x60, 0xad, 0x2e, 0x72, 0x47, 0xea, 0x75, 0xa9, 0xe2, 0x7f, 0x57, 0x5e, 0x74,
+	0xd1, 0xf0, 0x68, 0x60, 0xb8, 0xb0, 0x8a, 0x3b, 0xe1, 0xe7, 0x6b, 0xe3, 0x72, 0xae, 0x4f, 0xca,
+	0xdf, 0x8c, 0xd8, 0xce, 0x33, 0xc3, 0x6d, 0x57, 0x76, 0x64, 0xbc, 0xf4, 0xa7, 0xf8, 0xd2, 0x12,
+	0x08, 0x43, 0xe5, 0x57, 0xf0, 0xba, 0x91, 0x4d, 0xbf, 0xfe, 0x1d, 0x00, 0x00, 0xff, 0xff, 0x66,
+	0x31, 0x29, 0x12, 0x24, 0x0a, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -138,6 +823,17 @@ const _ = grpc.SupportPackageIsVersion6
 type CourierServiceClient interface {
 	Create(ctx context.Context, in *Courier, opts ...grpc.CallOption) (*CreateCourierResponse, error)
 	Update(ctx context.Context, in *Courier, opts ...grpc.CallOption) (*UpdateCourierResponse, error)
+	GetCourier(ctx context.Context, in *GetCourierRequest, opts ...grpc.CallOption) (*GetCourierResponse, error)
+	GetAllCouriers(ctx context.Context, in *GetAllCouriersRequest, opts ...grpc.CallOption) (*GetAllCouriersResponse, error)
+	Delete(ctx context.Context, in *DeleteCourierRequest, opts ...grpc.CallOption) (*empty.Empty, error)
+	CreateCourierDetails(ctx context.Context, in *CourierDetails, opts ...grpc.CallOption) (*CreateCourierDetailsResponse, error)
+	UpdateCourierDetails(ctx context.Context, in *CourierDetails, opts ...grpc.CallOption) (*UpdateCourierDetailsResponse, error)
+	GetCourierDetails(ctx context.Context, in *GetCourierDetailsRequest, opts ...grpc.CallOption) (*GetCourierDetailsResponse, error)
+	CreateCourierVehicle(ctx context.Context, in *CourierVehicle, opts ...grpc.CallOption) (*CreateCourierVehicleResponse, error)
+	UpdateCourierVehicle(ctx context.Context, in *CourierVehicle, opts ...grpc.CallOption) (*UpdateCourierVehicleResponse, error)
+	GetCourierVehicle(ctx context.Context, in *GetCourierVehicleRequest, opts ...grpc.CallOption) (*GetCourierVehicleResponse, error)
+	GetAllCourierVehicles(ctx context.Context, in *GetAllCourierVehiclesRequest, opts ...grpc.CallOption) (*GetAllCourierVehiclesResponse, error)
+	DeleteCourierVehicle(ctx context.Context, in *DeleteCourierVehicleRequest, opts ...grpc.CallOption) (*empty.Empty, error)
 }
 
 type courierServiceClient struct {
@@ -166,10 +862,120 @@ func (c *courierServiceClient) Update(ctx context.Context, in *Courier, opts ...
 	return out, nil
 }
 
+func (c *courierServiceClient) GetCourier(ctx context.Context, in *GetCourierRequest, opts ...grpc.CallOption) (*GetCourierResponse, error) {
+	out := new(GetCourierResponse)
+	err := c.cc.Invoke(ctx, "/genproto.CourierService/GetCourier", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *courierServiceClient) GetAllCouriers(ctx context.Context, in *GetAllCouriersRequest, opts ...grpc.CallOption) (*GetAllCouriersResponse, error) {
+	out := new(GetAllCouriersResponse)
+	err := c.cc.Invoke(ctx, "/genproto.CourierService/GetAllCouriers", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *courierServiceClient) Delete(ctx context.Context, in *DeleteCourierRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+	out := new(empty.Empty)
+	err := c.cc.Invoke(ctx, "/genproto.CourierService/Delete", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *courierServiceClient) CreateCourierDetails(ctx context.Context, in *CourierDetails, opts ...grpc.CallOption) (*CreateCourierDetailsResponse, error) {
+	out := new(CreateCourierDetailsResponse)
+	err := c.cc.Invoke(ctx, "/genproto.CourierService/CreateCourierDetails", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *courierServiceClient) UpdateCourierDetails(ctx context.Context, in *CourierDetails, opts ...grpc.CallOption) (*UpdateCourierDetailsResponse, error) {
+	out := new(UpdateCourierDetailsResponse)
+	err := c.cc.Invoke(ctx, "/genproto.CourierService/UpdateCourierDetails", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *courierServiceClient) GetCourierDetails(ctx context.Context, in *GetCourierDetailsRequest, opts ...grpc.CallOption) (*GetCourierDetailsResponse, error) {
+	out := new(GetCourierDetailsResponse)
+	err := c.cc.Invoke(ctx, "/genproto.CourierService/GetCourierDetails", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *courierServiceClient) CreateCourierVehicle(ctx context.Context, in *CourierVehicle, opts ...grpc.CallOption) (*CreateCourierVehicleResponse, error) {
+	out := new(CreateCourierVehicleResponse)
+	err := c.cc.Invoke(ctx, "/genproto.CourierService/CreateCourierVehicle", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *courierServiceClient) UpdateCourierVehicle(ctx context.Context, in *CourierVehicle, opts ...grpc.CallOption) (*UpdateCourierVehicleResponse, error) {
+	out := new(UpdateCourierVehicleResponse)
+	err := c.cc.Invoke(ctx, "/genproto.CourierService/UpdateCourierVehicle", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *courierServiceClient) GetCourierVehicle(ctx context.Context, in *GetCourierVehicleRequest, opts ...grpc.CallOption) (*GetCourierVehicleResponse, error) {
+	out := new(GetCourierVehicleResponse)
+	err := c.cc.Invoke(ctx, "/genproto.CourierService/GetCourierVehicle", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *courierServiceClient) GetAllCourierVehicles(ctx context.Context, in *GetAllCourierVehiclesRequest, opts ...grpc.CallOption) (*GetAllCourierVehiclesResponse, error) {
+	out := new(GetAllCourierVehiclesResponse)
+	err := c.cc.Invoke(ctx, "/genproto.CourierService/GetAllCourierVehicles", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *courierServiceClient) DeleteCourierVehicle(ctx context.Context, in *DeleteCourierVehicleRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+	out := new(empty.Empty)
+	err := c.cc.Invoke(ctx, "/genproto.CourierService/DeleteCourierVehicle", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CourierServiceServer is the server API for CourierService service.
 type CourierServiceServer interface {
 	Create(context.Context, *Courier) (*CreateCourierResponse, error)
 	Update(context.Context, *Courier) (*UpdateCourierResponse, error)
+	GetCourier(context.Context, *GetCourierRequest) (*GetCourierResponse, error)
+	GetAllCouriers(context.Context, *GetAllCouriersRequest) (*GetAllCouriersResponse, error)
+	Delete(context.Context, *DeleteCourierRequest) (*empty.Empty, error)
+	CreateCourierDetails(context.Context, *CourierDetails) (*CreateCourierDetailsResponse, error)
+	UpdateCourierDetails(context.Context, *CourierDetails) (*UpdateCourierDetailsResponse, error)
+	GetCourierDetails(context.Context, *GetCourierDetailsRequest) (*GetCourierDetailsResponse, error)
+	CreateCourierVehicle(context.Context, *CourierVehicle) (*CreateCourierVehicleResponse, error)
+	UpdateCourierVehicle(context.Context, *CourierVehicle) (*UpdateCourierVehicleResponse, error)
+	GetCourierVehicle(context.Context, *GetCourierVehicleRequest) (*GetCourierVehicleResponse, error)
+	GetAllCourierVehicles(context.Context, *GetAllCourierVehiclesRequest) (*GetAllCourierVehiclesResponse, error)
+	DeleteCourierVehicle(context.Context, *DeleteCourierVehicleRequest) (*empty.Empty, error)
 }
 
 // UnimplementedCourierServiceServer can be embedded to have forward compatible implementations.
@@ -181,6 +987,39 @@ func (*UnimplementedCourierServiceServer) Create(ctx context.Context, req *Couri
 }
 func (*UnimplementedCourierServiceServer) Update(ctx context.Context, req *Courier) (*UpdateCourierResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
+}
+func (*UnimplementedCourierServiceServer) GetCourier(ctx context.Context, req *GetCourierRequest) (*GetCourierResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCourier not implemented")
+}
+func (*UnimplementedCourierServiceServer) GetAllCouriers(ctx context.Context, req *GetAllCouriersRequest) (*GetAllCouriersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllCouriers not implemented")
+}
+func (*UnimplementedCourierServiceServer) Delete(ctx context.Context, req *DeleteCourierRequest) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
+}
+func (*UnimplementedCourierServiceServer) CreateCourierDetails(ctx context.Context, req *CourierDetails) (*CreateCourierDetailsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateCourierDetails not implemented")
+}
+func (*UnimplementedCourierServiceServer) UpdateCourierDetails(ctx context.Context, req *CourierDetails) (*UpdateCourierDetailsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateCourierDetails not implemented")
+}
+func (*UnimplementedCourierServiceServer) GetCourierDetails(ctx context.Context, req *GetCourierDetailsRequest) (*GetCourierDetailsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCourierDetails not implemented")
+}
+func (*UnimplementedCourierServiceServer) CreateCourierVehicle(ctx context.Context, req *CourierVehicle) (*CreateCourierVehicleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateCourierVehicle not implemented")
+}
+func (*UnimplementedCourierServiceServer) UpdateCourierVehicle(ctx context.Context, req *CourierVehicle) (*UpdateCourierVehicleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateCourierVehicle not implemented")
+}
+func (*UnimplementedCourierServiceServer) GetCourierVehicle(ctx context.Context, req *GetCourierVehicleRequest) (*GetCourierVehicleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCourierVehicle not implemented")
+}
+func (*UnimplementedCourierServiceServer) GetAllCourierVehicles(ctx context.Context, req *GetAllCourierVehiclesRequest) (*GetAllCourierVehiclesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllCourierVehicles not implemented")
+}
+func (*UnimplementedCourierServiceServer) DeleteCourierVehicle(ctx context.Context, req *DeleteCourierVehicleRequest) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteCourierVehicle not implemented")
 }
 
 func RegisterCourierServiceServer(s *grpc.Server, srv CourierServiceServer) {
@@ -223,6 +1062,204 @@ func _CourierService_Update_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CourierService_GetCourier_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCourierRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CourierServiceServer).GetCourier(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/genproto.CourierService/GetCourier",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CourierServiceServer).GetCourier(ctx, req.(*GetCourierRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CourierService_GetAllCouriers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAllCouriersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CourierServiceServer).GetAllCouriers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/genproto.CourierService/GetAllCouriers",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CourierServiceServer).GetAllCouriers(ctx, req.(*GetAllCouriersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CourierService_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteCourierRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CourierServiceServer).Delete(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/genproto.CourierService/Delete",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CourierServiceServer).Delete(ctx, req.(*DeleteCourierRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CourierService_CreateCourierDetails_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CourierDetails)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CourierServiceServer).CreateCourierDetails(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/genproto.CourierService/CreateCourierDetails",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CourierServiceServer).CreateCourierDetails(ctx, req.(*CourierDetails))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CourierService_UpdateCourierDetails_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CourierDetails)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CourierServiceServer).UpdateCourierDetails(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/genproto.CourierService/UpdateCourierDetails",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CourierServiceServer).UpdateCourierDetails(ctx, req.(*CourierDetails))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CourierService_GetCourierDetails_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCourierDetailsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CourierServiceServer).GetCourierDetails(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/genproto.CourierService/GetCourierDetails",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CourierServiceServer).GetCourierDetails(ctx, req.(*GetCourierDetailsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CourierService_CreateCourierVehicle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CourierVehicle)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CourierServiceServer).CreateCourierVehicle(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/genproto.CourierService/CreateCourierVehicle",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CourierServiceServer).CreateCourierVehicle(ctx, req.(*CourierVehicle))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CourierService_UpdateCourierVehicle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CourierVehicle)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CourierServiceServer).UpdateCourierVehicle(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/genproto.CourierService/UpdateCourierVehicle",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CourierServiceServer).UpdateCourierVehicle(ctx, req.(*CourierVehicle))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CourierService_GetCourierVehicle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCourierVehicleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CourierServiceServer).GetCourierVehicle(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/genproto.CourierService/GetCourierVehicle",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CourierServiceServer).GetCourierVehicle(ctx, req.(*GetCourierVehicleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CourierService_GetAllCourierVehicles_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAllCourierVehiclesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CourierServiceServer).GetAllCourierVehicles(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/genproto.CourierService/GetAllCourierVehicles",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CourierServiceServer).GetAllCourierVehicles(ctx, req.(*GetAllCourierVehiclesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CourierService_DeleteCourierVehicle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteCourierVehicleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CourierServiceServer).DeleteCourierVehicle(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/genproto.CourierService/DeleteCourierVehicle",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CourierServiceServer).DeleteCourierVehicle(ctx, req.(*DeleteCourierVehicleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _CourierService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "genproto.CourierService",
 	HandlerType: (*CourierServiceServer)(nil),
@@ -234,6 +1271,50 @@ var _CourierService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Update",
 			Handler:    _CourierService_Update_Handler,
+		},
+		{
+			MethodName: "GetCourier",
+			Handler:    _CourierService_GetCourier_Handler,
+		},
+		{
+			MethodName: "GetAllCouriers",
+			Handler:    _CourierService_GetAllCouriers_Handler,
+		},
+		{
+			MethodName: "Delete",
+			Handler:    _CourierService_Delete_Handler,
+		},
+		{
+			MethodName: "CreateCourierDetails",
+			Handler:    _CourierService_CreateCourierDetails_Handler,
+		},
+		{
+			MethodName: "UpdateCourierDetails",
+			Handler:    _CourierService_UpdateCourierDetails_Handler,
+		},
+		{
+			MethodName: "GetCourierDetails",
+			Handler:    _CourierService_GetCourierDetails_Handler,
+		},
+		{
+			MethodName: "CreateCourierVehicle",
+			Handler:    _CourierService_CreateCourierVehicle_Handler,
+		},
+		{
+			MethodName: "UpdateCourierVehicle",
+			Handler:    _CourierService_UpdateCourierVehicle_Handler,
+		},
+		{
+			MethodName: "GetCourierVehicle",
+			Handler:    _CourierService_GetCourierVehicle_Handler,
+		},
+		{
+			MethodName: "GetAllCourierVehicles",
+			Handler:    _CourierService_GetAllCourierVehicles_Handler,
+		},
+		{
+			MethodName: "DeleteCourierVehicle",
+			Handler:    _CourierService_DeleteCourierVehicle_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

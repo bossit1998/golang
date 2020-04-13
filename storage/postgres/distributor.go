@@ -7,30 +7,30 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
-type courierRepo struct {
+type distributorRepo struct {
 	db *sqlx.DB
 }
 
-// NewCourierRepo ...
-func NewCourierRepo(db *sqlx.DB) repo.CourierStorageI {
-	return &courierRepo{db: db}
+// NewdistributorRepo ...
+func NewDistributorRepo(db *sqlx.DB) repo.DistributorStorageI {
+	return &distributorRepo{db: db}
 }
 
-func (cm *courierRepo) Create(courier *pb.Courier) (*pb.Courier, error) {
+func (cm *distributorRepo) Create(distributor *pb.Distributor) (*pb.Distributor, error) {
 
 	tx, err := cm.db.Begin()
 	if err != nil {
 		return nil, err
 	}
 
-	courierID, err := uuid.NewRandom()
+	distributorID, err := uuid.NewRandom()
 	if err != nil {
 		return nil, err
 	}
 
 	insertNew :=
 		`INSERT INTO
-		courier
+		distributor
 		(
 			id,
 			phone,
@@ -42,9 +42,7 @@ func (cm *courierRepo) Create(courier *pb.Courier) (*pb.Courier, error) {
 
 	_, err = tx.Exec(
 		insertNew,
-		courier.Phone,
-		courier.FirstName,
-		courier.LastName,
+		distributor.Phone,
 	)
 
 	if err != nil {
@@ -54,7 +52,7 @@ func (cm *courierRepo) Create(courier *pb.Courier) (*pb.Courier, error) {
 
 	tx.Commit()
 
-	c, err := cm.GetCourier(courierID.String())
+	c, err := cm.GetDistributor(distributorID.String())
 	if err != nil {
 		return nil, err
 	}
@@ -62,7 +60,7 @@ func (cm *courierRepo) Create(courier *pb.Courier) (*pb.Courier, error) {
 	return c, nil
 }
 
-func (cm *courierRepo) Update(courier *pb.Courier) (*pb.Courier, error) {
+func (cm *distributorRepo) Update(distributor *pb.Distributor) (*pb.Distributor, error) {
 
 	tx, err := cm.db.Begin()
 	if err != nil {
@@ -70,7 +68,7 @@ func (cm *courierRepo) Update(courier *pb.Courier) (*pb.Courier, error) {
 	}
 
 	updateQuery :=
-		`UPDATE courier
+		`UPDATE distributor
 		(
 			phone,
 			first_name,
@@ -81,9 +79,7 @@ func (cm *courierRepo) Update(courier *pb.Courier) (*pb.Courier, error) {
 
 	_, err = tx.Exec(
 		updateQuery,
-		courier.Phone,
-		courier.FirstName,
-		courier.LastName,
+		distributor.Phone,
 	)
 
 	if err != nil {
@@ -93,7 +89,7 @@ func (cm *courierRepo) Update(courier *pb.Courier) (*pb.Courier, error) {
 
 	tx.Commit()
 
-	c, err := cm.GetCourier(courier.GetId())
+	c, err := cm.GetDistributor(distributor.GetId())
 	if err != nil {
 		return nil, err
 	}
@@ -101,8 +97,8 @@ func (cm *courierRepo) Update(courier *pb.Courier) (*pb.Courier, error) {
 	return c, nil
 }
 
-func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
-	var courier pb.Courier
+func (cm *distributorRepo) GetDistributor(id string) (*pb.Distributor, error) {
+	var distributor pb.Distributor
 
 	_, err := uuid.Parse(id)
 
@@ -112,26 +108,24 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 				first_name,
 				last_name,
 				created_at,
-		FROM courier
+		FROM distributor
 		WHERE id=$1`, id,
 	)
 
 	err = row.Scan(
-		&courier.Id,
-		&courier.Phone,
-		&courier.FirstName,
-		&courier.LastName,
-		&courier.CreatedAt,
+		&distributor.Id,
+		&distributor.Phone,
+		&distributor.CreatedAt,
 	)
 	if err != nil {
 		return nil, err
 	}
 
-	return &courier, nil
+	return &distributor, nil
 }
 
-func (cm *courierRepo) GetAllCouriers(page, limit uint64) ([]*pb.Courier, uint64, error) {
-	var couriers []*pb.Courier
+func (cm *distributorRepo) GetAllDistributors(page, limit uint64) ([]*pb.Distributor, uint64, error) {
+	var distributors []*pb.Distributor
 
 	rows, err := cm.db.Queryx(`
 		SELECT  id,
@@ -139,34 +133,32 @@ func (cm *courierRepo) GetAllCouriers(page, limit uint64) ([]*pb.Courier, uint64
 				first_name,
 				last_name,
 				created_at,
-		FROM courier`)
+		FROM distributor`)
 
 	if err != nil {
 		return nil, 0, err
 	}
 
 	for rows.Next() {
-		var c pb.Courier
+		var c pb.Distributor
 		err = rows.Scan(
 			&c.Id,
 			&c.Phone,
-			&c.FirstName,
-			&c.LastName,
 		)
 
 		if err != nil {
 			return nil, 0, err
 		}
 
-		couriers = append(couriers, &c)
+		distributors = append(distributors, &c)
 	}
 
-	return couriers, 10, nil
+	return distributors, 10, nil
 }
 
-func (cm *courierRepo) Delete(id string) error {
+func (cm *distributorRepo) Delete(id string) error {
 	_, err := cm.db.Exec(`
-		UPDATE courier SET status = false where id = $1`, id,
+		UPDATE distributor SET status = false where id = $1`, id,
 	)
 	if err != nil {
 		return err

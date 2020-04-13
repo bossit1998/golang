@@ -3,11 +3,25 @@ syntax = "proto3";
 package genproto;
 option go_package="genproto/courier_service";
 
+import "google/protobuf/empty.proto";
 import "courier.proto";
 
 service CourierService {
 	rpc Create(Courier) returns (CreateCourierResponse) {}
 	rpc Update(Courier) returns (UpdateCourierResponse) {}
+	rpc GetCourier(GetCourierRequest) returns (GetCourierResponse) {}
+	rpc GetAllCouriers(GetAllCouriersRequest) returns (GetAllCouriersResponse) {}
+	rpc Delete(DeleteCourierRequest) returns (google.protobuf.Empty) {}
+
+	rpc CreateCourierDetails(CourierDetails) returns (CreateCourierDetailsResponse) {}
+	rpc UpdateCourierDetails(CourierDetails) returns (UpdateCourierDetailsResponse) {}
+	rpc GetCourierDetails(GetCourierDetailsRequest) returns (GetCourierDetailsResponse) {}
+
+	rpc CreateCourierVehicle(CourierVehicle) returns (CreateCourierVehicleResponse) {}
+	rpc UpdateCourierVehicle(CourierVehicle) returns (UpdateCourierVehicleResponse) {}
+	rpc GetCourierVehicle(GetCourierVehicleRequest) returns (GetCourierVehicleResponse) {}
+	rpc GetAllCourierVehicles(GetAllCourierVehiclesRequest) returns (GetAllCourierVehiclesResponse) {}
+	rpc DeleteCourierVehicle(DeleteCourierVehicleRequest) returns (google.protobuf.Empty) {}
 }
 
 message CreateCourierResponse {
@@ -17,3 +31,73 @@ message CreateCourierResponse {
 message UpdateCourierResponse {
 	Courier courier = 1;
 }
+
+message DeleteCourierRequest {
+    string id = 1;
+}
+
+message GetCourierRequest {
+	string id = 1;
+}
+
+message GetCourierResponse {
+	Courier courier = 1;
+}
+
+
+message GetAllCouriersRequest {
+	uint64 limit = 1;
+    uint64 page = 2;
+}
+
+message GetAllCouriersResponse {
+	repeated Courier couriers = 1;
+	uint64 count = 2;
+}
+
+
+message CreateCourierDetailsResponse {
+	CourierDetails courier_details = 1;
+}
+
+message UpdateCourierDetailsResponse {
+	CourierDetails courier_details = 1;
+}
+
+message GetCourierDetailsRequest {
+	string courier_id = 1;
+}
+
+message GetCourierDetailsResponse {
+	CourierDetails courier_details = 1;
+}
+
+
+message CreateCourierVehicleResponse {
+	CourierVehicle courier_vehicle = 1;
+}
+
+message UpdateCourierVehicleResponse {
+	CourierVehicle courier_vehicle = 1;
+}
+
+message GetCourierVehicleRequest {
+	string id = 1;
+}
+
+message GetCourierVehicleResponse {
+	CourierVehicle courier_vehicle = 1;
+}
+
+message GetAllCourierVehiclesRequest {
+	string courier_id = 1;
+}
+
+message GetAllCourierVehiclesResponse {
+	repeated CourierVehicle courier_vehicles = 1;
+}
+
+message DeleteCourierVehicleRequest {
+    string id = 1;
+}
+

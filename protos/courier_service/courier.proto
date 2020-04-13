@@ -3,13 +3,12 @@ syntax = "proto3";
 package genproto;
 option go_package="genproto/courier_service";
 
-
 message Courier {
     string id = 1;
     string phone = 2;
     string first_name = 3;
     string last_name = 4;
-    string create_at = 5;
+    string created_at = 5;
     bool status = 6;
 }
 
