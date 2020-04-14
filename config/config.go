@@ -1,25 +1,24 @@
 package config
 
 import (
-	"github.com/spf13/cast"
 	"os"
+
+	"github.com/spf13/cast"
 )
 
 // Config ...
 type Config struct {
-	Environment       string // develop, staging, production
-	PostgresHost      string
-	PostgresPort      int
-	PostgresDatabase  string
-	PostgresUser      string
-	PostgresPassword  string
-	LogLevel          string
-	RPCPort           string
-	UserServiceHost   string
-	UserServicePort   int
-	ReviewServiceHost string
-	ReviewServicePort int
-	CronSetting       string
+	Environment      string // develop, staging, production
+	PostgresHost     string
+	PostgresPort     int
+	PostgresDatabase string
+	PostgresUser     string
+	PostgresPassword string
+	LogLevel         string
+	RPCPort          string
+	FareServiceHost  string
+	FareServicePort  int
+	CronSetting      string
 }
 
 // Load loads environment vars and inflates Config
@@ -34,10 +33,8 @@ func Load() Config {
 	c.PostgresPassword = cast.ToString(getOrReturnDefault("POSTGRES_PASSWORD", "fiesta123"))
 	c.LogLevel = cast.ToString(getOrReturnDefault("LOG_LEVEL", "debug"))
 	c.RPCPort = cast.ToString(getOrReturnDefault("RPC_PORT", ":9003"))
-	c.UserServiceHost = cast.ToString(getOrReturnDefault("USER_SERVICE_HOST", "127.0.0.1"))
-	c.UserServicePort = cast.ToInt(getOrReturnDefault("USER_SERVICE_PORT", 1234))
-	c.ReviewServiceHost = cast.ToString(getOrReturnDefault("REVIEW_SERVICE_HOST", "127.0.0.1"))
-	c.ReviewServicePort = cast.ToInt(getOrReturnDefault("REVIEW_SERVICE_PORT", 1236))
+	c.FareServiceHost = cast.ToString(getOrReturnDefault("FARE_SERVICE_HOST", "127.0.0.1"))
+	c.FareServicePort = cast.ToInt(getOrReturnDefault("FARE_SERVICE_PORT", 1234))
 	c.CronSetting = cast.ToString(getOrReturnDefault("CRON_VALUE", "@hourly"))
 
 	return c
