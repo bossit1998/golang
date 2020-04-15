@@ -10,8 +10,8 @@ import (
 	"google.golang.org/grpc/status"
 
 	pb "bitbucket.org/alien_soft/courier_service/genproto/courier_service"
-
 	l "bitbucket.org/alien_soft/courier_service/pkg/logger"
+	"bitbucket.org/alien_soft/courier_service/service/grpc_client"
 	"bitbucket.org/alien_soft/courier_service/storage"
 )
 
@@ -19,13 +19,15 @@ import (
 type DistributorService struct {
 	storage storage.StorageI
 	logger  l.Logger
+	client  *grpc_client.GrpcClient
 }
 
 // NewEventService ...
-func NewDistributorService(db *sqlx.DB, log l.Logger) *DistributorService {
+func NewDistributorService(db *sqlx.DB, client *grpc_client.GrpcClient, log l.Logger) *DistributorService {
 	return &DistributorService{
 		storage: storage.NewStoragePg(db),
 		logger:  log,
+		client:  client,
 	}
 }
 

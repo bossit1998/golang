@@ -41,7 +41,7 @@ func (cm *courierRepo) Create(courier *pb.Courier) (*pb.Courier, error) {
 			id,
 			phone,
 			first_name,
-			last_name,
+			last_name
 		)
 		VALUES
 		($1, $2, $3, $4)`
@@ -78,14 +78,11 @@ func (cm *courierRepo) Update(courier *pb.Courier) (*pb.Courier, error) {
 
 	updateQuery :=
 		`UPDATE courier
-		(
-			phone,
-			first_name,
-			last_name,
-		)
-		VALUES
-		($1, $2, $3)
-		WHERE id = $4`
+		 SET
+			phone=$1,
+			first_name=$2,
+			last_name=$3
+		WHERE id=$4`
 
 	_, err = tx.Exec(
 		updateQuery,
@@ -122,7 +119,7 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 				phone,
 				first_name,
 				last_name,
-				created_at,
+				created_at
 		FROM courier
 		WHERE id=$1`, id,
 	)
@@ -156,7 +153,7 @@ func (cm *courierRepo) GetAllCouriers(page, limit uint64) ([]*pb.Courier, uint64
 				phone,
 				first_name,
 				last_name,
-				created_at,
+				created_at
 		FROM courier
 		WHERE status=true`)
 
@@ -194,6 +191,7 @@ func (cm *courierRepo) GetAllCouriers(page, limit uint64) ([]*pb.Courier, uint64
 }
 
 func (cm *courierRepo) Delete(id string) error {
+
 	_, err := cm.db.Exec(`
 		UPDATE courier SET status=false where id=$1`, id,
 	)
@@ -342,7 +340,7 @@ func (cm *courierRepo) GetCourierDetails(courierId string) (*pb.CourierDetails, 
 				img,
 				lisense_number,
 				lisense_given_date,
-				lisense_expiry_date,
+				lisense_expiry_date
 		FROM courier_details
 		WHERE courier_id=$1`, courierId)
 
@@ -391,7 +389,7 @@ func (cm *courierRepo) CreateCourierVehicle(cv *pb.CourierVehicle) (*pb.CourierV
 			id,
 			courier_id,
 			model,
-			vehicle_number,
+			vehicle_number
 		)
 		VALUES
 		($1, $2, $3, $4)`
@@ -431,7 +429,7 @@ func (cm *courierRepo) UpdateCourierVehicle(cv *pb.CourierVehicle) (*pb.CourierV
 		(
 			courier_id,
 			model,
-			vehicle_number,
+			vehicle_number
 		)
 		VALUES
 		($1, $2, $3)
@@ -474,7 +472,7 @@ func (cm *courierRepo) GetCourierVehicle(id string) (*pb.CourierVehicle, error) 
 				courier_id,
 				model,
 				vehicle_number,
-				created_at,
+				created_at
 		FROM courier_vehicle
 		WHERE id=$1`, id,
 	)
@@ -507,7 +505,7 @@ func (cm *courierRepo) GetAllCourierVehicles(courierId string) ([]*pb.CourierVeh
 				courier_id,
 				model,
 				vehicle_number,
-				created_at,
+				created_at
 		FROM courier_vehicle`)
 
 	if err != nil {

@@ -1,6 +1,8 @@
 package postgres
 
 import (
+	"time"
+
 	pb "bitbucket.org/alien_soft/courier_service/genproto/courier_service"
 	"bitbucket.org/alien_soft/courier_service/storage/repo"
 	"github.com/google/uuid"
@@ -23,7 +25,7 @@ func (cm *distributorRepo) Create(distributor *pb.Distributor) (*pb.Distributor,
 		return nil, err
 	}
 
-	distributorID, err := uuid.NewRandom()
+	ID, err := uuid.NewRandom()
 	if err != nil {
 		return nil, err
 	}
@@ -33,16 +35,17 @@ func (cm *distributorRepo) Create(distributor *pb.Distributor) (*pb.Distributor,
 		distributor
 		(
 			id,
-			phone,
-			first_name,
-			last_name,
+			name,
+			phone
 		)
 		VALUES
-		($1, $2, $3, $4)`
+		($1, $2, $3)`
 
 	_, err = tx.Exec(
 		insertNew,
-		distributor.Phone,
+		ID,
+		distributor.GetName(),
+		distributor.GetPhone(),
 	)
 
 	if err != nil {
@@ -52,7 +55,7 @@ func (cm *distributorRepo) Create(distributor *pb.Distributor) (*pb.Distributor,
 
 	tx.Commit()
 
-	c, err := cm.GetDistributor(distributorID.String())
+	c, err := cm.GetDistributor(ID.String())
 	if err != nil {
 		return nil, err
 	}
@@ -69,17 +72,16 @@ func (cm *distributorRepo) Update(distributor *pb.Distributor) (*pb.Distributor,
 
 	updateQuery :=
 		`UPDATE distributor
-		(
-			phone,
-			first_name,
-			last_name,
-		)
-		VALUES
-		($1, $2, $3)`
+		SET
+			phone=$1,
+			name=$2
+		WHERE id=$3`
 
 	_, err = tx.Exec(
 		updateQuery,
-		distributor.Phone,
+		distributor.GetName(),
+		distributor.GetPhone(),
+		distributor.GetId(),
 	)
 
 	if err != nil {
@@ -98,25 +100,29 @@ func (cm *distributorRepo) Update(distributor *pb.Distributor) (*pb.Distributor,
 }
 
 func (cm *distributorRepo) GetDistributor(id string) (*pb.Distributor, error) {
-	var distributor pb.Distributor
-
-	_, err := uuid.Parse(id)
+	var (
+		createdAt   time.Time
+		layoutDate  string = "2006-01-02 15:04:05"
+		distributor pb.Distributor
+	)
 
 	row := cm.db.QueryRow(`
 		SELECT  id,
+				name,
 				phone,
-				first_name,
-				last_name,
-				created_at,
+				created_at
 		FROM distributor
 		WHERE id=$1`, id,
 	)
 
-	err = row.Scan(
+	err := row.Scan(
 		&distributor.Id,
+		&distributor.Name,
 		&distributor.Phone,
-		&distributor.CreatedAt,
+		&createdAt,
 	)
+
+	distributor.CreatedAt = createdAt.Format(layoutDate)
 	if err != nil {
 		return nil, err
 	}
@@ -125,35 +131,51 @@ func (cm *distributorRepo) GetDistributor(id string) (*pb.Distributor, error) {
 }
 
 func (cm *distributorRepo) GetAllDistributors(page, limit uint64) ([]*pb.Distributor, uint64, error) {
-	var distributors []*pb.Distributor
+	var (
+		count        uint64
+		createdAt    time.Time
+		layoutDate   string = "2006-01-02 15:04:05"
+		distributors []*pb.Distributor
+	)
 
 	rows, err := cm.db.Queryx(`
 		SELECT  id,
+				name,
 				phone,
-				first_name,
-				last_name,
-				created_at,
-		FROM distributor`)
+				created_at
+		FROM distributor
+		WHERE status=true`)
 
 	if err != nil {
 		return nil, 0, err
 	}
 
 	for rows.Next() {
-		var c pb.Distributor
+		var d pb.Distributor
 		err = rows.Scan(
-			&c.Id,
-			&c.Phone,
+			&d.Id,
+			&d.Name,
+			&d.Phone,
+			&createdAt,
 		)
 
 		if err != nil {
 			return nil, 0, err
 		}
-
-		distributors = append(distributors, &c)
+		d.CreatedAt = createdAt.Format(layoutDate)
+		distributors = append(distributors, &d)
 	}
 
-	return distributors, 10, nil
+	row := cm.db.QueryRow(`
+		SELECT count(1) 
+		FROM distributor
+		WHERE status=true`,
+	)
+	err = row.Scan(
+		&count,
+	)
+
+	return distributors, count, nil
 }
 
 func (cm *distributorRepo) Delete(id string) error {

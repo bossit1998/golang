@@ -10,8 +10,8 @@ import (
 	"google.golang.org/grpc/status"
 
 	pb "bitbucket.org/alien_soft/courier_service/genproto/courier_service"
-
 	l "bitbucket.org/alien_soft/courier_service/pkg/logger"
+	"bitbucket.org/alien_soft/courier_service/service/grpc_client"
 	"bitbucket.org/alien_soft/courier_service/storage"
 )
 
@@ -19,13 +19,15 @@ import (
 type CourierService struct {
 	storage storage.StorageI
 	logger  l.Logger
+	client  *grpc_client.GrpcClient
 }
 
 // NewCourierService ...
-func NewCourierService(db *sqlx.DB, log l.Logger) *CourierService {
+func NewCourierService(db *sqlx.DB, client *grpc_client.GrpcClient, log l.Logger) *CourierService {
 	return &CourierService{
 		storage: storage.NewStoragePg(db),
 		logger:  log,
+		client:  client,
 	}
 }
 
@@ -35,7 +37,7 @@ func (s *CourierService) Create(ctx context.Context, req *pb.Courier) (*pb.Creat
 
 	courier, err := s.storage.Courier().Create(req)
 	if err != nil {
-		s.logger.Error("Error while creating event", l.Error(err), l.Any("req", req))
+		s.logger.Error("Error while creating courier", l.Error(err), l.Any("req", req))
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 	return &pb.CreateCourierResponse{
@@ -47,10 +49,10 @@ func (s *CourierService) Update(ctx context.Context, req *pb.Courier) (*pb.Updat
 	courier, err := s.storage.Courier().Update(req)
 
 	if err == sql.ErrNoRows {
-		s.logger.Error("Error while updating event, Not Found", l.Any("req", req))
+		s.logger.Error("Error while updating courier, Not Found", l.Any("req", req))
 		return nil, status.Error(codes.NotFound, "Not found")
 	} else if err != nil {
-		s.logger.Error("Error while updating event", l.Error(err), l.Any("req", req))
+		s.logger.Error("Error while updating courier", l.Error(err), l.Any("req", req))
 		return nil, status.Error(codes.Internal, "Internal server error")
 	}
 
@@ -63,10 +65,10 @@ func (s *CourierService) GetCourier(ctx context.Context, req *pb.GetCourierReque
 	var courier *pb.Courier
 	courier, err := s.storage.Courier().GetCourier(req.Id)
 	if err == sql.ErrNoRows {
-		s.logger.Error("Error while getting an event, Not found", l.Any("req", req))
+		s.logger.Error("Error while getting an courier, Not found", l.Any("req", req))
 		return nil, status.Error(codes.NotFound, "Not found")
 	} else if err != nil {
-		s.logger.Error("Error while getting event", l.Error(err), l.Any("req", req))
+		s.logger.Error("Error while getting courier", l.Error(err), l.Any("req", req))
 		return nil, status.Error(codes.Internal, "Internal server error")
 	}
 

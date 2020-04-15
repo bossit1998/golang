@@ -26,15 +26,15 @@ func Load() Config {
 	c := Config{}
 
 	c.Environment = cast.ToString(getOrReturnDefault("ENVIRONMENT", "develop"))
-	c.PostgresHost = cast.ToString(getOrReturnDefault("POSTGRES_HOST", "api.test.fiesta.jafton.com"))
-	c.PostgresPort = cast.ToInt(getOrReturnDefault("POSTGRES_PORT", 5434))
-	c.PostgresDatabase = cast.ToString(getOrReturnDefault("POSTGRES_DATABASE", "fiestadb"))
-	c.PostgresUser = cast.ToString(getOrReturnDefault("POSTGRES_USER", "fiesta"))
-	c.PostgresPassword = cast.ToString(getOrReturnDefault("POSTGRES_PASSWORD", "fiesta123"))
+	c.PostgresHost = cast.ToString(getOrReturnDefault("POSTGRES_HOST", "127.0.0.1"))
+	c.PostgresPort = cast.ToInt(getOrReturnDefault("POSTGRES_PORT", 5432))
+	c.PostgresDatabase = cast.ToString(getOrReturnDefault("POSTGRES_DATABASE", "courier_service"))
+	c.PostgresUser = cast.ToString(getOrReturnDefault("POSTGRES_USER", "postgres"))
+	c.PostgresPassword = cast.ToString(getOrReturnDefault("POSTGRES_PASSWORD", "12345"))
 	c.LogLevel = cast.ToString(getOrReturnDefault("LOG_LEVEL", "debug"))
 	c.RPCPort = cast.ToString(getOrReturnDefault("RPC_PORT", ":9003"))
 	c.FareServiceHost = cast.ToString(getOrReturnDefault("FARE_SERVICE_HOST", "127.0.0.1"))
-	c.FareServicePort = cast.ToInt(getOrReturnDefault("FARE_SERVICE_PORT", 1234))
+	c.FareServicePort = cast.ToInt(getOrReturnDefault("FARE_SERVICE_PORT", 8004))
 	c.CronSetting = cast.ToString(getOrReturnDefault("CRON_VALUE", "@hourly"))
 
 	return c
