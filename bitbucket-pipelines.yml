@@ -19,6 +19,6 @@ pipelines:
             - make build-image TAG=$BITBUCKET_BUILD_NUMBER
             - make push-image  TAG=$BITBUCKET_BUILD_NUMBER
             - source .build_info
-            - ssh ubuntu@$DELEVER_PROD_HOST 'docker service update --with-registry-auth --image '$DELEVER_REGISTRY'/'$APP':'$BITBUCKET_BUILD_NUMBER' delever_'$APP''
+            - ssh delever@$DELEVER_PROD_HOST 'docker service update --with-registry-auth --image '$DELEVER_REGISTRY'/'$APP':'$BITBUCKET_BUILD_NUMBER' delever_'$APP''
 
 
