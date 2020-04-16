@@ -5,14 +5,12 @@ pipelines:
     master:
       - step:
           name: Production DB migrations
-          deployment: prod_migrations
           image: migrate/migrate
           script:
             - source .build_info
             - /migrate -path=migrations/ -database="$DELEVER_DATABASEURL&x-migrations-table=migrations_$APP" up
       - step:
           name: Deploy to Prod
-          deployment: test
           services:
             - docker
           script:
