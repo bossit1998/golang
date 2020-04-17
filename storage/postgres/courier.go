@@ -39,13 +39,13 @@ func (cm *courierRepo) Create(courier *pb.Courier) (*pb.Courier, error) {
 		courier
 		(
 			id,
-			distibutor_id,
+			distributor_id,
 			phone,
 			first_name,
 			last_name
 		)
 		VALUES
-		($1, $2, $3, $4)`
+		($1, $2, $3, $4, $5)`
 
 	_, err = tx.Exec(
 		insertNew,
@@ -118,6 +118,7 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 
 	row := cm.db.QueryRow(`
 		SELECT  id,
+				distributor_id,
 				phone,
 				first_name,
 				last_name,
@@ -128,6 +129,7 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 
 	err := row.Scan(
 		&courier.Id,
+		&courier.DistributorId,
 		&courier.Phone,
 		&courier.FirstName,
 		&courier.LastName,
@@ -151,6 +153,7 @@ func (cm *courierRepo) GetAllCouriers(page, limit uint64) ([]*pb.Courier, uint64
 	)
 
 	offset := (page - 1) * limit
+
 	query := `
 		SELECT  id,
 				phone,
@@ -205,6 +208,7 @@ func (cm *courierRepo) GetAllDistributorCouriers(dId string, page, limit uint64)
 	)
 
 	offset := (page - 1) * limit
+
 	query := `
 		SELECT  id,
 				phone,
@@ -241,8 +245,7 @@ func (cm *courierRepo) GetAllDistributorCouriers(dId string, page, limit uint64)
 	row := cm.db.QueryRow(`
 		SELECT count(1) 
 		FROM courier
-		WHERE status=true`,
-	)
+		WHERE distributor_id=$1 AND status=true`, dId)
 	err = row.Scan(
 		&count,
 	)
@@ -269,11 +272,6 @@ func (cm *courierRepo) CreateCourierDetails(cd *pb.CourierDetails) (*pb.CourierD
 	)
 
 	tx, err := cm.db.Begin()
-	if err != nil {
-		return nil, err
-	}
-
-	ID, err := uuid.NewRandom()
 	if err != nil {
 		return nil, err
 	}
@@ -315,7 +313,7 @@ func (cm *courierRepo) CreateCourierDetails(cd *pb.CourierDetails) (*pb.CourierD
 
 	tx.Commit()
 
-	c, err := cm.GetCourierDetails(ID.String())
+	c, err := cm.GetCourierDetails(cd.GetCourierId())
 	if err != nil {
 		return nil, err
 	}
@@ -337,18 +335,15 @@ func (cm *courierRepo) UpdateCourierDetails(cd *pb.CourierDetails) (*pb.CourierD
 
 	updateQuery :=
 		`UPDATE courier_details
-		(
-			passport_number,
-			gender,
-			birth_date,
-			address,
-			img,
-			lisense_number,
-			lisense_given_date,
-			lisense_expiry_date
-		)
-		VALUES
-		($1, $2, $3, $4, $5, $6, $7, $8) 
+		SET
+			passport_number=$1,
+			gender=$2,
+			birth_date=$3,
+			address=$4,
+			img=$5,
+			lisense_number=$6,
+			lisense_given_date=$7,
+			lisense_expiry_date=$8
 		WHERE courier_id=$9`
 
 	_, err = tx.Exec(
@@ -387,10 +382,8 @@ func (cm *courierRepo) GetCourierDetails(courierId string) (*pb.CourierDetails, 
 		cd                   pb.CourierDetails
 	)
 
-	_, err := uuid.Parse(courierId)
-
 	row := cm.db.QueryRow(`
-		SELECT  courier_id
+		SELECT  courier_id,
 				passport_number,
 				gender,
 				birth_date,
@@ -402,7 +395,7 @@ func (cm *courierRepo) GetCourierDetails(courierId string) (*pb.CourierDetails, 
 		FROM courier_details
 		WHERE courier_id=$1`, courierId)
 
-	err = row.Scan(
+	err := row.Scan(
 		&cd.CourierId,
 		&cd.PassportNumber,
 		&gender,
@@ -484,18 +477,12 @@ func (cm *courierRepo) UpdateCourierVehicle(cv *pb.CourierVehicle) (*pb.CourierV
 
 	updateQuery :=
 		`UPDATE courier_vehicle
-		(
-			courier_id,
-			model,
-			vehicle_number
-		)
-		VALUES
-		($1, $2, $3)
-		WHERE id = $4`
+		SET model=$1,
+			vehicle_number=$2
+		WHERE id=$3`
 
 	_, err = tx.Exec(
 		updateQuery,
-		cv.GetCourierId(),
 		cv.GetModel(),
 		cv.GetVehicleNumber(),
 		cv.GetId(),
