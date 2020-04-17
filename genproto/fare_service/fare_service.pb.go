@@ -324,35 +324,33 @@ func init() {
 	proto.RegisterType((*DeleteFareRequest)(nil), "genproto.DeleteFareRequest")
 }
 
-func init() {
-	proto.RegisterFile("fare_service.proto", fileDescriptor_581d3f182827d35a)
-}
+func init() { proto.RegisterFile("fare_service.proto", fileDescriptor_581d3f182827d35a) }
 
 var fileDescriptor_581d3f182827d35a = []byte{
-	// 359 bytes of a gzipped FileDescriptorProto
+	// 360 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x53, 0x4d, 0x4f, 0xc2, 0x40,
-	0x10, 0xa5, 0xa5, 0x20, 0x0e, 0x09, 0xc6, 0xf1, 0xab, 0x16, 0x4c, 0x9a, 0xd5, 0x03, 0xa7, 0x92,
-	0x60, 0x4c, 0x38, 0xf9, 0x2d, 0x5c, 0xbc, 0x88, 0xf1, 0xe2, 0xc5, 0x14, 0x18, 0x9a, 0x26, 0x85,
-	0xd6, 0xee, 0x62, 0xe2, 0xaf, 0xf4, 0x2f, 0x99, 0xdd, 0xa5, 0x7c, 0x6b, 0xa2, 0xb7, 0x9d, 0x79,
-	0xf3, 0xde, 0xa4, 0xef, 0x4d, 0x01, 0x87, 0x7e, 0x4a, 0x6f, 0x9c, 0xd2, 0x8f, 0xb0, 0x4f, 0x5e,
-	0x92, 0xc6, 0x22, 0xc6, 0x52, 0x40, 0x63, 0xf5, 0x72, 0x40, 0xa2, 0xba, 0xeb, 0x54, 0x83, 0x38,
-	0x0e, 0x22, 0x6a, 0xa8, 0xaa, 0x37, 0x19, 0x36, 0x68, 0x94, 0x88, 0x4f, 0x0d, 0xb2, 0x16, 0xe0,
-	0x5d, 0x4a, 0xbe, 0xa0, 0xb6, 0x9f, 0x52, 0x97, 0x78, 0x12, 0x8f, 0x39, 0x21, 0x03, 0x4b, 0x0a,
-	0xd8, 0x86, 0x6b, 0xd4, 0xcb, 0xcd, 0x8a, 0x97, 0xe9, 0x7a, 0x6a, 0x4a, 0x61, 0x92, 0xf9, 0x92,
-	0x0c, 0xfe, 0xc3, 0x74, 0xa1, 0xd2, 0x21, 0xa1, 0x69, 0xef, 0x13, 0xe2, 0x02, 0x2b, 0x60, 0x86,
-	0x03, 0xc5, 0xd9, 0xee, 0x9a, 0xe1, 0x80, 0x5d, 0xc0, 0xce, 0x6c, 0xe2, 0x0f, 0xc2, 0x97, 0x80,
-	0x1d, 0x12, 0x37, 0x51, 0x24, 0x7b, 0x3c, 0x13, 0xdf, 0x87, 0x42, 0x14, 0x8e, 0x42, 0x61, 0xe7,
-	0x5d, 0xa3, 0x6e, 0x75, 0x75, 0x81, 0x08, 0x56, 0xe2, 0x07, 0x64, 0x5b, 0xaa, 0xa9, 0xde, 0xec,
-	0x09, 0xf6, 0x96, 0xf8, 0xd3, 0xd5, 0x67, 0x50, 0x90, 0xf2, 0xdc, 0x36, 0xdc, 0xfc, 0x86, 0xdd,
-	0x1a, 0x94, 0x6b, 0xfa, 0xf1, 0x64, 0x2c, 0x6c, 0x53, 0xaf, 0x51, 0x05, 0x3b, 0x85, 0xdd, 0x7b,
-	0x8a, 0x28, 0x73, 0x69, 0xe3, 0xe7, 0x36, 0xbf, 0x4c, 0x28, 0xb5, 0x9f, 0x75, 0x94, 0xd8, 0x82,
-	0xa2, 0x4e, 0x04, 0x57, 0x16, 0x39, 0xb5, 0x79, 0xbd, 0x9e, 0x19, 0xcb, 0x49, 0xa6, 0x4e, 0xe4,
-	0x37, 0xe6, 0x7a, 0x66, 0x2c, 0x87, 0xd7, 0xb0, 0x35, 0xf5, 0x1b, 0xed, 0xf9, 0xe8, 0x72, 0x48,
-	0xce, 0xf1, 0x06, 0x64, 0xa6, 0xf0, 0x08, 0xe5, 0x05, 0xeb, 0xb0, 0xb6, 0x34, 0xbb, 0x92, 0x88,
-	0x73, 0xf2, 0x03, 0x3a, 0x53, 0xbb, 0x82, 0xa2, 0x76, 0x0d, 0xab, 0xf3, 0xd1, 0x35, 0x1f, 0x9d,
-	0x43, 0x4f, 0x9f, 0xb6, 0x97, 0x9d, 0xb6, 0xf7, 0x20, 0x4f, 0x9b, 0xe5, 0x6e, 0x8f, 0x5e, 0x0f,
-	0x32, 0x5e, 0x63, 0xf1, 0x47, 0xe9, 0x15, 0x55, 0xef, 0xfc, 0x3b, 0x00, 0x00, 0xff, 0xff, 0x36,
-	0x4c, 0xa0, 0x42, 0x3f, 0x03, 0x00, 0x00,
+	0x10, 0xa5, 0xa5, 0xa0, 0x0e, 0x09, 0xc6, 0xf1, 0xab, 0x16, 0x4c, 0x9a, 0xd5, 0x03, 0xa7, 0x92,
+	0x60, 0x4c, 0x38, 0xf9, 0xad, 0x5c, 0xbc, 0x88, 0xf1, 0xe2, 0xc5, 0x14, 0x18, 0x9a, 0x26, 0x85,
+	0xd6, 0xee, 0x62, 0xe2, 0xdf, 0xf4, 0x17, 0x99, 0xdd, 0xa5, 0x7c, 0x56, 0x13, 0xbd, 0xed, 0xcc,
+	0x9b, 0xf7, 0x26, 0x7d, 0x6f, 0x0a, 0x38, 0xf4, 0x53, 0x7a, 0xe3, 0x94, 0x7e, 0x84, 0x7d, 0xf2,
+	0x92, 0x34, 0x16, 0x31, 0x6e, 0x06, 0x34, 0x56, 0x2f, 0x07, 0x24, 0xaa, 0xbb, 0x4e, 0x2d, 0x88,
+	0xe3, 0x20, 0xa2, 0xa6, 0xaa, 0x7a, 0x93, 0x61, 0x93, 0x46, 0x89, 0xf8, 0xd4, 0x20, 0x6b, 0x03,
+	0xde, 0xa6, 0xe4, 0x0b, 0x7a, 0xf0, 0x53, 0xea, 0x12, 0x4f, 0xe2, 0x31, 0x27, 0x64, 0x60, 0x49,
+	0x01, 0xdb, 0x70, 0x8d, 0x46, 0xa5, 0x55, 0xf5, 0x32, 0x5d, 0x4f, 0x4d, 0x29, 0x4c, 0x32, 0x5f,
+	0x92, 0xc1, 0x7f, 0x98, 0x2e, 0x54, 0x3b, 0x24, 0x34, 0xed, 0x7d, 0x42, 0x5c, 0x60, 0x15, 0xcc,
+	0x70, 0xa0, 0x38, 0x5b, 0x5d, 0x33, 0x1c, 0xb0, 0x73, 0xd8, 0x9e, 0x4d, 0xfc, 0x41, 0xf8, 0x02,
+	0xb0, 0x43, 0xe2, 0x3a, 0x8a, 0x64, 0x8f, 0x67, 0xe2, 0x7b, 0x50, 0x8a, 0xc2, 0x51, 0x28, 0xec,
+	0xa2, 0x6b, 0x34, 0xac, 0xae, 0x2e, 0x10, 0xc1, 0x4a, 0xfc, 0x80, 0x6c, 0x4b, 0x35, 0xd5, 0x9b,
+	0x3d, 0xc1, 0xee, 0x12, 0x7f, 0xba, 0xfa, 0x14, 0x4a, 0x52, 0x9e, 0xdb, 0x86, 0x5b, 0xcc, 0xd9,
+	0xad, 0x41, 0xb9, 0xa6, 0x1f, 0x4f, 0xc6, 0xc2, 0x36, 0xf5, 0x1a, 0x55, 0xb0, 0x13, 0xd8, 0xb9,
+	0xa3, 0x88, 0x32, 0x97, 0x72, 0x3f, 0xb7, 0xf5, 0x65, 0x42, 0x45, 0xe2, 0xcf, 0x3a, 0x4d, 0x6c,
+	0x43, 0x59, 0x87, 0x82, 0x2b, 0xbb, 0x9c, 0xfa, 0xbc, 0x5e, 0x8f, 0x8d, 0x15, 0x24, 0x53, 0x87,
+	0xf2, 0x1b, 0x73, 0x3d, 0x36, 0x56, 0xc0, 0x2b, 0xd8, 0x98, 0x5a, 0x8e, 0xf6, 0x7c, 0x74, 0x39,
+	0x27, 0xe7, 0x28, 0x07, 0x99, 0x29, 0x3c, 0x42, 0x65, 0xc1, 0x3d, 0xac, 0x2f, 0xcd, 0xae, 0x84,
+	0xe2, 0x1c, 0xff, 0x80, 0xce, 0xd4, 0x2e, 0xa1, 0xac, 0x8d, 0xc3, 0xda, 0x7c, 0x74, 0xcd, 0x4a,
+	0xe7, 0xc0, 0xd3, 0xd7, 0xed, 0x65, 0xd7, 0xed, 0xdd, 0xcb, 0xeb, 0x66, 0x85, 0x9b, 0xc3, 0xd7,
+	0xfd, 0x8c, 0xd7, 0x5c, 0xfc, 0x57, 0x7a, 0x65, 0xd5, 0x3b, 0xfb, 0x0e, 0x00, 0x00, 0xff, 0xff,
+	0xa0, 0xa2, 0x18, 0x89, 0x42, 0x03, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -363,10 +361,10 @@ var _ grpc.ClientConnInterface
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion6
 
-// FServiceClient is the client API for FService service.
+// FareServiceClient is the client API for FareService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
-type FServiceClient interface {
+type FareServiceClient interface {
 	Create(ctx context.Context, in *Fare, opts ...grpc.CallOption) (*CreateFareResponse, error)
 	Update(ctx context.Context, in *Fare, opts ...grpc.CallOption) (*UpdateFareResponse, error)
 	GetFare(ctx context.Context, in *GetFareRequest, opts ...grpc.CallOption) (*GetFareResponse, error)
@@ -374,61 +372,61 @@ type FServiceClient interface {
 	Delete(ctx context.Context, in *DeleteFareRequest, opts ...grpc.CallOption) (*empty.Empty, error)
 }
 
-type fServiceClient struct {
+type fareServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewFServiceClient(cc grpc.ClientConnInterface) FServiceClient {
-	return &fServiceClient{cc}
+func NewFareServiceClient(cc grpc.ClientConnInterface) FareServiceClient {
+	return &fareServiceClient{cc}
 }
 
-func (c *fServiceClient) Create(ctx context.Context, in *Fare, opts ...grpc.CallOption) (*CreateFareResponse, error) {
+func (c *fareServiceClient) Create(ctx context.Context, in *Fare, opts ...grpc.CallOption) (*CreateFareResponse, error) {
 	out := new(CreateFareResponse)
-	err := c.cc.Invoke(ctx, "/genproto.FService/Create", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/genproto.FareService/Create", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *fServiceClient) Update(ctx context.Context, in *Fare, opts ...grpc.CallOption) (*UpdateFareResponse, error) {
+func (c *fareServiceClient) Update(ctx context.Context, in *Fare, opts ...grpc.CallOption) (*UpdateFareResponse, error) {
 	out := new(UpdateFareResponse)
-	err := c.cc.Invoke(ctx, "/genproto.FService/Update", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/genproto.FareService/Update", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *fServiceClient) GetFare(ctx context.Context, in *GetFareRequest, opts ...grpc.CallOption) (*GetFareResponse, error) {
+func (c *fareServiceClient) GetFare(ctx context.Context, in *GetFareRequest, opts ...grpc.CallOption) (*GetFareResponse, error) {
 	out := new(GetFareResponse)
-	err := c.cc.Invoke(ctx, "/genproto.FService/GetFare", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/genproto.FareService/GetFare", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *fServiceClient) GetAllFares(ctx context.Context, in *GetAllFaresRequest, opts ...grpc.CallOption) (*GetAllFaresResponse, error) {
+func (c *fareServiceClient) GetAllFares(ctx context.Context, in *GetAllFaresRequest, opts ...grpc.CallOption) (*GetAllFaresResponse, error) {
 	out := new(GetAllFaresResponse)
-	err := c.cc.Invoke(ctx, "/genproto.FService/GetAllFares", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/genproto.FareService/GetAllFares", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *fServiceClient) Delete(ctx context.Context, in *DeleteFareRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+func (c *fareServiceClient) Delete(ctx context.Context, in *DeleteFareRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
 	out := new(empty.Empty)
-	err := c.cc.Invoke(ctx, "/genproto.FService/Delete", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/genproto.FareService/Delete", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// FServiceServer is the server API for FService service.
-type FServiceServer interface {
+// FareServiceServer is the server API for FareService service.
+type FareServiceServer interface {
 	Create(context.Context, *Fare) (*CreateFareResponse, error)
 	Update(context.Context, *Fare) (*UpdateFareResponse, error)
 	GetFare(context.Context, *GetFareRequest) (*GetFareResponse, error)
@@ -436,143 +434,143 @@ type FServiceServer interface {
 	Delete(context.Context, *DeleteFareRequest) (*empty.Empty, error)
 }
 
-// UnimplementedFServiceServer can be embedded to have forward compatible implementations.
-type UnimplementedFServiceServer struct {
+// UnimplementedFareServiceServer can be embedded to have forward compatible implementations.
+type UnimplementedFareServiceServer struct {
 }
 
-func (*UnimplementedFServiceServer) Create(ctx context.Context, req *Fare) (*CreateFareResponse, error) {
+func (*UnimplementedFareServiceServer) Create(ctx context.Context, req *Fare) (*CreateFareResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
 }
-func (*UnimplementedFServiceServer) Update(ctx context.Context, req *Fare) (*UpdateFareResponse, error) {
+func (*UnimplementedFareServiceServer) Update(ctx context.Context, req *Fare) (*UpdateFareResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
 }
-func (*UnimplementedFServiceServer) GetFare(ctx context.Context, req *GetFareRequest) (*GetFareResponse, error) {
+func (*UnimplementedFareServiceServer) GetFare(ctx context.Context, req *GetFareRequest) (*GetFareResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFare not implemented")
 }
-func (*UnimplementedFServiceServer) GetAllFares(ctx context.Context, req *GetAllFaresRequest) (*GetAllFaresResponse, error) {
+func (*UnimplementedFareServiceServer) GetAllFares(ctx context.Context, req *GetAllFaresRequest) (*GetAllFaresResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllFares not implemented")
 }
-func (*UnimplementedFServiceServer) Delete(ctx context.Context, req *DeleteFareRequest) (*empty.Empty, error) {
+func (*UnimplementedFareServiceServer) Delete(ctx context.Context, req *DeleteFareRequest) (*empty.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
 }
 
-func RegisterFServiceServer(s *grpc.Server, srv FServiceServer) {
-	s.RegisterService(&_FService_serviceDesc, srv)
+func RegisterFareServiceServer(s *grpc.Server, srv FareServiceServer) {
+	s.RegisterService(&_FareService_serviceDesc, srv)
 }
 
-func _FService_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _FareService_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Fare)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(FServiceServer).Create(ctx, in)
+		return srv.(FareServiceServer).Create(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/genproto.FService/Create",
+		FullMethod: "/genproto.FareService/Create",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FServiceServer).Create(ctx, req.(*Fare))
+		return srv.(FareServiceServer).Create(ctx, req.(*Fare))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _FService_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _FareService_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Fare)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(FServiceServer).Update(ctx, in)
+		return srv.(FareServiceServer).Update(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/genproto.FService/Update",
+		FullMethod: "/genproto.FareService/Update",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FServiceServer).Update(ctx, req.(*Fare))
+		return srv.(FareServiceServer).Update(ctx, req.(*Fare))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _FService_GetFare_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _FareService_GetFare_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetFareRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(FServiceServer).GetFare(ctx, in)
+		return srv.(FareServiceServer).GetFare(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/genproto.FService/GetFare",
+		FullMethod: "/genproto.FareService/GetFare",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FServiceServer).GetFare(ctx, req.(*GetFareRequest))
+		return srv.(FareServiceServer).GetFare(ctx, req.(*GetFareRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _FService_GetAllFares_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _FareService_GetAllFares_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetAllFaresRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(FServiceServer).GetAllFares(ctx, in)
+		return srv.(FareServiceServer).GetAllFares(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/genproto.FService/GetAllFares",
+		FullMethod: "/genproto.FareService/GetAllFares",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FServiceServer).GetAllFares(ctx, req.(*GetAllFaresRequest))
+		return srv.(FareServiceServer).GetAllFares(ctx, req.(*GetAllFaresRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _FService_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _FareService_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteFareRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(FServiceServer).Delete(ctx, in)
+		return srv.(FareServiceServer).Delete(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/genproto.FService/Delete",
+		FullMethod: "/genproto.FareService/Delete",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FServiceServer).Delete(ctx, req.(*DeleteFareRequest))
+		return srv.(FareServiceServer).Delete(ctx, req.(*DeleteFareRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-var _FService_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "genproto.FService",
-	HandlerType: (*FServiceServer)(nil),
+var _FareService_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "genproto.FareService",
+	HandlerType: (*FareServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "Create",
-			Handler:    _FService_Create_Handler,
+			Handler:    _FareService_Create_Handler,
 		},
 		{
 			MethodName: "Update",
-			Handler:    _FService_Update_Handler,
+			Handler:    _FareService_Update_Handler,
 		},
 		{
 			MethodName: "GetFare",
-			Handler:    _FService_GetFare_Handler,
+			Handler:    _FareService_GetFare_Handler,
 		},
 		{
 			MethodName: "GetAllFares",
-			Handler:    _FService_GetAllFares_Handler,
+			Handler:    _FareService_GetAllFares_Handler,
 		},
 		{
 			MethodName: "Delete",
-			Handler:    _FService_Delete_Handler,
+			Handler:    _FareService_Delete_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

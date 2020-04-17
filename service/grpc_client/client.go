@@ -9,7 +9,7 @@ import (
 )
 
 type GrpcClientI interface {
-	FareService() pbf.FServiceClient
+	FareService() pbf.FareServiceClient
 }
 
 type GrpcClient struct {
@@ -30,11 +30,11 @@ func New(cfg config.Config) (*GrpcClient, error) {
 	return &GrpcClient{
 		cfg: cfg,
 		connections: map[string]interface{}{
-			"fare_service": pbf.NewFServiceClient(connFare),
+			"fare_service": pbf.NewFareServiceClient(connFare),
 		},
 	}, nil
 }
 
-func (g *GrpcClient) FareService() pbf.FServiceClient {
-	return g.connections["fare_service"].(pbf.FServiceClient)
+func (g *GrpcClient) FareService() pbf.FareServiceClient {
+	return g.connections["fare_service"].(pbf.FareServiceClient)
 }

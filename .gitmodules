@@ -1,0 +1,3 @@
+[submodule "delever_protos"]
+	path = delever_protos
+	url = git@bitbucket.org:alien_soft/delever_protos.git

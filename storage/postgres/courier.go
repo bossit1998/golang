@@ -39,6 +39,7 @@ func (cm *courierRepo) Create(courier *pb.Courier) (*pb.Courier, error) {
 		courier
 		(
 			id,
+			distibutor_id,
 			phone,
 			first_name,
 			last_name
@@ -49,6 +50,7 @@ func (cm *courierRepo) Create(courier *pb.Courier) (*pb.Courier, error) {
 	_, err = tx.Exec(
 		insertNew,
 		courierID,
+		courier.GetDistributorId(),
 		courier.GetPhone(),
 		courier.GetFirstName(),
 		courier.GetLastName(),
@@ -148,14 +150,72 @@ func (cm *courierRepo) GetAllCouriers(page, limit uint64) ([]*pb.Courier, uint64
 		couriers   []*pb.Courier
 	)
 
-	rows, err := cm.db.Queryx(`
+	offset := (page - 1) * limit
+	query := `
 		SELECT  id,
 				phone,
 				first_name,
 				last_name,
 				created_at
 		FROM courier
-		WHERE status=true`)
+		WHERE status=true 
+		ORDER BY created_at DESC 
+		LIMIT $1 OFFSET $2`
+	rows, err := cm.db.Queryx(query, limit, offset)
+
+	if err != nil {
+		return nil, 0, err
+	}
+
+	for rows.Next() {
+		var c pb.Courier
+		err = rows.Scan(
+			&c.Id,
+			&c.Phone,
+			&c.FirstName,
+			&c.LastName,
+			&createdAt,
+		)
+
+		if err != nil {
+			return nil, 0, err
+		}
+		c.CreatedAt = createdAt.Format(layoutDate)
+		couriers = append(couriers, &c)
+	}
+
+	row := cm.db.QueryRow(`
+		SELECT count(1) 
+		FROM courier
+		WHERE status=true`,
+	)
+	err = row.Scan(
+		&count,
+	)
+
+	return couriers, count, nil
+}
+
+func (cm *courierRepo) GetAllDistributorCouriers(dId string, page, limit uint64) ([]*pb.Courier, uint64, error) {
+	var (
+		count      uint64
+		createdAt  time.Time
+		layoutDate string = "2006-01-02 15:04:05"
+		couriers   []*pb.Courier
+	)
+
+	offset := (page - 1) * limit
+	query := `
+		SELECT  id,
+				phone,
+				first_name,
+				last_name,
+				created_at
+		FROM courier
+		WHERE distributor_id=$1 AND status=true 
+		ORDER BY created_at DESC 
+		LIMIT $2 OFFSET $3`
+	rows, err := cm.db.Queryx(query, dId, limit, offset)
 
 	if err != nil {
 		return nil, 0, err
@@ -192,9 +252,7 @@ func (cm *courierRepo) GetAllCouriers(page, limit uint64) ([]*pb.Courier, uint64
 
 func (cm *courierRepo) Delete(id string) error {
 
-	_, err := cm.db.Exec(`
-		UPDATE courier SET status=false where id=$1`, id,
-	)
+	_, err := cm.db.Exec(`UPDATE courier SET status=false where id=$1`, id)
 	if err != nil {
 		return err
 	}

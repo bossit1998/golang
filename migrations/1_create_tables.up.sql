@@ -13,7 +13,8 @@ CREATE TABLE IF NOT EXISTS distributor_fare (
 );
 
 CREATE TABLE IF NOT EXISTS courier (
-     id uuid PRIMARY KEY,
+     id uuid PRIMARY KEY,distributor_id uuid R
+     distributor_id uuid REFERENCES distributor(id) NOT NULL,
      phone VARCHAR(100) NOT NULL,
      first_name VARCHAR(100) NOT NULL,
      last_name VARCHAR(100) NOT NULL,
