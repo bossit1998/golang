@@ -15,14 +15,14 @@ import (
 	"bitbucket.org/alien_soft/courier_service/storage"
 )
 
-// EventService ...
+// Distributor Service ...
 type DistributorService struct {
 	storage storage.StorageI
 	logger  l.Logger
 	client  *grpc_client.GrpcClient
 }
 
-// NewEventService ...
+// New Distributor Service ...
 func NewDistributorService(db *sqlx.DB, client *grpc_client.GrpcClient, log l.Logger) *DistributorService {
 	return &DistributorService{
 		storage: storage.NewStoragePg(db),
@@ -31,13 +31,13 @@ func NewDistributorService(db *sqlx.DB, client *grpc_client.GrpcClient, log l.Lo
 	}
 }
 
-// Create ...
+// Distributor
 func (s *DistributorService) Create(ctx context.Context, req *pb.Distributor) (*pb.CreateDistributorResponse, error) {
 	var err error
 
 	Distributor, err := s.storage.Distributor().Create(req)
 	if err != nil {
-		s.logger.Error("Error while creating event", l.Error(err), l.Any("req", req))
+		s.logger.Error("Error while creating distributor", l.Error(err), l.Any("req", req))
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 	return &pb.CreateDistributorResponse{
@@ -49,10 +49,10 @@ func (s *DistributorService) Update(ctx context.Context, req *pb.Distributor) (*
 	Distributor, err := s.storage.Distributor().Update(req)
 
 	if err == sql.ErrNoRows {
-		s.logger.Error("Error while updating event, Not Found", l.Any("req", req))
+		s.logger.Error("Error while updating distributor, Not Found", l.Any("req", req))
 		return nil, status.Error(codes.NotFound, "Not found")
 	} else if err != nil {
-		s.logger.Error("Error while updating event", l.Error(err), l.Any("req", req))
+		s.logger.Error("Error while updating distributor", l.Error(err), l.Any("req", req))
 		return nil, status.Error(codes.Internal, "Internal server error")
 	}
 
@@ -65,10 +65,10 @@ func (s *DistributorService) GetDistributor(ctx context.Context, req *pb.GetDist
 	var Distributor *pb.Distributor
 	Distributor, err := s.storage.Distributor().GetDistributor(req.Id)
 	if err == sql.ErrNoRows {
-		s.logger.Error("Error while getting an event, Not found", l.Any("req", req))
+		s.logger.Error("Error while getting an distributor, Not found", l.Any("req", req))
 		return nil, status.Error(codes.NotFound, "Not found")
 	} else if err != nil {
-		s.logger.Error("Error while getting event", l.Error(err), l.Any("req", req))
+		s.logger.Error("Error while getting distributor", l.Error(err), l.Any("req", req))
 		return nil, status.Error(codes.Internal, "Internal server error")
 	}
 
@@ -82,10 +82,10 @@ func (s *DistributorService) GetAllDistributors(ctx context.Context, req *pb.Get
 
 	Distributors, count, err := s.storage.Distributor().GetAllDistributors(req.Page, req.Limit)
 	if err == sql.ErrNoRows {
-		s.logger.Error("Error while getting all events, Not found", l.Any("req", req))
+		s.logger.Error("Error while getting all distributors, Not found", l.Any("req", req))
 		return nil, status.Error(codes.NotFound, "Not found")
 	} else if err != nil {
-		s.logger.Error("Error while getting all events", l.Error(err), l.Any("req", req))
+		s.logger.Error("Error while getting all distributors", l.Error(err), l.Any("req", req))
 		return nil, status.Error(codes.Internal, "Internal server error")
 	}
 
@@ -98,10 +98,10 @@ func (s *DistributorService) GetAllDistributors(ctx context.Context, req *pb.Get
 func (s *DistributorService) Delete(ctx context.Context, req *pb.DeleteDistributorRequest) (*gpb.Empty, error) {
 	err := s.storage.Distributor().Delete(req.Id)
 	if err == sql.ErrNoRows {
-		s.logger.Error("Error while deleting event, Not found", l.Any("req", req))
+		s.logger.Error("Error while deleting distributor, Not found", l.Any("req", req))
 		return nil, status.Error(codes.NotFound, "Not found")
 	} else if err != nil {
-		s.logger.Error("Error while deleting event", l.Error(err), l.Any("req", req))
+		s.logger.Error("Error while deleting distributor", l.Error(err), l.Any("req", req))
 		return nil, status.Error(codes.Internal, "Internal server error")
 	}
 	return &gpb.Empty{}, nil

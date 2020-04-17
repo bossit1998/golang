@@ -138,13 +138,17 @@ func (cm *distributorRepo) GetAllDistributors(page, limit uint64) ([]*pb.Distrib
 		distributors []*pb.Distributor
 	)
 
-	rows, err := cm.db.Queryx(`
+	offset := (page - 1) * limit
+	query := `
 		SELECT  id,
 				name,
 				phone,
 				created_at
 		FROM distributor
-		WHERE status=true`)
+		WHERE status=true
+		ORDER BY created_at DESC 
+		LIMIT $1 OFFSET $2`
+	rows, err := cm.db.Queryx(query, limit, offset)
 
 	if err != nil {
 		return nil, 0, err
