@@ -36,7 +36,7 @@ func (cm *courierRepo) Create(courier *pb.Courier) (*pb.Courier, error) {
 
 	insertNew :=
 		`INSERT INTO
-		courier
+		couriers
 		(
 			id,
 			distributor_id,
@@ -79,7 +79,7 @@ func (cm *courierRepo) Update(courier *pb.Courier) (*pb.Courier, error) {
 	}
 
 	updateQuery :=
-		`UPDATE courier
+		`UPDATE couriers
 		 SET
 			phone=$1,
 			first_name=$2,
@@ -123,7 +123,7 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 				first_name,
 				last_name,
 				created_at
-		FROM courier
+		FROM couriers
 		WHERE id=$1`, id,
 	)
 
@@ -160,7 +160,7 @@ func (cm *courierRepo) GetAllCouriers(page, limit uint64) ([]*pb.Courier, uint64
 				first_name,
 				last_name,
 				created_at
-		FROM courier
+		FROM couriers
 		WHERE status=true 
 		ORDER BY created_at DESC 
 		LIMIT $1 OFFSET $2`
@@ -189,7 +189,7 @@ func (cm *courierRepo) GetAllCouriers(page, limit uint64) ([]*pb.Courier, uint64
 
 	row := cm.db.QueryRow(`
 		SELECT count(1) 
-		FROM courier
+		FROM couriers
 		WHERE status=true`,
 	)
 	err = row.Scan(
@@ -215,7 +215,7 @@ func (cm *courierRepo) GetAllDistributorCouriers(dId string, page, limit uint64)
 				first_name,
 				last_name,
 				created_at
-		FROM courier
+		FROM couriers
 		WHERE distributor_id=$1 AND status=true 
 		ORDER BY created_at DESC 
 		LIMIT $2 OFFSET $3`
@@ -244,7 +244,7 @@ func (cm *courierRepo) GetAllDistributorCouriers(dId string, page, limit uint64)
 
 	row := cm.db.QueryRow(`
 		SELECT count(1) 
-		FROM courier
+		FROM couriers
 		WHERE distributor_id=$1 AND status=true`, dId)
 	err = row.Scan(
 		&count,
@@ -255,7 +255,7 @@ func (cm *courierRepo) GetAllDistributorCouriers(dId string, page, limit uint64)
 
 func (cm *courierRepo) Delete(id string) error {
 
-	_, err := cm.db.Exec(`UPDATE courier SET status=false where id=$1`, id)
+	_, err := cm.db.Exec(`UPDATE couriers SET status=false where id=$1`, id)
 	if err != nil {
 		return err
 	}
@@ -435,7 +435,7 @@ func (cm *courierRepo) CreateCourierVehicle(cv *pb.CourierVehicle) (*pb.CourierV
 
 	insertNew :=
 		`INSERT INTO
-		courier_vehicle
+		courier_vehicles
 		(
 			id,
 			courier_id,
@@ -476,7 +476,7 @@ func (cm *courierRepo) UpdateCourierVehicle(cv *pb.CourierVehicle) (*pb.CourierV
 	}
 
 	updateQuery :=
-		`UPDATE courier_vehicle
+		`UPDATE courier_vehicles
 		SET model=$1,
 			vehicle_number=$2
 		WHERE id=$3`
@@ -518,7 +518,7 @@ func (cm *courierRepo) GetCourierVehicle(id string) (*pb.CourierVehicle, error) 
 				model,
 				vehicle_number,
 				created_at
-		FROM courier_vehicle
+		FROM courier_vehicles
 		WHERE id=$1`, id,
 	)
 
@@ -551,7 +551,7 @@ func (cm *courierRepo) GetAllCourierVehicles(courierId string) ([]*pb.CourierVeh
 				model,
 				vehicle_number,
 				created_at
-		FROM courier_vehicle`)
+		FROM courier_vehicles`)
 
 	if err != nil {
 		return nil, err
@@ -580,7 +580,7 @@ func (cm *courierRepo) GetAllCourierVehicles(courierId string) ([]*pb.CourierVeh
 
 func (cm *courierRepo) DeleteCourierVehicle(id string) error {
 	_, err := cm.db.Exec(`
-		UPDATE courier_vehicle SET status = false where id = $1`, id,
+		UPDATE courier_vehicles SET status = false where id = $1`, id,
 	)
 	if err != nil {
 		return err

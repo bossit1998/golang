@@ -32,7 +32,7 @@ func (cm *distributorRepo) Create(distributor *pb.Distributor) (*pb.Distributor,
 
 	insertNew :=
 		`INSERT INTO
-		distributor
+		distributors
 		(
 			id,
 			name,
@@ -71,7 +71,7 @@ func (cm *distributorRepo) Update(distributor *pb.Distributor) (*pb.Distributor,
 	}
 
 	updateQuery :=
-		`UPDATE distributor
+		`UPDATE distributors
 		SET
 			phone=$1,
 			name=$2
@@ -111,7 +111,7 @@ func (cm *distributorRepo) GetDistributor(id string) (*pb.Distributor, error) {
 				name,
 				phone,
 				created_at
-		FROM distributor
+		FROM distributors
 		WHERE id=$1`, id,
 	)
 
@@ -144,7 +144,7 @@ func (cm *distributorRepo) GetAllDistributors(page, limit uint64) ([]*pb.Distrib
 				name,
 				phone,
 				created_at
-		FROM distributor
+		FROM distributors
 		WHERE status=true
 		ORDER BY created_at DESC 
 		LIMIT $1 OFFSET $2`
@@ -172,7 +172,7 @@ func (cm *distributorRepo) GetAllDistributors(page, limit uint64) ([]*pb.Distrib
 
 	row := cm.db.QueryRow(`
 		SELECT count(1) 
-		FROM distributor
+		FROM distributors
 		WHERE status=true`,
 	)
 	err = row.Scan(
@@ -184,7 +184,7 @@ func (cm *distributorRepo) GetAllDistributors(page, limit uint64) ([]*pb.Distrib
 
 func (cm *distributorRepo) Delete(id string) error {
 	_, err := cm.db.Exec(`
-		UPDATE distributor SET status = false where id = $1`, id,
+		UPDATE distributors SET status = false where id = $1`, id,
 	)
 	if err != nil {
 		return err
