@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS distributor (
+CREATE TABLE IF NOT EXISTS distributors (
      id uuid PRIMARY KEY,
      name VARCHAR(100) NOT NULL,
      phone VARCHAR(100) NOT NULL,
@@ -6,9 +6,9 @@ CREATE TABLE IF NOT EXISTS distributor (
      status BOOLEAN NOT NULL DEFAULT TRUE
 );
 
-CREATE TABLE IF NOT EXISTS courier (
+CREATE TABLE IF NOT EXISTS couriers (
      id uuid PRIMARY KEY,
-     distributor_id uuid REFERENCES distributor(id) ON DELETE CASCADE,
+     distributor_id uuid REFERENCES distributors(id),
      phone VARCHAR(100) NOT NULL,
      first_name VARCHAR(100) NOT NULL,
      last_name VARCHAR(100) NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS courier (
 );
 
 CREATE TABLE IF NOT EXISTS courier_details (
-     courier_id uuid PRIMARY KEY REFERENCES courier(id) ON DELETE CASCADE,
+     courier_id uuid PRIMARY KEY REFERENCES couriers(id),
      passport_number VARCHAR(100) NOT NULL,
      gender VARCHAR(100),
      birth_date TIMESTAMP NOT NULL,
@@ -28,9 +28,9 @@ CREATE TABLE IF NOT EXISTS courier_details (
      lisense_expiry_date TIMESTAMP NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS courier_vehicle (
+CREATE TABLE IF NOT EXISTS courier_vehicles (
      id uuid PRIMARY KEY,
-     courier_id uuid REFERENCES courier(id) ON DELETE CASCADE,
+     courier_id uuid REFERENCES couriers(id),
      model VARCHAR(100) NOT NULL,
      vehicle_number VARCHAR(100) NOT NULL,
      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
