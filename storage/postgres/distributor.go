@@ -5,7 +5,6 @@ import (
 
 	pb "bitbucket.org/alien_soft/courier_service/genproto/courier_service"
 	"bitbucket.org/alien_soft/courier_service/storage/repo"
-	"github.com/google/uuid"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -25,27 +24,24 @@ func (cm *distributorRepo) Create(distributor *pb.Distributor) (*pb.Distributor,
 		return nil, err
 	}
 
-	ID, err := uuid.NewRandom()
-	if err != nil {
-		return nil, err
-	}
-
 	insertNew :=
 		`INSERT INTO
 		distributors
 		(
 			id,
 			name,
-			phone
+			phone,
+			access_token
 		)
 		VALUES
 		($1, $2, $3)`
 
 	_, err = tx.Exec(
 		insertNew,
-		ID,
+		distributor.GetId(),
 		distributor.GetName(),
 		distributor.GetPhone(),
+		distributor.GetAccessToken(),
 	)
 
 	if err != nil {
@@ -55,7 +51,7 @@ func (cm *distributorRepo) Create(distributor *pb.Distributor) (*pb.Distributor,
 
 	tx.Commit()
 
-	c, err := cm.GetDistributor(ID.String())
+	c, err := cm.GetDistributor(distributor.GetId())
 	if err != nil {
 		return nil, err
 	}
@@ -145,7 +141,7 @@ func (cm *distributorRepo) GetAllDistributors(page, limit uint64) ([]*pb.Distrib
 				phone,
 				created_at
 		FROM distributors
-		WHERE status=true
+		WHERE is_active=true
 		ORDER BY created_at DESC 
 		LIMIT $1 OFFSET $2`
 	rows, err := cm.db.Queryx(query, limit, offset)
@@ -173,7 +169,7 @@ func (cm *distributorRepo) GetAllDistributors(page, limit uint64) ([]*pb.Distrib
 	row := cm.db.QueryRow(`
 		SELECT count(1) 
 		FROM distributors
-		WHERE status=true`,
+		WHERE is_active=true`,
 	)
 	err = row.Scan(
 		&count,
@@ -184,7 +180,7 @@ func (cm *distributorRepo) GetAllDistributors(page, limit uint64) ([]*pb.Distrib
 
 func (cm *distributorRepo) Delete(id string) error {
 	_, err := cm.db.Exec(`
-		UPDATE distributors SET status = false where id = $1`, id,
+		UPDATE distributors SET is_active=false where id=$1`, id,
 	)
 	if err != nil {
 		return err
