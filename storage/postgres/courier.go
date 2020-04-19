@@ -29,11 +29,6 @@ func (cm *courierRepo) Create(courier *pb.Courier) (*pb.Courier, error) {
 		return nil, err
 	}
 
-	courierID, err := uuid.NewRandom()
-	if err != nil {
-		return nil, err
-	}
-
 	insertNew :=
 		`INSERT INTO
 		couriers
@@ -42,18 +37,20 @@ func (cm *courierRepo) Create(courier *pb.Courier) (*pb.Courier, error) {
 			distributor_id,
 			phone,
 			first_name,
-			last_name
+			last_name,
+			access_token
 		)
 		VALUES
 		($1, $2, $3, $4, $5)`
 
 	_, err = tx.Exec(
 		insertNew,
-		courierID,
+		courier.GetId(),
 		courier.GetDistributorId(),
 		courier.GetPhone(),
 		courier.GetFirstName(),
 		courier.GetLastName(),
+		courier.GetAccessToken(),
 	)
 
 	if err != nil {
@@ -63,7 +60,7 @@ func (cm *courierRepo) Create(courier *pb.Courier) (*pb.Courier, error) {
 
 	tx.Commit()
 
-	c, err := cm.GetCourier(courierID.String())
+	c, err := cm.GetCourier(courier.GetId())
 	if err != nil {
 		return nil, err
 	}
@@ -161,7 +158,7 @@ func (cm *courierRepo) GetAllCouriers(page, limit uint64) ([]*pb.Courier, uint64
 				last_name,
 				created_at
 		FROM couriers
-		WHERE status=true 
+		WHERE is_active=true 
 		ORDER BY created_at DESC 
 		LIMIT $1 OFFSET $2`
 	rows, err := cm.db.Queryx(query, limit, offset)
@@ -190,7 +187,7 @@ func (cm *courierRepo) GetAllCouriers(page, limit uint64) ([]*pb.Courier, uint64
 	row := cm.db.QueryRow(`
 		SELECT count(1) 
 		FROM couriers
-		WHERE status=true`,
+		WHERE is_active=true`,
 	)
 	err = row.Scan(
 		&count,
@@ -216,7 +213,7 @@ func (cm *courierRepo) GetAllDistributorCouriers(dId string, page, limit uint64)
 				last_name,
 				created_at
 		FROM couriers
-		WHERE distributor_id=$1 AND status=true 
+		WHERE distributor_id=$1 AND is_active=true 
 		ORDER BY created_at DESC 
 		LIMIT $2 OFFSET $3`
 	rows, err := cm.db.Queryx(query, dId, limit, offset)
@@ -245,7 +242,7 @@ func (cm *courierRepo) GetAllDistributorCouriers(dId string, page, limit uint64)
 	row := cm.db.QueryRow(`
 		SELECT count(1) 
 		FROM couriers
-		WHERE distributor_id=$1 AND status=true`, dId)
+		WHERE distributor_id=$1 AND is_active=true`, dId)
 	err = row.Scan(
 		&count,
 	)
@@ -255,7 +252,7 @@ func (cm *courierRepo) GetAllDistributorCouriers(dId string, page, limit uint64)
 
 func (cm *courierRepo) Delete(id string) error {
 
-	_, err := cm.db.Exec(`UPDATE couriers SET status=false where id=$1`, id)
+	_, err := cm.db.Exec(`UPDATE couriers SET is_active=false where id=$1`, id)
 	if err != nil {
 		return err
 	}
@@ -580,7 +577,7 @@ func (cm *courierRepo) GetAllCourierVehicles(courierId string) ([]*pb.CourierVeh
 
 func (cm *courierRepo) DeleteCourierVehicle(id string) error {
 	_, err := cm.db.Exec(`
-		UPDATE courier_vehicles SET status = false where id = $1`, id,
+		UPDATE courier_vehicles SET is_active = false where id = $1`, id,
 	)
 	if err != nil {
 		return err
