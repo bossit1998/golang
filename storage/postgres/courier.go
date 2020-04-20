@@ -34,23 +34,23 @@ func (cm *courierRepo) Create(courier *pb.Courier) (*pb.Courier, error) {
 		couriers
 		(
 			id,
+			access_token,
 			distributor_id,
 			phone,
 			first_name,
-			last_name,
-			access_token
+			last_name
 		)
 		VALUES
-		($1, $2, $3, $4, $5)`
+		($1, $2, $3, $4, $5, $6)`
 
 	_, err = tx.Exec(
 		insertNew,
 		courier.GetId(),
+		courier.GetAccessToken(),
 		courier.GetDistributorId(),
 		courier.GetPhone(),
 		courier.GetFirstName(),
 		courier.GetLastName(),
-		courier.GetAccessToken(),
 	)
 
 	if err != nil {
@@ -115,22 +115,26 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 
 	row := cm.db.QueryRow(`
 		SELECT  id,
+				access_token,
 				distributor_id,
 				phone,
 				first_name,
 				last_name,
-				created_at
+				created_at,
+				is_active
 		FROM couriers
 		WHERE id=$1`, id,
 	)
 
 	err := row.Scan(
 		&courier.Id,
+		&courier.AccessToken,
 		&courier.DistributorId,
 		&courier.Phone,
 		&courier.FirstName,
 		&courier.LastName,
 		&createdAt,
+		&courier.IsActive,
 	)
 
 	courier.CreatedAt = createdAt.Format(layoutDate)
@@ -153,12 +157,15 @@ func (cm *courierRepo) GetAllCouriers(page, limit uint64) ([]*pb.Courier, uint64
 
 	query := `
 		SELECT  id,
+				access_token,
+				distributor_id,
 				phone,
 				first_name,
 				last_name,
-				created_at
+				created_at,
+				is_active
 		FROM couriers
-		WHERE is_active=true 
+		WHERE deleted_at IS NULL 
 		ORDER BY created_at DESC 
 		LIMIT $1 OFFSET $2`
 	rows, err := cm.db.Queryx(query, limit, offset)
@@ -171,10 +178,13 @@ func (cm *courierRepo) GetAllCouriers(page, limit uint64) ([]*pb.Courier, uint64
 		var c pb.Courier
 		err = rows.Scan(
 			&c.Id,
+			&c.AccessToken,
+			&c.DistributorId,
 			&c.Phone,
 			&c.FirstName,
 			&c.LastName,
 			&createdAt,
+			&c.IsActive,
 		)
 
 		if err != nil {
@@ -187,7 +197,7 @@ func (cm *courierRepo) GetAllCouriers(page, limit uint64) ([]*pb.Courier, uint64
 	row := cm.db.QueryRow(`
 		SELECT count(1) 
 		FROM couriers
-		WHERE is_active=true`,
+		WHERE deleted_at IS NULL`,
 	)
 	err = row.Scan(
 		&count,
@@ -208,12 +218,14 @@ func (cm *courierRepo) GetAllDistributorCouriers(dId string, page, limit uint64)
 
 	query := `
 		SELECT  id,
+				access_token,
 				phone,
 				first_name,
 				last_name,
-				created_at
+				created_at,
+				is_active
 		FROM couriers
-		WHERE distributor_id=$1 AND is_active=true 
+		WHERE distributor_id=$1 AND deleted_at IS NULL 
 		ORDER BY created_at DESC 
 		LIMIT $2 OFFSET $3`
 	rows, err := cm.db.Queryx(query, dId, limit, offset)
@@ -226,10 +238,12 @@ func (cm *courierRepo) GetAllDistributorCouriers(dId string, page, limit uint64)
 		var c pb.Courier
 		err = rows.Scan(
 			&c.Id,
+			&c.AccessToken,
 			&c.Phone,
 			&c.FirstName,
 			&c.LastName,
 			&createdAt,
+			&c.IsActive,
 		)
 
 		if err != nil {
@@ -242,7 +256,7 @@ func (cm *courierRepo) GetAllDistributorCouriers(dId string, page, limit uint64)
 	row := cm.db.QueryRow(`
 		SELECT count(1) 
 		FROM couriers
-		WHERE distributor_id=$1 AND is_active=true`, dId)
+		WHERE distributor_id=$1 AND deleted_at IS NULL`, dId)
 	err = row.Scan(
 		&count,
 	)
@@ -252,7 +266,27 @@ func (cm *courierRepo) GetAllDistributorCouriers(dId string, page, limit uint64)
 
 func (cm *courierRepo) Delete(id string) error {
 
+	_, err := cm.db.Exec(`UPDATE couriers SET deleted_at=CURRENT_TIMESTAMP where id=$1`, id)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (cm *courierRepo) BlockCourier(id string) error {
+
 	_, err := cm.db.Exec(`UPDATE couriers SET is_active=false where id=$1`, id)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (cm *courierRepo) UnblockCourier(id string) error {
+
+	_, err := cm.db.Exec(`UPDATE couriers SET is_active=true where id=$1`, id)
 	if err != nil {
 		return err
 	}
@@ -514,7 +548,8 @@ func (cm *courierRepo) GetCourierVehicle(id string) (*pb.CourierVehicle, error) 
 				courier_id,
 				model,
 				vehicle_number,
-				created_at
+				created_at,
+				is_active
 		FROM courier_vehicles
 		WHERE id=$1`, id,
 	)
@@ -525,6 +560,7 @@ func (cm *courierRepo) GetCourierVehicle(id string) (*pb.CourierVehicle, error) 
 		&cv.Model,
 		&cv.VehicleNumber,
 		&createdAt,
+		&cv.IsActive,
 	)
 	if err != nil {
 		return nil, err
@@ -544,10 +580,52 @@ func (cm *courierRepo) GetAllCourierVehicles(courierId string) ([]*pb.CourierVeh
 
 	rows, err := cm.db.Queryx(`
 		SELECT  id,
+				model,
+				vehicle_number,
+				created_at,
+				is_active
+		FROM courier_vehicles
+		WHERE courier_id=$1 AND deleted_at IS NULL`, courierId)
+
+	if err != nil {
+		return nil, err
+	}
+
+	for rows.Next() {
+		var cv pb.CourierVehicle
+		err = rows.Scan(
+			&cv.Id,
+			&cv.Model,
+			&cv.VehicleNumber,
+			&createdAt,
+			&cv.IsActive,
+		)
+
+		if err != nil {
+			return nil, err
+		}
+		cv.CreatedAt = createdAt.Format(layout)
+
+		courierVehicles = append(courierVehicles, &cv)
+	}
+
+	return courierVehicles, nil
+}
+
+func (cm *courierRepo) GetAllVehicles(page, limit uint64) ([]*pb.CourierVehicle, error) {
+	var (
+		courierVehicles []*pb.CourierVehicle
+		layout          string = "2006-01-02 15:04:05"
+		createdAt       time.Time
+	)
+
+	rows, err := cm.db.Queryx(`
+		SELECT  id,
 				courier_id,
 				model,
 				vehicle_number,
-				created_at
+				created_at,
+				is_active
 		FROM courier_vehicles`)
 
 	if err != nil {
@@ -561,7 +639,8 @@ func (cm *courierRepo) GetAllCourierVehicles(courierId string) ([]*pb.CourierVeh
 			&cv.CourierId,
 			&cv.Model,
 			&cv.VehicleNumber,
-			&cv.CreatedAt,
+			&createdAt,
+			&cv.IsActive,
 		)
 
 		if err != nil {
@@ -577,7 +656,7 @@ func (cm *courierRepo) GetAllCourierVehicles(courierId string) ([]*pb.CourierVeh
 
 func (cm *courierRepo) DeleteCourierVehicle(id string) error {
 	_, err := cm.db.Exec(`
-		UPDATE courier_vehicles SET is_active = false where id = $1`, id,
+		UPDATE courier_vehicles SET deleted_at=CURRENT_TIMESTAMP where id=$1`, id,
 	)
 	if err != nil {
 		return err

@@ -182,8 +182,8 @@ func (m *GetFareResponse) GetFare() *Fare {
 }
 
 type GetAllFaresRequest struct {
-	Limit                uint64   `protobuf:"varint,3,opt,name=limit,proto3" json:"limit,omitempty"`
-	Page                 uint64   `protobuf:"varint,4,opt,name=page,proto3" json:"page,omitempty"`
+	Limit                uint64   `protobuf:"varint,1,opt,name=limit,proto3" json:"limit,omitempty"`
+	Page                 uint64   `protobuf:"varint,2,opt,name=page,proto3" json:"page,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -314,6 +314,256 @@ func (m *DeleteFareRequest) GetId() string {
 	return ""
 }
 
+type GetAllDistributorFaresRequest struct {
+	DistributorId        string   `protobuf:"bytes,1,opt,name=distributor_id,json=distributorId,proto3" json:"distributor_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetAllDistributorFaresRequest) Reset()         { *m = GetAllDistributorFaresRequest{} }
+func (m *GetAllDistributorFaresRequest) String() string { return proto.CompactTextString(m) }
+func (*GetAllDistributorFaresRequest) ProtoMessage()    {}
+func (*GetAllDistributorFaresRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_581d3f182827d35a, []int{7}
+}
+
+func (m *GetAllDistributorFaresRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetAllDistributorFaresRequest.Unmarshal(m, b)
+}
+func (m *GetAllDistributorFaresRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetAllDistributorFaresRequest.Marshal(b, m, deterministic)
+}
+func (m *GetAllDistributorFaresRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetAllDistributorFaresRequest.Merge(m, src)
+}
+func (m *GetAllDistributorFaresRequest) XXX_Size() int {
+	return xxx_messageInfo_GetAllDistributorFaresRequest.Size(m)
+}
+func (m *GetAllDistributorFaresRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetAllDistributorFaresRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetAllDistributorFaresRequest proto.InternalMessageInfo
+
+func (m *GetAllDistributorFaresRequest) GetDistributorId() string {
+	if m != nil {
+		return m.DistributorId
+	}
+	return ""
+}
+
+type GetAllDistributorFaresResponse struct {
+	Fares                []*Fare  `protobuf:"bytes,1,rep,name=fares,proto3" json:"fares,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetAllDistributorFaresResponse) Reset()         { *m = GetAllDistributorFaresResponse{} }
+func (m *GetAllDistributorFaresResponse) String() string { return proto.CompactTextString(m) }
+func (*GetAllDistributorFaresResponse) ProtoMessage()    {}
+func (*GetAllDistributorFaresResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_581d3f182827d35a, []int{8}
+}
+
+func (m *GetAllDistributorFaresResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetAllDistributorFaresResponse.Unmarshal(m, b)
+}
+func (m *GetAllDistributorFaresResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetAllDistributorFaresResponse.Marshal(b, m, deterministic)
+}
+func (m *GetAllDistributorFaresResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetAllDistributorFaresResponse.Merge(m, src)
+}
+func (m *GetAllDistributorFaresResponse) XXX_Size() int {
+	return xxx_messageInfo_GetAllDistributorFaresResponse.Size(m)
+}
+func (m *GetAllDistributorFaresResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetAllDistributorFaresResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetAllDistributorFaresResponse proto.InternalMessageInfo
+
+func (m *GetAllDistributorFaresResponse) GetFares() []*Fare {
+	if m != nil {
+		return m.Fares
+	}
+	return nil
+}
+
+type DeleteDistributorFareRequest struct {
+	DistributorId        string   `protobuf:"bytes,1,opt,name=distributor_id,json=distributorId,proto3" json:"distributor_id,omitempty"`
+	FareId               string   `protobuf:"bytes,2,opt,name=fare_id,json=fareId,proto3" json:"fare_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *DeleteDistributorFareRequest) Reset()         { *m = DeleteDistributorFareRequest{} }
+func (m *DeleteDistributorFareRequest) String() string { return proto.CompactTextString(m) }
+func (*DeleteDistributorFareRequest) ProtoMessage()    {}
+func (*DeleteDistributorFareRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_581d3f182827d35a, []int{9}
+}
+
+func (m *DeleteDistributorFareRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DeleteDistributorFareRequest.Unmarshal(m, b)
+}
+func (m *DeleteDistributorFareRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DeleteDistributorFareRequest.Marshal(b, m, deterministic)
+}
+func (m *DeleteDistributorFareRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DeleteDistributorFareRequest.Merge(m, src)
+}
+func (m *DeleteDistributorFareRequest) XXX_Size() int {
+	return xxx_messageInfo_DeleteDistributorFareRequest.Size(m)
+}
+func (m *DeleteDistributorFareRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_DeleteDistributorFareRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DeleteDistributorFareRequest proto.InternalMessageInfo
+
+func (m *DeleteDistributorFareRequest) GetDistributorId() string {
+	if m != nil {
+		return m.DistributorId
+	}
+	return ""
+}
+
+func (m *DeleteDistributorFareRequest) GetFareId() string {
+	if m != nil {
+		return m.FareId
+	}
+	return ""
+}
+
+type GetAllCourierFaresRequest struct {
+	CourierId            string   `protobuf:"bytes,1,opt,name=courier_id,json=courierId,proto3" json:"courier_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetAllCourierFaresRequest) Reset()         { *m = GetAllCourierFaresRequest{} }
+func (m *GetAllCourierFaresRequest) String() string { return proto.CompactTextString(m) }
+func (*GetAllCourierFaresRequest) ProtoMessage()    {}
+func (*GetAllCourierFaresRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_581d3f182827d35a, []int{10}
+}
+
+func (m *GetAllCourierFaresRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetAllCourierFaresRequest.Unmarshal(m, b)
+}
+func (m *GetAllCourierFaresRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetAllCourierFaresRequest.Marshal(b, m, deterministic)
+}
+func (m *GetAllCourierFaresRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetAllCourierFaresRequest.Merge(m, src)
+}
+func (m *GetAllCourierFaresRequest) XXX_Size() int {
+	return xxx_messageInfo_GetAllCourierFaresRequest.Size(m)
+}
+func (m *GetAllCourierFaresRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetAllCourierFaresRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetAllCourierFaresRequest proto.InternalMessageInfo
+
+func (m *GetAllCourierFaresRequest) GetCourierId() string {
+	if m != nil {
+		return m.CourierId
+	}
+	return ""
+}
+
+type GetAllCourierFaresResponse struct {
+	Fares                []*Fare  `protobuf:"bytes,1,rep,name=fares,proto3" json:"fares,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetAllCourierFaresResponse) Reset()         { *m = GetAllCourierFaresResponse{} }
+func (m *GetAllCourierFaresResponse) String() string { return proto.CompactTextString(m) }
+func (*GetAllCourierFaresResponse) ProtoMessage()    {}
+func (*GetAllCourierFaresResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_581d3f182827d35a, []int{11}
+}
+
+func (m *GetAllCourierFaresResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetAllCourierFaresResponse.Unmarshal(m, b)
+}
+func (m *GetAllCourierFaresResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetAllCourierFaresResponse.Marshal(b, m, deterministic)
+}
+func (m *GetAllCourierFaresResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetAllCourierFaresResponse.Merge(m, src)
+}
+func (m *GetAllCourierFaresResponse) XXX_Size() int {
+	return xxx_messageInfo_GetAllCourierFaresResponse.Size(m)
+}
+func (m *GetAllCourierFaresResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetAllCourierFaresResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetAllCourierFaresResponse proto.InternalMessageInfo
+
+func (m *GetAllCourierFaresResponse) GetFares() []*Fare {
+	if m != nil {
+		return m.Fares
+	}
+	return nil
+}
+
+type DeleteCourierFareRequest struct {
+	CourierId            string   `protobuf:"bytes,1,opt,name=courier_id,json=courierId,proto3" json:"courier_id,omitempty"`
+	FareId               string   `protobuf:"bytes,2,opt,name=fare_id,json=fareId,proto3" json:"fare_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *DeleteCourierFareRequest) Reset()         { *m = DeleteCourierFareRequest{} }
+func (m *DeleteCourierFareRequest) String() string { return proto.CompactTextString(m) }
+func (*DeleteCourierFareRequest) ProtoMessage()    {}
+func (*DeleteCourierFareRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_581d3f182827d35a, []int{12}
+}
+
+func (m *DeleteCourierFareRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DeleteCourierFareRequest.Unmarshal(m, b)
+}
+func (m *DeleteCourierFareRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DeleteCourierFareRequest.Marshal(b, m, deterministic)
+}
+func (m *DeleteCourierFareRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DeleteCourierFareRequest.Merge(m, src)
+}
+func (m *DeleteCourierFareRequest) XXX_Size() int {
+	return xxx_messageInfo_DeleteCourierFareRequest.Size(m)
+}
+func (m *DeleteCourierFareRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_DeleteCourierFareRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DeleteCourierFareRequest proto.InternalMessageInfo
+
+func (m *DeleteCourierFareRequest) GetCourierId() string {
+	if m != nil {
+		return m.CourierId
+	}
+	return ""
+}
+
+func (m *DeleteCourierFareRequest) GetFareId() string {
+	if m != nil {
+		return m.FareId
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*CreateFareResponse)(nil), "genproto.CreateFareResponse")
 	proto.RegisterType((*UpdateFareResponse)(nil), "genproto.UpdateFareResponse")
@@ -322,35 +572,53 @@ func init() {
 	proto.RegisterType((*GetAllFaresRequest)(nil), "genproto.GetAllFaresRequest")
 	proto.RegisterType((*GetAllFaresResponse)(nil), "genproto.GetAllFaresResponse")
 	proto.RegisterType((*DeleteFareRequest)(nil), "genproto.DeleteFareRequest")
+	proto.RegisterType((*GetAllDistributorFaresRequest)(nil), "genproto.GetAllDistributorFaresRequest")
+	proto.RegisterType((*GetAllDistributorFaresResponse)(nil), "genproto.GetAllDistributorFaresResponse")
+	proto.RegisterType((*DeleteDistributorFareRequest)(nil), "genproto.DeleteDistributorFareRequest")
+	proto.RegisterType((*GetAllCourierFaresRequest)(nil), "genproto.GetAllCourierFaresRequest")
+	proto.RegisterType((*GetAllCourierFaresResponse)(nil), "genproto.GetAllCourierFaresResponse")
+	proto.RegisterType((*DeleteCourierFareRequest)(nil), "genproto.DeleteCourierFareRequest")
 }
 
 func init() { proto.RegisterFile("fare_service.proto", fileDescriptor_581d3f182827d35a) }
 
 var fileDescriptor_581d3f182827d35a = []byte{
-	// 360 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x53, 0x4d, 0x4f, 0xc2, 0x40,
-	0x10, 0xa5, 0xa5, 0xa0, 0x0e, 0x09, 0xc6, 0xf1, 0xab, 0x16, 0x4c, 0x9a, 0xd5, 0x03, 0xa7, 0x92,
-	0x60, 0x4c, 0x38, 0xf9, 0xad, 0x5c, 0xbc, 0x88, 0xf1, 0xe2, 0xc5, 0x14, 0x18, 0x9a, 0x26, 0x85,
-	0xd6, 0xee, 0x62, 0xe2, 0xdf, 0xf4, 0x17, 0x99, 0xdd, 0xa5, 0x7c, 0x56, 0x13, 0xbd, 0xed, 0xcc,
-	0x9b, 0xf7, 0x26, 0x7d, 0x6f, 0x0a, 0x38, 0xf4, 0x53, 0x7a, 0xe3, 0x94, 0x7e, 0x84, 0x7d, 0xf2,
-	0x92, 0x34, 0x16, 0x31, 0x6e, 0x06, 0x34, 0x56, 0x2f, 0x07, 0x24, 0xaa, 0xbb, 0x4e, 0x2d, 0x88,
-	0xe3, 0x20, 0xa2, 0xa6, 0xaa, 0x7a, 0x93, 0x61, 0x93, 0x46, 0x89, 0xf8, 0xd4, 0x20, 0x6b, 0x03,
-	0xde, 0xa6, 0xe4, 0x0b, 0x7a, 0xf0, 0x53, 0xea, 0x12, 0x4f, 0xe2, 0x31, 0x27, 0x64, 0x60, 0x49,
-	0x01, 0xdb, 0x70, 0x8d, 0x46, 0xa5, 0x55, 0xf5, 0x32, 0x5d, 0x4f, 0x4d, 0x29, 0x4c, 0x32, 0x5f,
-	0x92, 0xc1, 0x7f, 0x98, 0x2e, 0x54, 0x3b, 0x24, 0x34, 0xed, 0x7d, 0x42, 0x5c, 0x60, 0x15, 0xcc,
-	0x70, 0xa0, 0x38, 0x5b, 0x5d, 0x33, 0x1c, 0xb0, 0x73, 0xd8, 0x9e, 0x4d, 0xfc, 0x41, 0xf8, 0x02,
-	0xb0, 0x43, 0xe2, 0x3a, 0x8a, 0x64, 0x8f, 0x67, 0xe2, 0x7b, 0x50, 0x8a, 0xc2, 0x51, 0x28, 0xec,
-	0xa2, 0x6b, 0x34, 0xac, 0xae, 0x2e, 0x10, 0xc1, 0x4a, 0xfc, 0x80, 0x6c, 0x4b, 0x35, 0xd5, 0x9b,
-	0x3d, 0xc1, 0xee, 0x12, 0x7f, 0xba, 0xfa, 0x14, 0x4a, 0x52, 0x9e, 0xdb, 0x86, 0x5b, 0xcc, 0xd9,
-	0xad, 0x41, 0xb9, 0xa6, 0x1f, 0x4f, 0xc6, 0xc2, 0x36, 0xf5, 0x1a, 0x55, 0xb0, 0x13, 0xd8, 0xb9,
-	0xa3, 0x88, 0x32, 0x97, 0x72, 0x3f, 0xb7, 0xf5, 0x65, 0x42, 0x45, 0xe2, 0xcf, 0x3a, 0x4d, 0x6c,
-	0x43, 0x59, 0x87, 0x82, 0x2b, 0xbb, 0x9c, 0xfa, 0xbc, 0x5e, 0x8f, 0x8d, 0x15, 0x24, 0x53, 0x87,
-	0xf2, 0x1b, 0x73, 0x3d, 0x36, 0x56, 0xc0, 0x2b, 0xd8, 0x98, 0x5a, 0x8e, 0xf6, 0x7c, 0x74, 0x39,
-	0x27, 0xe7, 0x28, 0x07, 0x99, 0x29, 0x3c, 0x42, 0x65, 0xc1, 0x3d, 0xac, 0x2f, 0xcd, 0xae, 0x84,
-	0xe2, 0x1c, 0xff, 0x80, 0xce, 0xd4, 0x2e, 0xa1, 0xac, 0x8d, 0xc3, 0xda, 0x7c, 0x74, 0xcd, 0x4a,
-	0xe7, 0xc0, 0xd3, 0xd7, 0xed, 0x65, 0xd7, 0xed, 0xdd, 0xcb, 0xeb, 0x66, 0x85, 0x9b, 0xc3, 0xd7,
-	0xfd, 0x8c, 0xd7, 0x5c, 0xfc, 0x57, 0x7a, 0x65, 0xd5, 0x3b, 0xfb, 0x0e, 0x00, 0x00, 0xff, 0xff,
-	0xa0, 0xa2, 0x18, 0x89, 0x42, 0x03, 0x00, 0x00,
+	// 554 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x55, 0x4d, 0x6f, 0xd3, 0x40,
+	0x10, 0x6d, 0x42, 0x9a, 0x92, 0x89, 0x08, 0xea, 0x40, 0x5a, 0xd7, 0x4d, 0x50, 0xb4, 0x2d, 0xd0,
+	0x93, 0x23, 0x15, 0x21, 0x55, 0x1c, 0xf8, 0x68, 0x43, 0xab, 0x48, 0x5c, 0x6a, 0xc4, 0x01, 0x0e,
+	0x54, 0x4e, 0xbc, 0x8d, 0x2c, 0x39, 0xb1, 0xb1, 0xd7, 0x48, 0xfc, 0x61, 0x7e, 0x07, 0xda, 0x9d,
+	0xf8, 0x33, 0xb6, 0x21, 0xdc, 0xbc, 0x33, 0xf3, 0xde, 0xce, 0x1b, 0xed, 0x1b, 0x03, 0xde, 0x5b,
+	0x01, 0xbf, 0x0b, 0x79, 0xf0, 0xd3, 0x99, 0x73, 0xc3, 0x0f, 0x3c, 0xe1, 0xe1, 0xc3, 0x05, 0x5f,
+	0xa9, 0x2f, 0x1d, 0x64, 0x96, 0xa2, 0xfa, 0xf1, 0xc2, 0xf3, 0x16, 0x2e, 0x1f, 0xab, 0xd3, 0x2c,
+	0xba, 0x1f, 0xf3, 0xa5, 0x2f, 0x7e, 0x51, 0x92, 0x5d, 0x00, 0x5e, 0x05, 0xdc, 0x12, 0xfc, 0xda,
+	0x0a, 0xb8, 0xc9, 0x43, 0xdf, 0x5b, 0x85, 0x1c, 0x19, 0xb4, 0x24, 0x81, 0xd6, 0x18, 0x35, 0xce,
+	0xba, 0xe7, 0x3d, 0x23, 0xe6, 0x35, 0x54, 0x95, 0xca, 0x49, 0xe4, 0x17, 0xdf, 0xfe, 0x1f, 0xe4,
+	0x08, 0x7a, 0x37, 0x5c, 0x10, 0xec, 0x47, 0xc4, 0x43, 0x81, 0x3d, 0x68, 0x3a, 0xb6, 0xc2, 0x74,
+	0xcc, 0xa6, 0x63, 0xb3, 0xd7, 0xf0, 0x38, 0xa9, 0xd8, 0x82, 0xf8, 0x2d, 0xe0, 0x0d, 0x17, 0x1f,
+	0x5c, 0x57, 0xc6, 0xc2, 0x98, 0xfc, 0x29, 0xec, 0xba, 0xce, 0xd2, 0x11, 0x0a, 0xda, 0x32, 0xe9,
+	0x80, 0x08, 0x2d, 0xdf, 0x5a, 0x70, 0xad, 0xa9, 0x82, 0xea, 0x9b, 0xdd, 0xc2, 0x93, 0x1c, 0x7e,
+	0x7d, 0xf5, 0x29, 0xec, 0x4a, 0xfa, 0x50, 0x6b, 0x8c, 0x1e, 0x94, 0xdc, 0x4d, 0x49, 0x79, 0xcd,
+	0xdc, 0x8b, 0x56, 0x62, 0xcd, 0x48, 0x07, 0x76, 0x02, 0xfb, 0x13, 0xee, 0xf2, 0x78, 0x4a, 0xe5,
+	0x72, 0xaf, 0x61, 0x48, 0xf7, 0x4e, 0x9c, 0x50, 0x04, 0xce, 0x2c, 0x12, 0x5e, 0x90, 0x93, 0xf0,
+	0x1c, 0x7a, 0x76, 0x9a, 0xba, 0x4b, 0xc0, 0x8f, 0x32, 0xd1, 0xa9, 0xe4, 0x79, 0x56, 0xc5, 0xb3,
+	0x8d, 0x14, 0xf6, 0x1d, 0x06, 0xd4, 0x74, 0x81, 0x67, 0xbb, 0x76, 0xf0, 0x10, 0xf6, 0xd4, 0x23,
+	0x75, 0x6c, 0x35, 0x93, 0x8e, 0xd9, 0x96, 0xc7, 0xa9, 0xcd, 0xde, 0xc0, 0x11, 0xf5, 0x79, 0xe5,
+	0x45, 0x81, 0xc3, 0xf3, 0x5a, 0x87, 0x00, 0x73, 0x0a, 0xa7, 0xc4, 0x9d, 0x75, 0x64, 0x6a, 0xb3,
+	0x4b, 0xd0, 0xcb, 0xb0, 0x5b, 0xe9, 0x33, 0x41, 0x23, 0x7d, 0x19, 0x8e, 0x7f, 0xbb, 0xbe, 0x52,
+	0xd3, 0xf9, 0xef, 0x36, 0x74, 0x25, 0xcf, 0x67, 0x72, 0x24, 0x5e, 0x40, 0x9b, 0x8c, 0x85, 0x85,
+	0x26, 0xf4, 0x41, 0x7a, 0xde, 0xb4, 0x1e, 0xdb, 0x91, 0x48, 0x32, 0x56, 0x1d, 0x72, 0xd3, 0x7a,
+	0x6c, 0x07, 0xdf, 0xc3, 0xde, 0xda, 0x36, 0xa8, 0xa5, 0xa5, 0x79, 0xaf, 0xe9, 0x47, 0x25, 0x99,
+	0x84, 0xe1, 0x13, 0x74, 0x33, 0x0e, 0xc0, 0x41, 0xae, 0xb6, 0x60, 0x2c, 0x7d, 0x58, 0x91, 0x4d,
+	0xd8, 0xde, 0x41, 0x9b, 0xe6, 0x8c, 0xc7, 0x69, 0xe9, 0x86, 0x1d, 0xf4, 0x03, 0x83, 0x36, 0x94,
+	0x11, 0x6f, 0x28, 0xe3, 0xa3, 0xdc, 0x50, 0xaa, 0x9d, 0x3e, 0x8d, 0xa8, 0xf0, 0x10, 0x31, 0x23,
+	0xa2, 0x90, 0xaa, 0x61, 0x5b, 0xc2, 0x41, 0xb9, 0x3d, 0xf0, 0x65, 0x51, 0x49, 0x85, 0x11, 0xf5,
+	0xb3, 0xbf, 0x17, 0x26, 0xea, 0xbf, 0x42, 0xbf, 0xd4, 0x45, 0xf8, 0xa2, 0x38, 0x8c, 0x72, 0x9b,
+	0xd5, 0x28, 0x99, 0xc0, 0x3e, 0xcd, 0x25, 0xf3, 0x80, 0xb1, 0x9f, 0x79, 0x57, 0x69, 0xb8, 0x86,
+	0xc5, 0x8a, 0xd7, 0x65, 0xd6, 0x4a, 0x78, 0x52, 0x94, 0x58, 0x62, 0x52, 0xfd, 0xb4, 0xbe, 0x28,
+	0x99, 0xc1, 0x6d, 0xbc, 0xfe, 0xb2, 0x8d, 0xb2, 0xa2, 0xfe, 0x4d, 0x1b, 0x56, 0x77, 0x7d, 0x79,
+	0xf8, 0xad, 0x1f, 0xc3, 0xc7, 0xd9, 0x7f, 0xe0, 0xac, 0xad, 0x62, 0xaf, 0xfe, 0x04, 0x00, 0x00,
+	0xff, 0xff, 0x83, 0xa4, 0x64, 0xd8, 0x1a, 0x07, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -370,6 +638,12 @@ type FareServiceClient interface {
 	GetFare(ctx context.Context, in *GetFareRequest, opts ...grpc.CallOption) (*GetFareResponse, error)
 	GetAllFares(ctx context.Context, in *GetAllFaresRequest, opts ...grpc.CallOption) (*GetAllFaresResponse, error)
 	Delete(ctx context.Context, in *DeleteFareRequest, opts ...grpc.CallOption) (*empty.Empty, error)
+	CreateDistributorFare(ctx context.Context, in *DistributorFare, opts ...grpc.CallOption) (*empty.Empty, error)
+	GetAllDistributorFares(ctx context.Context, in *GetAllDistributorFaresRequest, opts ...grpc.CallOption) (*GetAllDistributorFaresResponse, error)
+	DeleteDistributorFare(ctx context.Context, in *DeleteDistributorFareRequest, opts ...grpc.CallOption) (*empty.Empty, error)
+	CreateCourierFare(ctx context.Context, in *CourierFare, opts ...grpc.CallOption) (*empty.Empty, error)
+	GetAllCourierFares(ctx context.Context, in *GetAllCourierFaresRequest, opts ...grpc.CallOption) (*GetAllCourierFaresResponse, error)
+	DeleteCourierFare(ctx context.Context, in *DeleteCourierFareRequest, opts ...grpc.CallOption) (*empty.Empty, error)
 }
 
 type fareServiceClient struct {
@@ -425,6 +699,60 @@ func (c *fareServiceClient) Delete(ctx context.Context, in *DeleteFareRequest, o
 	return out, nil
 }
 
+func (c *fareServiceClient) CreateDistributorFare(ctx context.Context, in *DistributorFare, opts ...grpc.CallOption) (*empty.Empty, error) {
+	out := new(empty.Empty)
+	err := c.cc.Invoke(ctx, "/genproto.FareService/CreateDistributorFare", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *fareServiceClient) GetAllDistributorFares(ctx context.Context, in *GetAllDistributorFaresRequest, opts ...grpc.CallOption) (*GetAllDistributorFaresResponse, error) {
+	out := new(GetAllDistributorFaresResponse)
+	err := c.cc.Invoke(ctx, "/genproto.FareService/GetAllDistributorFares", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *fareServiceClient) DeleteDistributorFare(ctx context.Context, in *DeleteDistributorFareRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+	out := new(empty.Empty)
+	err := c.cc.Invoke(ctx, "/genproto.FareService/DeleteDistributorFare", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *fareServiceClient) CreateCourierFare(ctx context.Context, in *CourierFare, opts ...grpc.CallOption) (*empty.Empty, error) {
+	out := new(empty.Empty)
+	err := c.cc.Invoke(ctx, "/genproto.FareService/CreateCourierFare", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *fareServiceClient) GetAllCourierFares(ctx context.Context, in *GetAllCourierFaresRequest, opts ...grpc.CallOption) (*GetAllCourierFaresResponse, error) {
+	out := new(GetAllCourierFaresResponse)
+	err := c.cc.Invoke(ctx, "/genproto.FareService/GetAllCourierFares", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *fareServiceClient) DeleteCourierFare(ctx context.Context, in *DeleteCourierFareRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+	out := new(empty.Empty)
+	err := c.cc.Invoke(ctx, "/genproto.FareService/DeleteCourierFare", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // FareServiceServer is the server API for FareService service.
 type FareServiceServer interface {
 	Create(context.Context, *Fare) (*CreateFareResponse, error)
@@ -432,6 +760,12 @@ type FareServiceServer interface {
 	GetFare(context.Context, *GetFareRequest) (*GetFareResponse, error)
 	GetAllFares(context.Context, *GetAllFaresRequest) (*GetAllFaresResponse, error)
 	Delete(context.Context, *DeleteFareRequest) (*empty.Empty, error)
+	CreateDistributorFare(context.Context, *DistributorFare) (*empty.Empty, error)
+	GetAllDistributorFares(context.Context, *GetAllDistributorFaresRequest) (*GetAllDistributorFaresResponse, error)
+	DeleteDistributorFare(context.Context, *DeleteDistributorFareRequest) (*empty.Empty, error)
+	CreateCourierFare(context.Context, *CourierFare) (*empty.Empty, error)
+	GetAllCourierFares(context.Context, *GetAllCourierFaresRequest) (*GetAllCourierFaresResponse, error)
+	DeleteCourierFare(context.Context, *DeleteCourierFareRequest) (*empty.Empty, error)
 }
 
 // UnimplementedFareServiceServer can be embedded to have forward compatible implementations.
@@ -452,6 +786,24 @@ func (*UnimplementedFareServiceServer) GetAllFares(ctx context.Context, req *Get
 }
 func (*UnimplementedFareServiceServer) Delete(ctx context.Context, req *DeleteFareRequest) (*empty.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
+}
+func (*UnimplementedFareServiceServer) CreateDistributorFare(ctx context.Context, req *DistributorFare) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateDistributorFare not implemented")
+}
+func (*UnimplementedFareServiceServer) GetAllDistributorFares(ctx context.Context, req *GetAllDistributorFaresRequest) (*GetAllDistributorFaresResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllDistributorFares not implemented")
+}
+func (*UnimplementedFareServiceServer) DeleteDistributorFare(ctx context.Context, req *DeleteDistributorFareRequest) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteDistributorFare not implemented")
+}
+func (*UnimplementedFareServiceServer) CreateCourierFare(ctx context.Context, req *CourierFare) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateCourierFare not implemented")
+}
+func (*UnimplementedFareServiceServer) GetAllCourierFares(ctx context.Context, req *GetAllCourierFaresRequest) (*GetAllCourierFaresResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllCourierFares not implemented")
+}
+func (*UnimplementedFareServiceServer) DeleteCourierFare(ctx context.Context, req *DeleteCourierFareRequest) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteCourierFare not implemented")
 }
 
 func RegisterFareServiceServer(s *grpc.Server, srv FareServiceServer) {
@@ -548,6 +900,114 @@ func _FareService_Delete_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _FareService_CreateDistributorFare_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DistributorFare)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FareServiceServer).CreateDistributorFare(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/genproto.FareService/CreateDistributorFare",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FareServiceServer).CreateDistributorFare(ctx, req.(*DistributorFare))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FareService_GetAllDistributorFares_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAllDistributorFaresRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FareServiceServer).GetAllDistributorFares(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/genproto.FareService/GetAllDistributorFares",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FareServiceServer).GetAllDistributorFares(ctx, req.(*GetAllDistributorFaresRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FareService_DeleteDistributorFare_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteDistributorFareRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FareServiceServer).DeleteDistributorFare(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/genproto.FareService/DeleteDistributorFare",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FareServiceServer).DeleteDistributorFare(ctx, req.(*DeleteDistributorFareRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FareService_CreateCourierFare_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CourierFare)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FareServiceServer).CreateCourierFare(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/genproto.FareService/CreateCourierFare",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FareServiceServer).CreateCourierFare(ctx, req.(*CourierFare))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FareService_GetAllCourierFares_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAllCourierFaresRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FareServiceServer).GetAllCourierFares(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/genproto.FareService/GetAllCourierFares",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FareServiceServer).GetAllCourierFares(ctx, req.(*GetAllCourierFaresRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FareService_DeleteCourierFare_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteCourierFareRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FareServiceServer).DeleteCourierFare(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/genproto.FareService/DeleteCourierFare",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FareServiceServer).DeleteCourierFare(ctx, req.(*DeleteCourierFareRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _FareService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "genproto.FareService",
 	HandlerType: (*FareServiceServer)(nil),
@@ -571,6 +1031,30 @@ var _FareService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Delete",
 			Handler:    _FareService_Delete_Handler,
+		},
+		{
+			MethodName: "CreateDistributorFare",
+			Handler:    _FareService_CreateDistributorFare_Handler,
+		},
+		{
+			MethodName: "GetAllDistributorFares",
+			Handler:    _FareService_GetAllDistributorFares_Handler,
+		},
+		{
+			MethodName: "DeleteDistributorFare",
+			Handler:    _FareService_DeleteDistributorFare_Handler,
+		},
+		{
+			MethodName: "CreateCourierFare",
+			Handler:    _FareService_CreateCourierFare_Handler,
+		},
+		{
+			MethodName: "GetAllCourierFares",
+			Handler:    _FareService_GetAllCourierFares_Handler,
+		},
+		{
+			MethodName: "DeleteCourierFare",
+			Handler:    _FareService_DeleteCourierFare_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

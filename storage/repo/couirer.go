@@ -13,6 +13,8 @@ type (
 		GetAllCouriers(page, limit uint64) ([]*pb.Courier, uint64, error)
 		GetAllDistributorCouriers(dId string, page, limit uint64) ([]*pb.Courier, uint64, error)
 		Delete(id string) error
+		BlockCourier(id string) error
+		UnblockCourier(id string) error
 
 		CreateCourierDetails(cd *pb.CourierDetails) (*pb.CourierDetails, error)
 		UpdateCourierDetails(cd *pb.CourierDetails) (*pb.CourierDetails, error)
@@ -22,6 +24,7 @@ type (
 		UpdateCourierVehicle(cv *pb.CourierVehicle) (*pb.CourierVehicle, error)
 		GetCourierVehicle(id string) (*pb.CourierVehicle, error)
 		GetAllCourierVehicles(courierId string) ([]*pb.CourierVehicle, error)
+		GetAllVehicles(page, limit uint64) ([]*pb.CourierVehicle, error)
 		DeleteCourierVehicle(id string) error
 	}
 )
