@@ -107,6 +107,30 @@ func (s *CourierService) Delete(ctx context.Context, req *pb.DeleteCourierReques
 	return &gpb.Empty{}, nil
 }
 
+func (s *CourierService) BlockCourier(ctx context.Context, req *pb.BlockCourierRequest) (*gpb.Empty, error) {
+	err := s.storage.Courier().Delete(req.Id)
+	if err == sql.ErrNoRows {
+		s.logger.Error("Error while blocking courier, Not found", l.Any("req", req))
+		return nil, status.Error(codes.NotFound, "Not found")
+	} else if err != nil {
+		s.logger.Error("Error while blocking courier", l.Error(err), l.Any("req", req))
+		return nil, status.Error(codes.Internal, "Internal server error")
+	}
+	return &gpb.Empty{}, nil
+}
+
+func (s *CourierService) UnblockCourier(ctx context.Context, req *pb.UnblockCourierRequest) (*gpb.Empty, error) {
+	err := s.storage.Courier().Delete(req.Id)
+	if err == sql.ErrNoRows {
+		s.logger.Error("Error while unblocking courier, Not found", l.Any("req", req))
+		return nil, status.Error(codes.NotFound, "Not found")
+	} else if err != nil {
+		s.logger.Error("Error while unblocking courier", l.Error(err), l.Any("req", req))
+		return nil, status.Error(codes.Internal, "Internal server error")
+	}
+	return &gpb.Empty{}, nil
+}
+
 func (s *CourierService) GetAllDistributorCouriers(ctx context.Context, req *pb.GetAllDistributorCouriersRequest) (*pb.GetAllDistributorCouriersResponse, error) {
 	var couriers []*pb.Courier
 

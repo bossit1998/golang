@@ -314,6 +314,389 @@ func (m *GetAllDistributorsResponse) GetCount() uint64 {
 	return 0
 }
 
+type CreateParkResponse struct {
+	Park                 *Park    `protobuf:"bytes,1,opt,name=park,proto3" json:"park,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *CreateParkResponse) Reset()         { *m = CreateParkResponse{} }
+func (m *CreateParkResponse) String() string { return proto.CompactTextString(m) }
+func (*CreateParkResponse) ProtoMessage()    {}
+func (*CreateParkResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_f3d388a02fc33da3, []int{7}
+}
+
+func (m *CreateParkResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CreateParkResponse.Unmarshal(m, b)
+}
+func (m *CreateParkResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CreateParkResponse.Marshal(b, m, deterministic)
+}
+func (m *CreateParkResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CreateParkResponse.Merge(m, src)
+}
+func (m *CreateParkResponse) XXX_Size() int {
+	return xxx_messageInfo_CreateParkResponse.Size(m)
+}
+func (m *CreateParkResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_CreateParkResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CreateParkResponse proto.InternalMessageInfo
+
+func (m *CreateParkResponse) GetPark() *Park {
+	if m != nil {
+		return m.Park
+	}
+	return nil
+}
+
+type UpdateParkResponse struct {
+	Park                 *Park    `protobuf:"bytes,1,opt,name=park,proto3" json:"park,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *UpdateParkResponse) Reset()         { *m = UpdateParkResponse{} }
+func (m *UpdateParkResponse) String() string { return proto.CompactTextString(m) }
+func (*UpdateParkResponse) ProtoMessage()    {}
+func (*UpdateParkResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_f3d388a02fc33da3, []int{8}
+}
+
+func (m *UpdateParkResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UpdateParkResponse.Unmarshal(m, b)
+}
+func (m *UpdateParkResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UpdateParkResponse.Marshal(b, m, deterministic)
+}
+func (m *UpdateParkResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UpdateParkResponse.Merge(m, src)
+}
+func (m *UpdateParkResponse) XXX_Size() int {
+	return xxx_messageInfo_UpdateParkResponse.Size(m)
+}
+func (m *UpdateParkResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_UpdateParkResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UpdateParkResponse proto.InternalMessageInfo
+
+func (m *UpdateParkResponse) GetPark() *Park {
+	if m != nil {
+		return m.Park
+	}
+	return nil
+}
+
+type DeleteParkRequest struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *DeleteParkRequest) Reset()         { *m = DeleteParkRequest{} }
+func (m *DeleteParkRequest) String() string { return proto.CompactTextString(m) }
+func (*DeleteParkRequest) ProtoMessage()    {}
+func (*DeleteParkRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_f3d388a02fc33da3, []int{9}
+}
+
+func (m *DeleteParkRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DeleteParkRequest.Unmarshal(m, b)
+}
+func (m *DeleteParkRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DeleteParkRequest.Marshal(b, m, deterministic)
+}
+func (m *DeleteParkRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DeleteParkRequest.Merge(m, src)
+}
+func (m *DeleteParkRequest) XXX_Size() int {
+	return xxx_messageInfo_DeleteParkRequest.Size(m)
+}
+func (m *DeleteParkRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_DeleteParkRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DeleteParkRequest proto.InternalMessageInfo
+
+func (m *DeleteParkRequest) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+type GetParkRequest struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetParkRequest) Reset()         { *m = GetParkRequest{} }
+func (m *GetParkRequest) String() string { return proto.CompactTextString(m) }
+func (*GetParkRequest) ProtoMessage()    {}
+func (*GetParkRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_f3d388a02fc33da3, []int{10}
+}
+
+func (m *GetParkRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetParkRequest.Unmarshal(m, b)
+}
+func (m *GetParkRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetParkRequest.Marshal(b, m, deterministic)
+}
+func (m *GetParkRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetParkRequest.Merge(m, src)
+}
+func (m *GetParkRequest) XXX_Size() int {
+	return xxx_messageInfo_GetParkRequest.Size(m)
+}
+func (m *GetParkRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetParkRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetParkRequest proto.InternalMessageInfo
+
+func (m *GetParkRequest) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+type GetParkResponse struct {
+	Park                 *Park    `protobuf:"bytes,1,opt,name=park,proto3" json:"park,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetParkResponse) Reset()         { *m = GetParkResponse{} }
+func (m *GetParkResponse) String() string { return proto.CompactTextString(m) }
+func (*GetParkResponse) ProtoMessage()    {}
+func (*GetParkResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_f3d388a02fc33da3, []int{11}
+}
+
+func (m *GetParkResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetParkResponse.Unmarshal(m, b)
+}
+func (m *GetParkResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetParkResponse.Marshal(b, m, deterministic)
+}
+func (m *GetParkResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetParkResponse.Merge(m, src)
+}
+func (m *GetParkResponse) XXX_Size() int {
+	return xxx_messageInfo_GetParkResponse.Size(m)
+}
+func (m *GetParkResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetParkResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetParkResponse proto.InternalMessageInfo
+
+func (m *GetParkResponse) GetPark() *Park {
+	if m != nil {
+		return m.Park
+	}
+	return nil
+}
+
+type GetAllParksRequest struct {
+	Limit                uint64   `protobuf:"varint,1,opt,name=limit,proto3" json:"limit,omitempty"`
+	Page                 uint64   `protobuf:"varint,2,opt,name=page,proto3" json:"page,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetAllParksRequest) Reset()         { *m = GetAllParksRequest{} }
+func (m *GetAllParksRequest) String() string { return proto.CompactTextString(m) }
+func (*GetAllParksRequest) ProtoMessage()    {}
+func (*GetAllParksRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_f3d388a02fc33da3, []int{12}
+}
+
+func (m *GetAllParksRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetAllParksRequest.Unmarshal(m, b)
+}
+func (m *GetAllParksRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetAllParksRequest.Marshal(b, m, deterministic)
+}
+func (m *GetAllParksRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetAllParksRequest.Merge(m, src)
+}
+func (m *GetAllParksRequest) XXX_Size() int {
+	return xxx_messageInfo_GetAllParksRequest.Size(m)
+}
+func (m *GetAllParksRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetAllParksRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetAllParksRequest proto.InternalMessageInfo
+
+func (m *GetAllParksRequest) GetLimit() uint64 {
+	if m != nil {
+		return m.Limit
+	}
+	return 0
+}
+
+func (m *GetAllParksRequest) GetPage() uint64 {
+	if m != nil {
+		return m.Page
+	}
+	return 0
+}
+
+type GetAllParksResponse struct {
+	Parks                []*Park  `protobuf:"bytes,1,rep,name=parks,proto3" json:"parks,omitempty"`
+	Count                uint64   `protobuf:"varint,2,opt,name=count,proto3" json:"count,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetAllParksResponse) Reset()         { *m = GetAllParksResponse{} }
+func (m *GetAllParksResponse) String() string { return proto.CompactTextString(m) }
+func (*GetAllParksResponse) ProtoMessage()    {}
+func (*GetAllParksResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_f3d388a02fc33da3, []int{13}
+}
+
+func (m *GetAllParksResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetAllParksResponse.Unmarshal(m, b)
+}
+func (m *GetAllParksResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetAllParksResponse.Marshal(b, m, deterministic)
+}
+func (m *GetAllParksResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetAllParksResponse.Merge(m, src)
+}
+func (m *GetAllParksResponse) XXX_Size() int {
+	return xxx_messageInfo_GetAllParksResponse.Size(m)
+}
+func (m *GetAllParksResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetAllParksResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetAllParksResponse proto.InternalMessageInfo
+
+func (m *GetAllParksResponse) GetParks() []*Park {
+	if m != nil {
+		return m.Parks
+	}
+	return nil
+}
+
+func (m *GetAllParksResponse) GetCount() uint64 {
+	if m != nil {
+		return m.Count
+	}
+	return 0
+}
+
+type GetAllDistributorParksRequest struct {
+	Limit                uint64   `protobuf:"varint,1,opt,name=limit,proto3" json:"limit,omitempty"`
+	Page                 uint64   `protobuf:"varint,2,opt,name=page,proto3" json:"page,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetAllDistributorParksRequest) Reset()         { *m = GetAllDistributorParksRequest{} }
+func (m *GetAllDistributorParksRequest) String() string { return proto.CompactTextString(m) }
+func (*GetAllDistributorParksRequest) ProtoMessage()    {}
+func (*GetAllDistributorParksRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_f3d388a02fc33da3, []int{14}
+}
+
+func (m *GetAllDistributorParksRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetAllDistributorParksRequest.Unmarshal(m, b)
+}
+func (m *GetAllDistributorParksRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetAllDistributorParksRequest.Marshal(b, m, deterministic)
+}
+func (m *GetAllDistributorParksRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetAllDistributorParksRequest.Merge(m, src)
+}
+func (m *GetAllDistributorParksRequest) XXX_Size() int {
+	return xxx_messageInfo_GetAllDistributorParksRequest.Size(m)
+}
+func (m *GetAllDistributorParksRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetAllDistributorParksRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetAllDistributorParksRequest proto.InternalMessageInfo
+
+func (m *GetAllDistributorParksRequest) GetLimit() uint64 {
+	if m != nil {
+		return m.Limit
+	}
+	return 0
+}
+
+func (m *GetAllDistributorParksRequest) GetPage() uint64 {
+	if m != nil {
+		return m.Page
+	}
+	return 0
+}
+
+type GetAllDistributorParksResponse struct {
+	Parks                []*Park  `protobuf:"bytes,1,rep,name=parks,proto3" json:"parks,omitempty"`
+	Count                uint64   `protobuf:"varint,2,opt,name=count,proto3" json:"count,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetAllDistributorParksResponse) Reset()         { *m = GetAllDistributorParksResponse{} }
+func (m *GetAllDistributorParksResponse) String() string { return proto.CompactTextString(m) }
+func (*GetAllDistributorParksResponse) ProtoMessage()    {}
+func (*GetAllDistributorParksResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_f3d388a02fc33da3, []int{15}
+}
+
+func (m *GetAllDistributorParksResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetAllDistributorParksResponse.Unmarshal(m, b)
+}
+func (m *GetAllDistributorParksResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetAllDistributorParksResponse.Marshal(b, m, deterministic)
+}
+func (m *GetAllDistributorParksResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetAllDistributorParksResponse.Merge(m, src)
+}
+func (m *GetAllDistributorParksResponse) XXX_Size() int {
+	return xxx_messageInfo_GetAllDistributorParksResponse.Size(m)
+}
+func (m *GetAllDistributorParksResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetAllDistributorParksResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetAllDistributorParksResponse proto.InternalMessageInfo
+
+func (m *GetAllDistributorParksResponse) GetParks() []*Park {
+	if m != nil {
+		return m.Parks
+	}
+	return nil
+}
+
+func (m *GetAllDistributorParksResponse) GetCount() uint64 {
+	if m != nil {
+		return m.Count
+	}
+	return 0
+}
+
 func init() {
 	proto.RegisterType((*CreateDistributorResponse)(nil), "genproto.CreateDistributorResponse")
 	proto.RegisterType((*UpdateDistributorResponse)(nil), "genproto.UpdateDistributorResponse")
@@ -322,35 +705,57 @@ func init() {
 	proto.RegisterType((*GetDistributorResponse)(nil), "genproto.GetDistributorResponse")
 	proto.RegisterType((*GetAllDistributorsRequest)(nil), "genproto.GetAllDistributorsRequest")
 	proto.RegisterType((*GetAllDistributorsResponse)(nil), "genproto.GetAllDistributorsResponse")
+	proto.RegisterType((*CreateParkResponse)(nil), "genproto.CreateParkResponse")
+	proto.RegisterType((*UpdateParkResponse)(nil), "genproto.UpdateParkResponse")
+	proto.RegisterType((*DeleteParkRequest)(nil), "genproto.DeleteParkRequest")
+	proto.RegisterType((*GetParkRequest)(nil), "genproto.GetParkRequest")
+	proto.RegisterType((*GetParkResponse)(nil), "genproto.GetParkResponse")
+	proto.RegisterType((*GetAllParksRequest)(nil), "genproto.GetAllParksRequest")
+	proto.RegisterType((*GetAllParksResponse)(nil), "genproto.GetAllParksResponse")
+	proto.RegisterType((*GetAllDistributorParksRequest)(nil), "genproto.GetAllDistributorParksRequest")
+	proto.RegisterType((*GetAllDistributorParksResponse)(nil), "genproto.GetAllDistributorParksResponse")
 }
 
 func init() { proto.RegisterFile("distributor_service.proto", fileDescriptor_f3d388a02fc33da3) }
 
 var fileDescriptor_f3d388a02fc33da3 = []byte{
-	// 368 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x54, 0x4d, 0x4f, 0xc2, 0x40,
-	0x10, 0xe5, 0x4b, 0xa2, 0x83, 0x21, 0x71, 0x23, 0xa4, 0xac, 0x07, 0xc9, 0x62, 0xa2, 0xf1, 0x50,
-	0x12, 0x3c, 0x18, 0x8f, 0x2a, 0xc8, 0x59, 0x94, 0x8b, 0x17, 0x03, 0x74, 0x6c, 0x36, 0x29, 0x6c,
-	0xed, 0x6e, 0x4d, 0xfc, 0x43, 0xfe, 0x4e, 0xd3, 0x5d, 0x0a, 0x0b, 0xb6, 0x86, 0x44, 0x6f, 0x3b,
-	0xd3, 0xf7, 0xde, 0x4c, 0x66, 0xde, 0x14, 0x5a, 0x1e, 0x97, 0x2a, 0xe2, 0xd3, 0x58, 0x89, 0xe8,
-	0x55, 0x62, 0xf4, 0xc1, 0x67, 0xe8, 0x86, 0x91, 0x50, 0x82, 0xec, 0xfb, 0xb8, 0xd0, 0x2f, 0x7a,
-	0xe2, 0x0b, 0xe1, 0x07, 0xd8, 0xd5, 0xd1, 0x34, 0x7e, 0xeb, 0xe2, 0x3c, 0x54, 0x9f, 0x06, 0x46,
-	0x8f, 0x2c, 0x05, 0x93, 0x62, 0xcf, 0xd0, 0xba, 0x8f, 0x70, 0xa2, 0xb0, 0xbf, 0xfe, 0x34, 0x42,
-	0x19, 0x8a, 0x85, 0x44, 0x72, 0x0d, 0x35, 0x8b, 0xe1, 0x14, 0xdb, 0xc5, 0x8b, 0x5a, 0xaf, 0xe1,
-	0xa6, 0xc5, 0x5c, 0x9b, 0x63, 0x23, 0x13, 0xd5, 0x71, 0xe8, 0xfd, 0xb7, 0xea, 0x25, 0x38, 0x7d,
-	0x0c, 0x70, 0x4b, 0xf5, 0x3d, 0x46, 0xa9, 0x48, 0x1d, 0x4a, 0xdc, 0xd3, 0x5a, 0x07, 0xa3, 0x12,
-	0xf7, 0xd8, 0x39, 0x34, 0x86, 0xa8, 0x76, 0x00, 0x3e, 0x42, 0x73, 0x1b, 0xf8, 0xd7, 0x3e, 0x07,
-	0xd0, 0x1a, 0xa2, 0xba, 0x0d, 0x02, 0x0b, 0x21, 0xd3, 0xfa, 0xc7, 0xb0, 0x17, 0xf0, 0x39, 0x57,
-	0x5a, 0xaf, 0x32, 0x32, 0x01, 0x21, 0x50, 0x09, 0x27, 0x3e, 0x3a, 0x25, 0x9d, 0xd4, 0x6f, 0x36,
-	0x07, 0x9a, 0x25, 0xb3, 0xec, 0xee, 0x06, 0x0e, 0xad, 0x9a, 0xd2, 0x29, 0xb6, 0xcb, 0xf9, 0xed,
-	0x6d, 0x40, 0x93, 0x16, 0x66, 0x22, 0x5e, 0xa8, 0x65, 0x35, 0x13, 0xf4, 0xbe, 0xca, 0x40, 0x2c,
-	0xce, 0x93, 0x31, 0x18, 0x79, 0x80, 0xaa, 0x31, 0x08, 0xc9, 0xd6, 0xa6, 0x9d, 0x75, 0x3a, 0xd7,
-	0x49, 0xac, 0x90, 0xe8, 0x18, 0x4b, 0xec, 0xa0, 0x93, 0xeb, 0x1d, 0x56, 0x20, 0x63, 0xa8, 0x6f,
-	0xee, 0x8b, 0x9c, 0xae, 0x89, 0x99, 0x2b, 0xa7, 0xed, 0x7c, 0xc0, 0x4a, 0x76, 0x02, 0xe4, 0xe7,
-	0xb0, 0x49, 0x67, 0x83, 0x99, 0xbd, 0x51, 0x7a, 0xf6, 0x3b, 0xc8, 0x9e, 0x80, 0xb1, 0x2f, 0x61,
-	0xd6, 0x04, 0x72, 0x0c, 0x4d, 0x9b, 0xae, 0xb9, 0x64, 0x37, 0xbd, 0x64, 0x77, 0x90, 0x5c, 0x32,
-	0x2b, 0xdc, 0xd1, 0x17, 0x27, 0xa5, 0x77, 0x67, 0x22, 0x8e, 0x38, 0xae, 0x7e, 0x07, 0xd3, 0xaa,
-	0x4e, 0x5f, 0x7d, 0x07, 0x00, 0x00, 0xff, 0xff, 0x73, 0x76, 0x0a, 0x41, 0x2c, 0x04, 0x00, 0x00,
+	// 563 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x55, 0xdb, 0x6e, 0xd3, 0x40,
+	0x10, 0x4d, 0x42, 0x1b, 0x60, 0x82, 0x82, 0x3a, 0xd0, 0xca, 0xd9, 0xb6, 0x10, 0x6d, 0x2a, 0xb5,
+	0xe2, 0xc1, 0x91, 0x8a, 0x10, 0x20, 0x21, 0x04, 0xb4, 0x25, 0x42, 0xe2, 0x81, 0x06, 0xfa, 0x82,
+	0x90, 0x50, 0x2e, 0x43, 0x64, 0xd5, 0x89, 0x8d, 0xbd, 0x46, 0xe2, 0x87, 0xf9, 0x0e, 0xe4, 0x5d,
+	0x5f, 0xd6, 0xae, 0xd7, 0xf4, 0xc2, 0x5b, 0x76, 0xe7, 0xcc, 0x99, 0xf1, 0x9e, 0x99, 0x13, 0xe8,
+	0xcd, 0x9d, 0x50, 0x04, 0xce, 0x34, 0x12, 0x5e, 0xf0, 0x3d, 0xa4, 0xe0, 0x97, 0x33, 0x23, 0xdb,
+	0x0f, 0x3c, 0xe1, 0xe1, 0x9d, 0x05, 0xad, 0xe4, 0x2f, 0xb6, 0xbd, 0xf0, 0xbc, 0x85, 0x4b, 0x43,
+	0x79, 0x9a, 0x46, 0x3f, 0x86, 0xb4, 0xf4, 0xc5, 0x6f, 0x05, 0x63, 0x1b, 0x1a, 0x83, 0xba, 0xe2,
+	0x5f, 0xa0, 0x77, 0x14, 0xd0, 0x44, 0xd0, 0x71, 0x1e, 0x1a, 0x53, 0xe8, 0x7b, 0xab, 0x90, 0xf0,
+	0x39, 0x74, 0xb4, 0x0c, 0xab, 0xd9, 0x6f, 0x1e, 0x74, 0x0e, 0x37, 0xed, 0xb4, 0x98, 0xad, 0xe7,
+	0xe8, 0xc8, 0x98, 0xf5, 0xcc, 0x9f, 0xff, 0x6f, 0xd6, 0x27, 0x60, 0x1d, 0x93, 0x4b, 0x25, 0xd6,
+	0x9f, 0x11, 0x85, 0x02, 0xbb, 0xd0, 0x72, 0xe6, 0x92, 0xeb, 0xee, 0xb8, 0xe5, 0xcc, 0xf9, 0x3e,
+	0x6c, 0x8e, 0x48, 0x5c, 0x02, 0x78, 0x0a, 0x5b, 0x65, 0xe0, 0x4d, 0xfb, 0x3c, 0x81, 0xde, 0x88,
+	0xc4, 0x5b, 0xd7, 0xd5, 0x10, 0x61, 0x5a, 0xff, 0x21, 0xac, 0xbb, 0xce, 0xd2, 0x11, 0x92, 0x6f,
+	0x6d, 0xac, 0x0e, 0x88, 0xb0, 0xe6, 0x4f, 0x16, 0x64, 0xb5, 0xe4, 0xa5, 0xfc, 0xcd, 0x97, 0xc0,
+	0xaa, 0x68, 0x92, 0xee, 0x5e, 0xc2, 0x3d, 0xad, 0x66, 0x68, 0x35, 0xfb, 0xb7, 0xcc, 0xed, 0x15,
+	0xa0, 0x71, 0x0b, 0x33, 0x2f, 0x5a, 0x89, 0xa4, 0x9a, 0x3a, 0xf0, 0x17, 0x80, 0x6a, 0x12, 0x3e,
+	0x4d, 0x82, 0xf3, 0xac, 0x0c, 0x8f, 0x1b, 0x0b, 0xce, 0x93, 0xaf, 0xef, 0xe6, 0xf4, 0x12, 0x25,
+	0x63, 0x71, 0xa6, 0x52, 0xfb, 0xca, 0x99, 0x03, 0xd8, 0x50, 0x8a, 0xaa, 0xcc, 0x6a, 0x85, 0xfa,
+	0xd0, 0x1d, 0x91, 0xa8, 0x43, 0x3c, 0x83, 0xfb, 0x19, 0xe2, 0x0a, 0xd5, 0x5f, 0x03, 0xaa, 0x07,
+	0x8e, 0xef, 0xae, 0x21, 0xd0, 0x29, 0x3c, 0x28, 0xe4, 0x27, 0xa5, 0xf7, 0x60, 0x3d, 0xa6, 0x4f,
+	0x25, 0x29, 0xd7, 0x56, 0x41, 0x83, 0x08, 0x1f, 0x60, 0xf7, 0x82, 0xe6, 0xd7, 0xec, 0xee, 0x1b,
+	0x3c, 0x32, 0x51, 0xdd, 0xbc, 0xd1, 0xc3, 0x3f, 0x6d, 0x40, 0x8d, 0xf8, 0xb3, 0xb2, 0x23, 0x7c,
+	0x0f, 0x6d, 0x35, 0x44, 0x58, 0x3d, 0x89, 0x6c, 0x90, 0x5f, 0x1b, 0x7d, 0x87, 0x37, 0x62, 0x1e,
+	0x35, 0x52, 0x97, 0xe0, 0x31, 0x3a, 0x0d, 0x6f, 0xe0, 0x99, 0x9c, 0x1d, 0x2d, 0x86, 0x8f, 0xf3,
+	0xc4, 0x4a, 0x83, 0x60, 0x7d, 0x33, 0x20, 0xa3, 0x9d, 0xa4, 0x93, 0xa3, 0xaf, 0x26, 0x0e, 0x0a,
+	0x99, 0xd5, 0xfb, 0xcf, 0xf6, 0xea, 0x41, 0xfa, 0x0b, 0xa8, 0xd5, 0x40, 0xae, 0xbd, 0x80, 0xc1,
+	0xfe, 0xd8, 0x96, 0xad, 0x7c, 0xdf, 0x4e, 0x7d, 0xdf, 0x3e, 0x89, 0x7d, 0x9f, 0x37, 0xf0, 0x15,
+	0x40, 0xbe, 0xd6, 0x58, 0xd2, 0x98, 0xed, 0x94, 0xe5, 0xd0, 0x97, 0x48, 0x65, 0xe7, 0xab, 0x5d,
+	0x97, 0x7d, 0xd1, 0x00, 0x78, 0x03, 0xdf, 0xc0, 0xed, 0x64, 0x2f, 0xd1, 0x2a, 0x7c, 0xb6, 0xb6,
+	0xcc, 0xac, 0x57, 0x11, 0xc9, 0x18, 0x3e, 0x42, 0x47, 0x5b, 0x31, 0xdc, 0x29, 0x3f, 0x9e, 0xbe,
+	0x1b, 0x6c, 0xd7, 0x10, 0xcd, 0xd8, 0x96, 0xd2, 0xeb, 0x2b, 0x56, 0x02, 0xf7, 0x6b, 0x54, 0x29,
+	0xd4, 0x38, 0xf8, 0x37, 0x30, 0x2b, 0x77, 0x04, 0x90, 0xbb, 0x1b, 0x6e, 0x97, 0x65, 0xd4, 0x1f,
+	0xc1, 0xa8, 0xdf, 0x3b, 0xf6, 0xd5, 0x4a, 0xf3, 0x86, 0x33, 0x2f, 0x0a, 0x1c, 0xca, 0xfe, 0xfc,
+	0xa7, 0x6d, 0x79, 0xfd, 0xf4, 0x6f, 0x00, 0x00, 0x00, 0xff, 0xff, 0xf1, 0x47, 0x4a, 0xcf, 0x1a,
+	0x08, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -370,6 +775,12 @@ type DistributorServiceClient interface {
 	GetDistributor(ctx context.Context, in *GetDistributorRequest, opts ...grpc.CallOption) (*GetDistributorResponse, error)
 	GetAllDistributors(ctx context.Context, in *GetAllDistributorsRequest, opts ...grpc.CallOption) (*GetAllDistributorsResponse, error)
 	Delete(ctx context.Context, in *DeleteDistributorRequest, opts ...grpc.CallOption) (*empty.Empty, error)
+	CreatePark(ctx context.Context, in *Park, opts ...grpc.CallOption) (*CreateParkResponse, error)
+	UpdatePark(ctx context.Context, in *Park, opts ...grpc.CallOption) (*UpdateParkResponse, error)
+	GetPark(ctx context.Context, in *GetParkRequest, opts ...grpc.CallOption) (*GetParkResponse, error)
+	GetAllParks(ctx context.Context, in *GetAllParksRequest, opts ...grpc.CallOption) (*GetAllParksResponse, error)
+	GetAllDistributorParks(ctx context.Context, in *GetAllDistributorParksRequest, opts ...grpc.CallOption) (*GetAllDistributorParksResponse, error)
+	DeletePark(ctx context.Context, in *DeleteParkRequest, opts ...grpc.CallOption) (*empty.Empty, error)
 }
 
 type distributorServiceClient struct {
@@ -425,6 +836,60 @@ func (c *distributorServiceClient) Delete(ctx context.Context, in *DeleteDistrib
 	return out, nil
 }
 
+func (c *distributorServiceClient) CreatePark(ctx context.Context, in *Park, opts ...grpc.CallOption) (*CreateParkResponse, error) {
+	out := new(CreateParkResponse)
+	err := c.cc.Invoke(ctx, "/genproto.DistributorService/CreatePark", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *distributorServiceClient) UpdatePark(ctx context.Context, in *Park, opts ...grpc.CallOption) (*UpdateParkResponse, error) {
+	out := new(UpdateParkResponse)
+	err := c.cc.Invoke(ctx, "/genproto.DistributorService/UpdatePark", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *distributorServiceClient) GetPark(ctx context.Context, in *GetParkRequest, opts ...grpc.CallOption) (*GetParkResponse, error) {
+	out := new(GetParkResponse)
+	err := c.cc.Invoke(ctx, "/genproto.DistributorService/GetPark", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *distributorServiceClient) GetAllParks(ctx context.Context, in *GetAllParksRequest, opts ...grpc.CallOption) (*GetAllParksResponse, error) {
+	out := new(GetAllParksResponse)
+	err := c.cc.Invoke(ctx, "/genproto.DistributorService/GetAllParks", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *distributorServiceClient) GetAllDistributorParks(ctx context.Context, in *GetAllDistributorParksRequest, opts ...grpc.CallOption) (*GetAllDistributorParksResponse, error) {
+	out := new(GetAllDistributorParksResponse)
+	err := c.cc.Invoke(ctx, "/genproto.DistributorService/GetAllDistributorParks", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *distributorServiceClient) DeletePark(ctx context.Context, in *DeleteParkRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+	out := new(empty.Empty)
+	err := c.cc.Invoke(ctx, "/genproto.DistributorService/DeletePark", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DistributorServiceServer is the server API for DistributorService service.
 type DistributorServiceServer interface {
 	Create(context.Context, *Distributor) (*CreateDistributorResponse, error)
@@ -432,6 +897,12 @@ type DistributorServiceServer interface {
 	GetDistributor(context.Context, *GetDistributorRequest) (*GetDistributorResponse, error)
 	GetAllDistributors(context.Context, *GetAllDistributorsRequest) (*GetAllDistributorsResponse, error)
 	Delete(context.Context, *DeleteDistributorRequest) (*empty.Empty, error)
+	CreatePark(context.Context, *Park) (*CreateParkResponse, error)
+	UpdatePark(context.Context, *Park) (*UpdateParkResponse, error)
+	GetPark(context.Context, *GetParkRequest) (*GetParkResponse, error)
+	GetAllParks(context.Context, *GetAllParksRequest) (*GetAllParksResponse, error)
+	GetAllDistributorParks(context.Context, *GetAllDistributorParksRequest) (*GetAllDistributorParksResponse, error)
+	DeletePark(context.Context, *DeleteParkRequest) (*empty.Empty, error)
 }
 
 // UnimplementedDistributorServiceServer can be embedded to have forward compatible implementations.
@@ -452,6 +923,24 @@ func (*UnimplementedDistributorServiceServer) GetAllDistributors(ctx context.Con
 }
 func (*UnimplementedDistributorServiceServer) Delete(ctx context.Context, req *DeleteDistributorRequest) (*empty.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
+}
+func (*UnimplementedDistributorServiceServer) CreatePark(ctx context.Context, req *Park) (*CreateParkResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreatePark not implemented")
+}
+func (*UnimplementedDistributorServiceServer) UpdatePark(ctx context.Context, req *Park) (*UpdateParkResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdatePark not implemented")
+}
+func (*UnimplementedDistributorServiceServer) GetPark(ctx context.Context, req *GetParkRequest) (*GetParkResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPark not implemented")
+}
+func (*UnimplementedDistributorServiceServer) GetAllParks(ctx context.Context, req *GetAllParksRequest) (*GetAllParksResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllParks not implemented")
+}
+func (*UnimplementedDistributorServiceServer) GetAllDistributorParks(ctx context.Context, req *GetAllDistributorParksRequest) (*GetAllDistributorParksResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllDistributorParks not implemented")
+}
+func (*UnimplementedDistributorServiceServer) DeletePark(ctx context.Context, req *DeleteParkRequest) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeletePark not implemented")
 }
 
 func RegisterDistributorServiceServer(s *grpc.Server, srv DistributorServiceServer) {
@@ -548,6 +1037,114 @@ func _DistributorService_Delete_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DistributorService_CreatePark_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Park)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DistributorServiceServer).CreatePark(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/genproto.DistributorService/CreatePark",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DistributorServiceServer).CreatePark(ctx, req.(*Park))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DistributorService_UpdatePark_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Park)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DistributorServiceServer).UpdatePark(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/genproto.DistributorService/UpdatePark",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DistributorServiceServer).UpdatePark(ctx, req.(*Park))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DistributorService_GetPark_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetParkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DistributorServiceServer).GetPark(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/genproto.DistributorService/GetPark",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DistributorServiceServer).GetPark(ctx, req.(*GetParkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DistributorService_GetAllParks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAllParksRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DistributorServiceServer).GetAllParks(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/genproto.DistributorService/GetAllParks",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DistributorServiceServer).GetAllParks(ctx, req.(*GetAllParksRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DistributorService_GetAllDistributorParks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAllDistributorParksRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DistributorServiceServer).GetAllDistributorParks(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/genproto.DistributorService/GetAllDistributorParks",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DistributorServiceServer).GetAllDistributorParks(ctx, req.(*GetAllDistributorParksRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DistributorService_DeletePark_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteParkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DistributorServiceServer).DeletePark(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/genproto.DistributorService/DeletePark",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DistributorServiceServer).DeletePark(ctx, req.(*DeleteParkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _DistributorService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "genproto.DistributorService",
 	HandlerType: (*DistributorServiceServer)(nil),
@@ -571,6 +1168,30 @@ var _DistributorService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Delete",
 			Handler:    _DistributorService_Delete_Handler,
+		},
+		{
+			MethodName: "CreatePark",
+			Handler:    _DistributorService_CreatePark_Handler,
+		},
+		{
+			MethodName: "UpdatePark",
+			Handler:    _DistributorService_UpdatePark_Handler,
+		},
+		{
+			MethodName: "GetPark",
+			Handler:    _DistributorService_GetPark_Handler,
+		},
+		{
+			MethodName: "GetAllParks",
+			Handler:    _DistributorService_GetAllParks_Handler,
+		},
+		{
+			MethodName: "GetAllDistributorParks",
+			Handler:    _DistributorService_GetAllDistributorParks_Handler,
+		},
+		{
+			MethodName: "DeletePark",
+			Handler:    _DistributorService_DeletePark_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

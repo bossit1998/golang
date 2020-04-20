@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS distributors (
      id uuid PRIMARY KEY,
-     access_token varchar NOT NULL UNIQUE,
+     access_token VARCHAR NOT NULL UNIQUE,
      name VARCHAR(100) NOT NULL,
      phone VARCHAR(100) NOT NULL,
      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -11,8 +11,8 @@ CREATE TABLE IF NOT EXISTS distributors (
 
 CREATE TABLE IF NOT EXISTS couriers (
      id uuid PRIMARY KEY,
-     access_token varchar NOT NULL UNIQUE,
-     distributor_id uuid REFERENCES distributors(id),
+     access_token VARCHAR NOT NULL UNIQUE,
+     distributor_id uuid NOT NULL REFERENCES distributors(id),
      phone VARCHAR(100) NOT NULL,
      first_name VARCHAR(100) NOT NULL,
      last_name VARCHAR(100) NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS courier_details (
 
 CREATE TABLE IF NOT EXISTS courier_vehicles (
      id uuid PRIMARY KEY,
-     courier_id uuid REFERENCES couriers(id),
+     courier_id uuid NOT NULL REFERENCES couriers(id),
      model VARCHAR(100) NOT NULL,
      vehicle_number VARCHAR(100) NOT NULL,
      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
