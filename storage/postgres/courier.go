@@ -701,7 +701,7 @@ func (cm *courierRepo) UpdateToken(id, access string) error {
 	result, err := cm.db.Exec(`
 		UPDATE couriers
 		SET
-			access_token = $1,
+			access_token = $1
 		WHERE id = $2`,
 		access,
 		id,
