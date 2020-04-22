@@ -31,23 +31,22 @@ func NewCourierService(db *sqlx.DB, client *grpc_client.GrpcClient, log l.Logger
 	}
 }
 
-// Courier
+// Create is function for creating a courier
 func (s *CourierService) Create(ctx context.Context, req *pb.Courier) (*pb.CreateCourierResponse, error) {
-	var err error
-
 	courier, err := s.storage.Courier().Create(req)
 	if err != nil {
 		s.logger.Error("Error while creating courier", l.Error(err), l.Any("req", req))
 		return nil, status.Error(codes.Internal, err.Error())
 	}
+
 	return &pb.CreateCourierResponse{
 		Courier: courier,
 	}, nil
 }
 
+// Update is function for updating a courier
 func (s *CourierService) Update(ctx context.Context, req *pb.Courier) (*pb.UpdateCourierResponse, error) {
 	courier, err := s.storage.Courier().Update(req)
-
 	if err == sql.ErrNoRows {
 		s.logger.Error("Error while updating courier, Not Found", l.Any("req", req))
 		return nil, status.Error(codes.NotFound, "Not found")
@@ -61,8 +60,8 @@ func (s *CourierService) Update(ctx context.Context, req *pb.Courier) (*pb.Updat
 	}, nil
 }
 
+// GetCourier is function for getting a courier
 func (s *CourierService) GetCourier(ctx context.Context, req *pb.GetCourierRequest) (*pb.GetCourierResponse, error) {
-	var courier *pb.Courier
 	courier, err := s.storage.Courier().GetCourier(req.Id)
 	if err == sql.ErrNoRows {
 		s.logger.Error("Error while getting an courier, Not found", l.Any("req", req))
@@ -77,6 +76,7 @@ func (s *CourierService) GetCourier(ctx context.Context, req *pb.GetCourierReque
 	}, nil
 }
 
+// GetAllCouriers is function for getting all couriers 
 func (s *CourierService) GetAllCouriers(ctx context.Context, req *pb.GetAllCouriersRequest) (*pb.GetAllCouriersResponse, error) {
 	var couriers []*pb.Courier
 
@@ -95,6 +95,23 @@ func (s *CourierService) GetAllCouriers(ctx context.Context, req *pb.GetAllCouri
 	}, nil
 }
 
+//ExistsCourier is function for checking whether courier exists
+func (s *CourierService) ExistsCourier(ctx context.Context, req *pb.ExistsCourierRequest) (*pb.ExistsCourierResponse, error) {
+	exists, err := s.storage.Courier().ExistsCourier(req.PhoneNumber)
+	if err == sql.ErrNoRows {
+		s.logger.Error("Error while getting all couriers, Not found", l.Any("req", req))
+		return nil, status.Error(codes.NotFound, "Not found")
+	} else if err != nil {
+		s.logger.Error("Error while getting all couriers", l.Error(err), l.Any("req", req))
+		return nil, status.Error(codes.Internal, "Internal server error")
+	}
+
+	return &pb.ExistsCourierResponse{
+		Exists: exists,
+	}, nil
+}
+
+//Delete if function for deleting courier
 func (s *CourierService) Delete(ctx context.Context, req *pb.DeleteCourierRequest) (*gpb.Empty, error) {
 	err := s.storage.Courier().Delete(req.Id)
 	if err == sql.ErrNoRows {

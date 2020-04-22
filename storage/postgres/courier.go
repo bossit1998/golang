@@ -111,7 +111,15 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 		createdAt  time.Time
 		layoutDate string = "2006-01-02 15:04:05"
 		courier    pb.Courier
+		column	   string
 	)
+
+	_, err := uuid.Parse(id)
+	if err != nil {
+		column = " phone "
+	} else {
+		column = " id "
+	}
 
 	row := cm.db.QueryRow(`
 		SELECT  id,
@@ -123,10 +131,10 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 				created_at,
 				is_active
 		FROM couriers
-		WHERE id=$1`, id,
+		WHERE ` + column + `=$1`, id,
 	)
 
-	err := row.Scan(
+	err = row.Scan(
 		&courier.Id,
 		&courier.AccessToken,
 		&courier.DistributorId,
@@ -136,6 +144,9 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 		&createdAt,
 		&courier.IsActive,
 	)
+	if err != nil {
+		return nil, err
+	}
 
 	courier.CreatedAt = createdAt.Format(layoutDate)
 	if err != nil {
@@ -204,6 +215,27 @@ func (cm *courierRepo) GetAllCouriers(page, limit uint64) ([]*pb.Courier, uint64
 	)
 
 	return couriers, count, nil
+}
+
+func (cm *courierRepo) ExistsCourier(phoneNumber string) (bool, error) {
+	var existsCourier int
+	
+	row := cm.db.QueryRow(`
+		SELECT count(1) 
+		FROM couriers
+		WHERE phone = $1`, phoneNumber,
+	)
+	
+	err := row.Scan(&existsCourier)
+	if err != nil {
+		return false, err
+	}
+
+	if existsCourier == 0 {
+		return false, nil
+	}
+
+	return true, nil
 }
 
 func (cm *courierRepo) GetAllDistributorCouriers(dId string, page, limit uint64) ([]*pb.Courier, uint64, error) {
