@@ -31,7 +31,7 @@ func NewDistributorService(db *sqlx.DB, client *grpc_client.GrpcClient, log l.Lo
 	}
 }
 
-// Distributor
+//Create ...
 func (s *DistributorService) Create(ctx context.Context, req *pb.Distributor) (*pb.CreateDistributorResponse, error) {
 	var err error
 

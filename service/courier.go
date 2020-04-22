@@ -124,6 +124,20 @@ func (s *CourierService) Delete(ctx context.Context, req *pb.DeleteCourierReques
 	return &gpb.Empty{}, nil
 }
 
+//UpdateToken ...
+func (s *CourierService) UpdateToken(ctx context.Context, req *pb.UpdateTokenRequest) (*gpb.Empty, error) {
+	err := s.storage.Courier().UpdateToken(req.Id, req.Access)
+	if err == sql.ErrNoRows {
+		s.logger.Error("Error while deleting courier, Not found", l.Any("req", req))
+		return nil, status.Error(codes.NotFound, "Not found")
+	} else if err != nil {
+		s.logger.Error("Error while deleting courier", l.Error(err), l.Any("req", req))
+		return nil, status.Error(codes.Internal, "Internal server error")
+	}
+	return &gpb.Empty{}, nil
+}
+
+// BlockCourier ...
 func (s *CourierService) BlockCourier(ctx context.Context, req *pb.BlockCourierRequest) (*gpb.Empty, error) {
 	err := s.storage.Courier().Delete(req.Id)
 	if err == sql.ErrNoRows {
@@ -136,6 +150,7 @@ func (s *CourierService) BlockCourier(ctx context.Context, req *pb.BlockCourierR
 	return &gpb.Empty{}, nil
 }
 
+// UnblockCourier ...
 func (s *CourierService) UnblockCourier(ctx context.Context, req *pb.UnblockCourierRequest) (*gpb.Empty, error) {
 	err := s.storage.Courier().Delete(req.Id)
 	if err == sql.ErrNoRows {
@@ -148,6 +163,7 @@ func (s *CourierService) UnblockCourier(ctx context.Context, req *pb.UnblockCour
 	return &gpb.Empty{}, nil
 }
 
+// GetAllDistributorCouriers ...
 func (s *CourierService) GetAllDistributorCouriers(ctx context.Context, req *pb.GetAllDistributorCouriersRequest) (*pb.GetAllDistributorCouriersResponse, error) {
 	var couriers []*pb.Courier
 
@@ -166,7 +182,7 @@ func (s *CourierService) GetAllDistributorCouriers(ctx context.Context, req *pb.
 	}, nil
 }
 
-// CourierDetails
+// CreateCourierDetails ...
 func (s *CourierService) CreateCourierDetails(ctx context.Context, req *pb.CourierDetails) (*pb.CreateCourierDetailsResponse, error) {
 
 	cd, err := s.storage.Courier().CreateCourierDetails(req)
@@ -179,6 +195,7 @@ func (s *CourierService) CreateCourierDetails(ctx context.Context, req *pb.Couri
 	}, nil
 }
 
+// UpdateCourierDetails ...
 func (s *CourierService) UpdateCourierDetails(ctx context.Context, req *pb.CourierDetails) (*pb.UpdateCourierDetailsResponse, error) {
 	cd, err := s.storage.Courier().UpdateCourierDetails(req)
 
@@ -195,6 +212,7 @@ func (s *CourierService) UpdateCourierDetails(ctx context.Context, req *pb.Couri
 	}, nil
 }
 
+// GetCourierDetails ...
 func (s *CourierService) GetCourierDetails(ctx context.Context, req *pb.GetCourierDetailsRequest) (*pb.GetCourierDetailsResponse, error) {
 	var cd *pb.CourierDetails
 	cd, err := s.storage.Courier().GetCourierDetails(req.CourierId)
@@ -211,7 +229,7 @@ func (s *CourierService) GetCourierDetails(ctx context.Context, req *pb.GetCouri
 	}, nil
 }
 
-// CourierVehicle
+// CreateCourierVehicle ...
 func (s *CourierService) CreateCourierVehicle(ctx context.Context, req *pb.CourierVehicle) (*pb.CreateCourierVehicleResponse, error) {
 	cv, err := s.storage.Courier().CreateCourierVehicle(req)
 	if err != nil {
@@ -223,6 +241,7 @@ func (s *CourierService) CreateCourierVehicle(ctx context.Context, req *pb.Couri
 	}, nil
 }
 
+// UpdateCourierVehicle ...
 func (s *CourierService) UpdateCourierVehicle(ctx context.Context, req *pb.CourierVehicle) (*pb.UpdateCourierVehicleResponse, error) {
 	cv, err := s.storage.Courier().UpdateCourierVehicle(req)
 
