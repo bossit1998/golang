@@ -95,6 +95,24 @@ func (s *CourierService) GetAllCouriers(ctx context.Context, req *pb.GetAllCouri
 	}, nil
 }
 
+
+// GetCouriersByPhone is function for getting courier
+func (s *CourierService) GetCouriersByPhone(ctx context.Context, req *pb.GetCourierDetailsByPhoneRequest) (*pb.GetCourierDetailsByPhoneResponse, error) {
+	courier, err := s.storage.Courier().GetCourier(req.PhoneNumber)
+	if err == sql.ErrNoRows {
+		s.logger.Error("Error while getting an courier, Not found", l.Any("req", req))
+		return nil, status.Error(codes.NotFound, "Not found")
+	} else if err != nil {
+		s.logger.Error("Error while getting courier", l.Error(err), l.Any("req", req))
+		return nil, status.Error(codes.Internal, "Internal server error")
+	}
+
+	return &pb.GetCourierDetailsByPhoneResponse{
+		Courier: courier,
+	}, nil
+}
+
+
 //ExistsCourier is function for checking whether courier exists
 func (s *CourierService) ExistsCourier(ctx context.Context, req *pb.ExistsCourierRequest) (*pb.ExistsCourierResponse, error) {
 	exists, err := s.storage.Courier().ExistsCourier(req.PhoneNumber)
