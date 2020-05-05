@@ -31,6 +31,7 @@ func Load() Config {
 
 	c.PostgresDatabase = cast.ToString(getOrReturnDefault("POSTGRES_DATABASE", "deleverdb"))
 
+	//doston local database
 	//c.PostgresUser = cast.ToString(getOrReturnDefault("POSTGRES_USER", "delever2"))
 	//c.PostgresPassword = cast.ToString(getOrReturnDefault("POSTGRES_PASSWORD", "delever"))
 	c.PostgresUser = cast.ToString(getOrReturnDefault("POSTGRES_USER", "delever"))
