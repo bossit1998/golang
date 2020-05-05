@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	pb "bitbucket.org/alien_soft/courier_service/genproto/courier_service"
+	pb "genproto/courier_service"
 	l "bitbucket.org/alien_soft/courier_service/pkg/logger"
 	"bitbucket.org/alien_soft/courier_service/service/grpc_client"
 	"bitbucket.org/alien_soft/courier_service/storage"
@@ -70,13 +70,12 @@ func (s *CourierService) GetCourier(ctx context.Context, req *pb.GetCourierReque
 		s.logger.Error("Error while getting courier", l.Error(err), l.Any("req", req))
 		return nil, status.Error(codes.Internal, "Internal server error")
 	}
-
 	return &pb.GetCourierResponse{
 		Courier: courier,
 	}, nil
 }
 
-// GetAllCouriers is function for getting all couriers 
+// GetAllCouriers is function for getting all couriers
 func (s *CourierService) GetAllCouriers(ctx context.Context, req *pb.GetAllCouriersRequest) (*pb.GetAllCouriersResponse, error) {
 	var couriers []*pb.Courier
 
@@ -301,4 +300,23 @@ func (s *CourierService) DeleteCourierVehicle(ctx context.Context, req *pb.Delet
 		return nil, status.Error(codes.Internal, "Internal server error")
 	}
 	return &gpb.Empty{}, nil
+}
+
+// GetAllCouriersByPhone is function for searching by phone all couriers
+func (s *CourierService) GetAllCouriersByPhone(ctx context.Context, req *pb.GetAllCouriersByPhoneRequest) (*pb.GetAllCouriersByPhoneResponse, error) {
+	var couriers []*pb.Courier
+
+	couriers, count, err := s.storage.Courier().GetAllCouriersByPhone(req.Phone, req.Page, req.Limit)
+	if err == sql.ErrNoRows {
+		s.logger.Error("Error while getting all couriers, Not found", l.Any("req", req))
+		return nil, status.Error(codes.NotFound, "Not found")
+	} else if err != nil {
+		s.logger.Error("Error while getting all couriers", l.Error(err), l.Any("req", req))
+		return nil, status.Error(codes.Internal, "Internal server error")
+	}
+
+	return &pb.GetAllCouriersByPhoneResponse{
+		Couriers: couriers,
+		Count:    count,
+	}, nil
 }

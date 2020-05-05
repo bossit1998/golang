@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"time"
 
-	pb "bitbucket.org/alien_soft/courier_service/genproto/courier_service"
+	pb "genproto/courier_service"
 	"bitbucket.org/alien_soft/courier_service/pkg/etc"
 	"bitbucket.org/alien_soft/courier_service/storage/repo"
 	"github.com/google/uuid"

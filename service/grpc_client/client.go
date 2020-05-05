@@ -3,8 +3,9 @@ package grpc_client
 import (
 	"fmt"
 
+	pbf "genproto/fare_service"
+
 	"bitbucket.org/alien_soft/courier_service/config"
-	pbf "bitbucket.org/alien_soft/courier_service/genproto/fare_service"
 	"google.golang.org/grpc"
 )
 

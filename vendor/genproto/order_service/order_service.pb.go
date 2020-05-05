@@ -64,7 +64,7 @@ func (m *GetRequest) GetId() string {
 	return ""
 }
 
-type GetAllRequest struct {
+type OrdersRequest struct {
 	Page                 uint64   `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
 	Limit                uint64   `protobuf:"varint,2,opt,name=limit,proto3" json:"limit,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -72,46 +72,46 @@ type GetAllRequest struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *GetAllRequest) Reset()         { *m = GetAllRequest{} }
-func (m *GetAllRequest) String() string { return proto.CompactTextString(m) }
-func (*GetAllRequest) ProtoMessage()    {}
-func (*GetAllRequest) Descriptor() ([]byte, []int) {
+func (m *OrdersRequest) Reset()         { *m = OrdersRequest{} }
+func (m *OrdersRequest) String() string { return proto.CompactTextString(m) }
+func (*OrdersRequest) ProtoMessage()    {}
+func (*OrdersRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_93a121d2d2ec3d32, []int{1}
 }
 
-func (m *GetAllRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetAllRequest.Unmarshal(m, b)
+func (m *OrdersRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_OrdersRequest.Unmarshal(m, b)
 }
-func (m *GetAllRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetAllRequest.Marshal(b, m, deterministic)
+func (m *OrdersRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_OrdersRequest.Marshal(b, m, deterministic)
 }
-func (m *GetAllRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetAllRequest.Merge(m, src)
+func (m *OrdersRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_OrdersRequest.Merge(m, src)
 }
-func (m *GetAllRequest) XXX_Size() int {
-	return xxx_messageInfo_GetAllRequest.Size(m)
+func (m *OrdersRequest) XXX_Size() int {
+	return xxx_messageInfo_OrdersRequest.Size(m)
 }
-func (m *GetAllRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetAllRequest.DiscardUnknown(m)
+func (m *OrdersRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_OrdersRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_GetAllRequest proto.InternalMessageInfo
+var xxx_messageInfo_OrdersRequest proto.InternalMessageInfo
 
-func (m *GetAllRequest) GetPage() uint64 {
+func (m *OrdersRequest) GetPage() uint64 {
 	if m != nil {
 		return m.Page
 	}
 	return 0
 }
 
-func (m *GetAllRequest) GetLimit() uint64 {
+func (m *OrdersRequest) GetLimit() uint64 {
 	if m != nil {
 		return m.Limit
 	}
 	return 0
 }
 
-type GetAllResponse struct {
+type OrdersResponse struct {
 	Orders               []*Order `protobuf:"bytes,1,rep,name=orders,proto3" json:"orders,omitempty"`
 	Count                uint64   `protobuf:"varint,2,opt,name=count,proto3" json:"count,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -119,39 +119,39 @@ type GetAllResponse struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *GetAllResponse) Reset()         { *m = GetAllResponse{} }
-func (m *GetAllResponse) String() string { return proto.CompactTextString(m) }
-func (*GetAllResponse) ProtoMessage()    {}
-func (*GetAllResponse) Descriptor() ([]byte, []int) {
+func (m *OrdersResponse) Reset()         { *m = OrdersResponse{} }
+func (m *OrdersResponse) String() string { return proto.CompactTextString(m) }
+func (*OrdersResponse) ProtoMessage()    {}
+func (*OrdersResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_93a121d2d2ec3d32, []int{2}
 }
 
-func (m *GetAllResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetAllResponse.Unmarshal(m, b)
+func (m *OrdersResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_OrdersResponse.Unmarshal(m, b)
 }
-func (m *GetAllResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetAllResponse.Marshal(b, m, deterministic)
+func (m *OrdersResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_OrdersResponse.Marshal(b, m, deterministic)
 }
-func (m *GetAllResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetAllResponse.Merge(m, src)
+func (m *OrdersResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_OrdersResponse.Merge(m, src)
 }
-func (m *GetAllResponse) XXX_Size() int {
-	return xxx_messageInfo_GetAllResponse.Size(m)
+func (m *OrdersResponse) XXX_Size() int {
+	return xxx_messageInfo_OrdersResponse.Size(m)
 }
-func (m *GetAllResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetAllResponse.DiscardUnknown(m)
+func (m *OrdersResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_OrdersResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_GetAllResponse proto.InternalMessageInfo
+var xxx_messageInfo_OrdersResponse proto.InternalMessageInfo
 
-func (m *GetAllResponse) GetOrders() []*Order {
+func (m *OrdersResponse) GetOrders() []*Order {
 	if m != nil {
 		return m.Orders
 	}
 	return nil
 }
 
-func (m *GetAllResponse) GetCount() uint64 {
+func (m *OrdersResponse) GetCount() uint64 {
 	if m != nil {
 		return m.Count
 	}
@@ -244,39 +244,39 @@ func (m *AddCourierRequest) GetCourierId() string {
 	return ""
 }
 
-type DeleteCourierRequest struct {
+type RemoveCourierRequest struct {
 	OrderId              string   `protobuf:"bytes,1,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *DeleteCourierRequest) Reset()         { *m = DeleteCourierRequest{} }
-func (m *DeleteCourierRequest) String() string { return proto.CompactTextString(m) }
-func (*DeleteCourierRequest) ProtoMessage()    {}
-func (*DeleteCourierRequest) Descriptor() ([]byte, []int) {
+func (m *RemoveCourierRequest) Reset()         { *m = RemoveCourierRequest{} }
+func (m *RemoveCourierRequest) String() string { return proto.CompactTextString(m) }
+func (*RemoveCourierRequest) ProtoMessage()    {}
+func (*RemoveCourierRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_93a121d2d2ec3d32, []int{5}
 }
 
-func (m *DeleteCourierRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteCourierRequest.Unmarshal(m, b)
+func (m *RemoveCourierRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RemoveCourierRequest.Unmarshal(m, b)
 }
-func (m *DeleteCourierRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteCourierRequest.Marshal(b, m, deterministic)
+func (m *RemoveCourierRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RemoveCourierRequest.Marshal(b, m, deterministic)
 }
-func (m *DeleteCourierRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteCourierRequest.Merge(m, src)
+func (m *RemoveCourierRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RemoveCourierRequest.Merge(m, src)
 }
-func (m *DeleteCourierRequest) XXX_Size() int {
-	return xxx_messageInfo_DeleteCourierRequest.Size(m)
+func (m *RemoveCourierRequest) XXX_Size() int {
+	return xxx_messageInfo_RemoveCourierRequest.Size(m)
 }
-func (m *DeleteCourierRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteCourierRequest.DiscardUnknown(m)
+func (m *RemoveCourierRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_RemoveCourierRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_DeleteCourierRequest proto.InternalMessageInfo
+var xxx_messageInfo_RemoveCourierRequest proto.InternalMessageInfo
 
-func (m *DeleteCourierRequest) GetOrderId() string {
+func (m *RemoveCourierRequest) GetOrderId() string {
 	if m != nil {
 		return m.OrderId
 	}
@@ -385,50 +385,209 @@ func (m *ChangeStatusRequest) GetStatusId() string {
 	return ""
 }
 
+type GetCourierOrdersRequest struct {
+	CourierId            string   `protobuf:"bytes,1,opt,name=courier_id,json=courierId,proto3" json:"courier_id,omitempty"`
+	Page                 uint64   `protobuf:"varint,2,opt,name=page,proto3" json:"page,omitempty"`
+	Limit                uint64   `protobuf:"varint,3,opt,name=limit,proto3" json:"limit,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetCourierOrdersRequest) Reset()         { *m = GetCourierOrdersRequest{} }
+func (m *GetCourierOrdersRequest) String() string { return proto.CompactTextString(m) }
+func (*GetCourierOrdersRequest) ProtoMessage()    {}
+func (*GetCourierOrdersRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_93a121d2d2ec3d32, []int{8}
+}
+
+func (m *GetCourierOrdersRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetCourierOrdersRequest.Unmarshal(m, b)
+}
+func (m *GetCourierOrdersRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetCourierOrdersRequest.Marshal(b, m, deterministic)
+}
+func (m *GetCourierOrdersRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetCourierOrdersRequest.Merge(m, src)
+}
+func (m *GetCourierOrdersRequest) XXX_Size() int {
+	return xxx_messageInfo_GetCourierOrdersRequest.Size(m)
+}
+func (m *GetCourierOrdersRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetCourierOrdersRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetCourierOrdersRequest proto.InternalMessageInfo
+
+func (m *GetCourierOrdersRequest) GetCourierId() string {
+	if m != nil {
+		return m.CourierId
+	}
+	return ""
+}
+
+func (m *GetCourierOrdersRequest) GetPage() uint64 {
+	if m != nil {
+		return m.Page
+	}
+	return 0
+}
+
+func (m *GetCourierOrdersRequest) GetLimit() uint64 {
+	if m != nil {
+		return m.Limit
+	}
+	return 0
+}
+
+type GetCOOrdersRequest struct {
+	CoId                 string   `protobuf:"bytes,1,opt,name=co_id,json=coId,proto3" json:"co_id,omitempty"`
+	Page                 uint64   `protobuf:"varint,2,opt,name=page,proto3" json:"page,omitempty"`
+	Limit                uint64   `protobuf:"varint,3,opt,name=limit,proto3" json:"limit,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetCOOrdersRequest) Reset()         { *m = GetCOOrdersRequest{} }
+func (m *GetCOOrdersRequest) String() string { return proto.CompactTextString(m) }
+func (*GetCOOrdersRequest) ProtoMessage()    {}
+func (*GetCOOrdersRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_93a121d2d2ec3d32, []int{9}
+}
+
+func (m *GetCOOrdersRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetCOOrdersRequest.Unmarshal(m, b)
+}
+func (m *GetCOOrdersRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetCOOrdersRequest.Marshal(b, m, deterministic)
+}
+func (m *GetCOOrdersRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetCOOrdersRequest.Merge(m, src)
+}
+func (m *GetCOOrdersRequest) XXX_Size() int {
+	return xxx_messageInfo_GetCOOrdersRequest.Size(m)
+}
+func (m *GetCOOrdersRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetCOOrdersRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetCOOrdersRequest proto.InternalMessageInfo
+
+func (m *GetCOOrdersRequest) GetCoId() string {
+	if m != nil {
+		return m.CoId
+	}
+	return ""
+}
+
+func (m *GetCOOrdersRequest) GetPage() uint64 {
+	if m != nil {
+		return m.Page
+	}
+	return 0
+}
+
+func (m *GetCOOrdersRequest) GetLimit() uint64 {
+	if m != nil {
+		return m.Limit
+	}
+	return 0
+}
+
+type ChangeStatusStepRequest struct {
+	StepId               string   `protobuf:"bytes,1,opt,name=step_id,json=stepId,proto3" json:"step_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ChangeStatusStepRequest) Reset()         { *m = ChangeStatusStepRequest{} }
+func (m *ChangeStatusStepRequest) String() string { return proto.CompactTextString(m) }
+func (*ChangeStatusStepRequest) ProtoMessage()    {}
+func (*ChangeStatusStepRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_93a121d2d2ec3d32, []int{10}
+}
+
+func (m *ChangeStatusStepRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ChangeStatusStepRequest.Unmarshal(m, b)
+}
+func (m *ChangeStatusStepRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ChangeStatusStepRequest.Marshal(b, m, deterministic)
+}
+func (m *ChangeStatusStepRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ChangeStatusStepRequest.Merge(m, src)
+}
+func (m *ChangeStatusStepRequest) XXX_Size() int {
+	return xxx_messageInfo_ChangeStatusStepRequest.Size(m)
+}
+func (m *ChangeStatusStepRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ChangeStatusStepRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ChangeStatusStepRequest proto.InternalMessageInfo
+
+func (m *ChangeStatusStepRequest) GetStepId() string {
+	if m != nil {
+		return m.StepId
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*GetRequest)(nil), "genproto.GetRequest")
-	proto.RegisterType((*GetAllRequest)(nil), "genproto.GetAllRequest")
-	proto.RegisterType((*GetAllResponse)(nil), "genproto.GetAllResponse")
+	proto.RegisterType((*OrdersRequest)(nil), "genproto.OrdersRequest")
+	proto.RegisterType((*OrdersResponse)(nil), "genproto.OrdersResponse")
 	proto.RegisterType((*DeleteRequest)(nil), "genproto.DeleteRequest")
 	proto.RegisterType((*AddCourierRequest)(nil), "genproto.AddCourierRequest")
-	proto.RegisterType((*DeleteCourierRequest)(nil), "genproto.DeleteCourierRequest")
+	proto.RegisterType((*RemoveCourierRequest)(nil), "genproto.RemoveCourierRequest")
 	proto.RegisterType((*UpdateRequest)(nil), "genproto.UpdateRequest")
 	proto.RegisterType((*ChangeStatusRequest)(nil), "genproto.ChangeStatusRequest")
+	proto.RegisterType((*GetCourierOrdersRequest)(nil), "genproto.GetCourierOrdersRequest")
+	proto.RegisterType((*GetCOOrdersRequest)(nil), "genproto.GetCOOrdersRequest")
+	proto.RegisterType((*ChangeStatusStepRequest)(nil), "genproto.ChangeStatusStepRequest")
 }
 
 func init() { proto.RegisterFile("order_service.proto", fileDescriptor_93a121d2d2ec3d32) }
 
 var fileDescriptor_93a121d2d2ec3d32 = []byte{
-	// 460 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x54, 0x4d, 0x6f, 0xd3, 0x40,
-	0x10, 0xcd, 0x17, 0x26, 0x99, 0x36, 0x45, 0x4c, 0xa3, 0x60, 0x1c, 0x0a, 0xd5, 0x5e, 0xe8, 0xc9,
-	0x11, 0xed, 0x09, 0x55, 0x1c, 0xda, 0x80, 0xa2, 0x1c, 0xaa, 0x4a, 0xae, 0xb8, 0x70, 0x41, 0xae,
-	0x77, 0x30, 0x96, 0x1c, 0xaf, 0xb1, 0xd7, 0x95, 0xf8, 0x01, 0xfc, 0x6f, 0xe4, 0x5d, 0x6f, 0x1d,
-	0xa7, 0x75, 0x94, 0x9b, 0x67, 0xf6, 0xbd, 0xb7, 0x6f, 0x67, 0x9e, 0x0c, 0xc7, 0x22, 0xe3, 0x94,
-	0xfd, 0xcc, 0x29, 0x7b, 0x88, 0x02, 0x72, 0xd3, 0x4c, 0x48, 0x81, 0xc3, 0x90, 0x12, 0xf5, 0xe5,
-	0xcc, 0x42, 0x21, 0xc2, 0x98, 0xe6, 0xaa, 0xba, 0x2f, 0x7e, 0xcd, 0x69, 0x9d, 0xca, 0xbf, 0x1a,
-	0xe6, 0x1c, 0x28, 0xae, 0x2e, 0xd8, 0x3b, 0x80, 0x25, 0x49, 0x8f, 0xfe, 0x14, 0x94, 0x4b, 0x3c,
-	0x82, 0x5e, 0xc4, 0xed, 0xee, 0x69, 0xf7, 0x6c, 0xe4, 0xf5, 0x22, 0xce, 0x3e, 0xc3, 0x78, 0x49,
-	0xf2, 0x2a, 0x8e, 0x0d, 0x00, 0x61, 0x90, 0xfa, 0x21, 0x29, 0xc8, 0xc0, 0x53, 0xdf, 0x38, 0x81,
-	0x17, 0x71, 0xb4, 0x8e, 0xa4, 0xdd, 0x53, 0x4d, 0x5d, 0xb0, 0x5b, 0x38, 0x32, 0xd4, 0x3c, 0x15,
-	0x49, 0x4e, 0xf8, 0x11, 0x2c, 0x75, 0x73, 0x6e, 0x77, 0x4f, 0xfb, 0x67, 0x07, 0xe7, 0xaf, 0x5c,
-	0xe3, 0xd7, 0xbd, 0x2d, 0xfb, 0x5e, 0x75, 0x5c, 0x0a, 0x06, 0xa2, 0x48, 0x1e, 0x05, 0x55, 0xc1,
-	0x3e, 0xc0, 0xf8, 0x2b, 0xc5, 0x24, 0xa9, 0xcd, 0xec, 0x0d, 0xbc, 0xbe, 0xe2, 0x7c, 0x21, 0x8a,
-	0x2c, 0xa2, 0xcc, 0x80, 0xde, 0xc2, 0x50, 0x8f, 0xea, 0x11, 0xfa, 0x52, 0xd5, 0x2b, 0x8e, 0x27,
-	0x00, 0x81, 0x06, 0x97, 0x87, 0x3d, 0x75, 0x38, 0xaa, 0x3a, 0x2b, 0xce, 0x3e, 0xc1, 0x44, 0xdf,
-	0xb7, 0xb7, 0x22, 0xbb, 0x81, 0xf1, 0xf7, 0x94, 0xfb, 0xad, 0x16, 0x71, 0x0a, 0x56, 0x20, 0xe2,
-	0x62, 0x9d, 0x54, 0xd7, 0x55, 0x55, 0xf9, 0xe2, 0x07, 0x3f, 0x2e, 0xc8, 0xee, 0xab, 0xb6, 0x2e,
-	0xd8, 0x35, 0x1c, 0x2f, 0x7e, 0xfb, 0x49, 0x48, 0x77, 0xd2, 0x97, 0x45, 0xde, 0x26, 0x3a, 0x83,
-	0x51, 0xae, 0x00, 0xf5, 0x33, 0x86, 0xba, 0xb1, 0xe2, 0xe7, 0xff, 0x06, 0x70, 0xa8, 0xa6, 0x7b,
-	0xa7, 0xa3, 0x82, 0x17, 0x60, 0x2d, 0x32, 0xf2, 0x25, 0xe1, 0xf6, 0xfc, 0x9d, 0xa9, 0xab, 0x63,
-	0xe3, 0x9a, 0xd8, 0xb8, 0xdf, 0xca, 0xd8, 0xb0, 0x0e, 0xba, 0xd0, 0x5f, 0x92, 0xc4, 0x49, 0xcd,
-	0xa8, 0x43, 0xe3, 0x6c, 0xeb, 0xb0, 0x0e, 0x7e, 0x01, 0x4b, 0x2f, 0x1f, 0xdf, 0x34, 0x28, 0x75,
-	0x92, 0x1c, 0xfb, 0xe9, 0x81, 0xce, 0x09, 0xeb, 0xe0, 0x25, 0x58, 0x7a, 0xf4, 0x9b, 0xf4, 0xc6,
-	0xf2, 0x77, 0x78, 0x5d, 0x00, 0xd4, 0x31, 0xc0, 0x59, 0x2d, 0xf0, 0x24, 0x1c, 0x3b, 0x44, 0x2e,
-	0xc1, 0xd2, 0x9b, 0xdc, 0x74, 0xd0, 0xd8, 0xed, 0x0e, 0xf2, 0xca, 0x24, 0xd5, 0x98, 0x78, 0xbf,
-	0xfd, 0x8a, 0xbd, 0x7d, 0x2c, 0xe1, 0x70, 0x33, 0x02, 0x78, 0x52, 0x2b, 0x3d, 0x13, 0x8d, 0x76,
-	0xa1, 0x6b, 0xfb, 0xc7, 0xd4, 0x30, 0xe7, 0x8d, 0x7f, 0xc7, 0xbd, 0xa5, 0x9a, 0x17, 0xff, 0x03,
-	0x00, 0x00, 0xff, 0xff, 0x9a, 0x3a, 0x5f, 0x76, 0x53, 0x04, 0x00, 0x00,
+	// 573 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x95, 0x4d, 0x6f, 0xda, 0x4c,
+	0x10, 0xc7, 0x79, 0x7b, 0x1c, 0x18, 0x20, 0x4f, 0xba, 0x20, 0x70, 0x21, 0x69, 0xd3, 0xbd, 0x34,
+	0x27, 0xa3, 0xc2, 0xa9, 0xaa, 0x7a, 0x48, 0x68, 0x65, 0x71, 0x48, 0x51, 0x41, 0xbd, 0xf4, 0x52,
+	0x19, 0x76, 0x4a, 0x2d, 0x19, 0xd6, 0xb5, 0xd7, 0x54, 0xfd, 0x54, 0xfd, 0x8a, 0x95, 0x77, 0x6d,
+	0xfc, 0x12, 0xb0, 0x92, 0xde, 0x3c, 0x3b, 0x33, 0xbf, 0x9d, 0xd9, 0x99, 0xbf, 0x0c, 0x1d, 0xee,
+	0x31, 0xf4, 0xbe, 0xf9, 0xe8, 0xed, 0xed, 0x35, 0x1a, 0xae, 0xc7, 0x05, 0x27, 0xf5, 0x0d, 0xee,
+	0xe4, 0xd7, 0x60, 0xb8, 0xe1, 0x7c, 0xe3, 0xe0, 0x48, 0x5a, 0xab, 0xe0, 0xfb, 0x08, 0xb7, 0xae,
+	0xf8, 0xad, 0xc2, 0x06, 0x4d, 0x99, 0xab, 0x0c, 0x7a, 0x09, 0x60, 0xa2, 0x58, 0xe0, 0xcf, 0x00,
+	0x7d, 0x41, 0xce, 0xa1, 0x62, 0x33, 0xbd, 0x7c, 0x5d, 0xbe, 0x69, 0x2c, 0x2a, 0x36, 0xa3, 0x6f,
+	0xa1, 0x3d, 0x0f, 0x83, 0xfd, 0x38, 0x80, 0x40, 0xcd, 0xb5, 0x36, 0x28, 0x43, 0x6a, 0x0b, 0xf9,
+	0x4d, 0xba, 0xf0, 0x9f, 0x63, 0x6f, 0x6d, 0xa1, 0x57, 0xe4, 0xa1, 0x32, 0xe8, 0x1c, 0xce, 0xe3,
+	0x54, 0xdf, 0xe5, 0x3b, 0x1f, 0xc9, 0x6b, 0xd0, 0xe4, 0xcd, 0xbe, 0x5e, 0xbe, 0xae, 0xde, 0x34,
+	0xc7, 0xff, 0x1b, 0x71, 0xbd, 0x86, 0x8c, 0x5c, 0x44, 0xee, 0x10, 0xb8, 0xe6, 0xc1, 0xee, 0x00,
+	0x94, 0x06, 0x7d, 0x09, 0xed, 0x0f, 0xe8, 0xa0, 0xc0, 0x53, 0xc5, 0xde, 0xc3, 0xb3, 0x5b, 0xc6,
+	0xa6, 0x3c, 0xf0, 0x6c, 0xf4, 0xe2, 0xa0, 0xe7, 0x50, 0x57, 0x4f, 0x75, 0x08, 0x3d, 0x93, 0xf6,
+	0x8c, 0x91, 0x2b, 0x80, 0xb5, 0x0a, 0x0e, 0x9d, 0x15, 0xe9, 0x6c, 0x44, 0x27, 0x33, 0x46, 0xdf,
+	0x40, 0x77, 0x81, 0x5b, 0xbe, 0xc7, 0x47, 0x13, 0xe9, 0x3d, 0xb4, 0xbf, 0xb8, 0xcc, 0x3a, 0x59,
+	0x22, 0xe9, 0x81, 0xb6, 0xe6, 0x4e, 0xb0, 0xdd, 0x45, 0xd7, 0x45, 0x56, 0xd8, 0xf1, 0xde, 0x72,
+	0x02, 0xd4, 0xab, 0xf2, 0x58, 0x19, 0xf4, 0x0e, 0x3a, 0xd3, 0x1f, 0xd6, 0x6e, 0x83, 0x4b, 0x61,
+	0x89, 0xc0, 0x3f, 0x05, 0x1d, 0x42, 0xc3, 0x97, 0x01, 0x49, 0x1b, 0x75, 0x75, 0x30, 0x63, 0x74,
+	0x05, 0x7d, 0x13, 0x45, 0xd4, 0x42, 0x76, 0x96, 0xd9, 0xfe, 0xcb, 0xb9, 0xfe, 0x0f, 0xa3, 0xae,
+	0x1c, 0x1b, 0x75, 0x35, 0x3d, 0xea, 0x25, 0x90, 0xf0, 0x8e, 0x79, 0x16, 0xdf, 0x09, 0xa7, 0x98,
+	0x90, 0x6b, 0x6b, 0xfe, 0x24, 0xe8, 0x18, 0xfa, 0xe9, 0xe6, 0x97, 0x02, 0xdd, 0x98, 0xdc, 0x87,
+	0x33, 0x5f, 0xa0, 0x9b, 0xb0, 0xb5, 0xd0, 0x9c, 0xb1, 0xf1, 0x1f, 0x0d, 0x5a, 0xb2, 0x88, 0xa5,
+	0xd2, 0x05, 0x99, 0x80, 0x36, 0xf5, 0xd0, 0x12, 0x48, 0xf2, 0xcb, 0x36, 0xe8, 0x19, 0x4a, 0x23,
+	0x46, 0xac, 0x11, 0xe3, 0x63, 0xa8, 0x11, 0x5a, 0x22, 0x06, 0x54, 0x4d, 0x14, 0xa4, 0x9b, 0x64,
+	0x24, 0x0a, 0x19, 0xe4, 0x39, 0xb4, 0x44, 0xde, 0x83, 0x66, 0xa2, 0xb8, 0x75, 0x1c, 0xd2, 0xcf,
+	0x39, 0xe3, 0xb7, 0x18, 0xe8, 0x0f, 0x1d, 0x4a, 0x14, 0xb4, 0x44, 0xde, 0x81, 0xa6, 0xf6, 0x3a,
+	0x9d, 0x9e, 0xd9, 0xf4, 0x82, 0x5a, 0xa7, 0x00, 0xc9, 0xce, 0x93, 0x61, 0x02, 0x78, 0xa0, 0x84,
+	0x02, 0xc8, 0x04, 0x34, 0xb5, 0xb6, 0x4f, 0x79, 0xa5, 0x19, 0xb4, 0x33, 0xf2, 0x20, 0x2f, 0x92,
+	0xdc, 0x63, 0xba, 0x29, 0x40, 0x99, 0xd0, 0x4a, 0x8f, 0x9a, 0x5c, 0x25, 0xa4, 0x23, 0xfb, 0x5f,
+	0x00, 0xfa, 0x0c, 0x17, 0xf9, 0x65, 0x27, 0xaf, 0x32, 0x63, 0x3c, 0x26, 0x84, 0xc2, 0xe9, 0x98,
+	0xd0, 0x4c, 0xed, 0x36, 0xb9, 0xcc, 0xd2, 0xe6, 0x8f, 0x07, 0x4d, 0xa1, 0x65, 0xa2, 0xf8, 0x84,
+	0xbf, 0x22, 0xd2, 0x3f, 0xed, 0xca, 0x1c, 0x2e, 0xf2, 0xa2, 0x48, 0x37, 0x78, 0x42, 0x30, 0xa7,
+	0x5f, 0xec, 0x4e, 0xff, 0xda, 0x8b, 0xb3, 0x47, 0x99, 0x5f, 0xca, 0x4a, 0x93, 0x87, 0x93, 0xbf,
+	0x01, 0x00, 0x00, 0xff, 0xff, 0x6f, 0xd0, 0x07, 0xf3, 0x6a, 0x06, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -445,13 +604,17 @@ const _ = grpc.SupportPackageIsVersion6
 type OrderServiceClient interface {
 	Create(ctx context.Context, in *Order, opts ...grpc.CallOption) (*empty.Empty, error)
 	Get(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*Order, error)
-	GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllResponse, error)
+	GetAll(ctx context.Context, in *OrdersRequest, opts ...grpc.CallOption) (*OrdersResponse, error)
 	Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*empty.Empty, error)
 	AddCourier(ctx context.Context, in *AddCourierRequest, opts ...grpc.CallOption) (*empty.Empty, error)
-	Update(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*empty.Empty, error)
+	Update(ctx context.Context, in *Order, opts ...grpc.CallOption) (*empty.Empty, error)
 	//    rpc UpdateOrder(Order) returns (google.protobuf.Empty) {}
-	DeleteCourier(ctx context.Context, in *DeleteCourierRequest, opts ...grpc.CallOption) (*empty.Empty, error)
+	RemoveCourier(ctx context.Context, in *RemoveCourierRequest, opts ...grpc.CallOption) (*empty.Empty, error)
 	ChangeStatus(ctx context.Context, in *ChangeStatusRequest, opts ...grpc.CallOption) (*empty.Empty, error)
+	GetCourierOrders(ctx context.Context, in *GetCourierOrdersRequest, opts ...grpc.CallOption) (*OrdersResponse, error)
+	GetCOOrders(ctx context.Context, in *GetCOOrdersRequest, opts ...grpc.CallOption) (*OrdersResponse, error)
+	GetNewOrders(ctx context.Context, in *OrdersRequest, opts ...grpc.CallOption) (*OrdersResponse, error)
+	ChangeStatusStep(ctx context.Context, in *ChangeStatusStepRequest, opts ...grpc.CallOption) (*empty.Empty, error)
 }
 
 type orderServiceClient struct {
@@ -480,8 +643,8 @@ func (c *orderServiceClient) Get(ctx context.Context, in *GetRequest, opts ...gr
 	return out, nil
 }
 
-func (c *orderServiceClient) GetAll(ctx context.Context, in *GetAllRequest, opts ...grpc.CallOption) (*GetAllResponse, error) {
-	out := new(GetAllResponse)
+func (c *orderServiceClient) GetAll(ctx context.Context, in *OrdersRequest, opts ...grpc.CallOption) (*OrdersResponse, error) {
+	out := new(OrdersResponse)
 	err := c.cc.Invoke(ctx, "/genproto.OrderService/GetAll", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -507,7 +670,7 @@ func (c *orderServiceClient) AddCourier(ctx context.Context, in *AddCourierReque
 	return out, nil
 }
 
-func (c *orderServiceClient) Update(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+func (c *orderServiceClient) Update(ctx context.Context, in *Order, opts ...grpc.CallOption) (*empty.Empty, error) {
 	out := new(empty.Empty)
 	err := c.cc.Invoke(ctx, "/genproto.OrderService/Update", in, out, opts...)
 	if err != nil {
@@ -516,9 +679,9 @@ func (c *orderServiceClient) Update(ctx context.Context, in *UpdateRequest, opts
 	return out, nil
 }
 
-func (c *orderServiceClient) DeleteCourier(ctx context.Context, in *DeleteCourierRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+func (c *orderServiceClient) RemoveCourier(ctx context.Context, in *RemoveCourierRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
 	out := new(empty.Empty)
-	err := c.cc.Invoke(ctx, "/genproto.OrderService/DeleteCourier", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/genproto.OrderService/RemoveCourier", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -534,17 +697,57 @@ func (c *orderServiceClient) ChangeStatus(ctx context.Context, in *ChangeStatusR
 	return out, nil
 }
 
+func (c *orderServiceClient) GetCourierOrders(ctx context.Context, in *GetCourierOrdersRequest, opts ...grpc.CallOption) (*OrdersResponse, error) {
+	out := new(OrdersResponse)
+	err := c.cc.Invoke(ctx, "/genproto.OrderService/GetCourierOrders", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *orderServiceClient) GetCOOrders(ctx context.Context, in *GetCOOrdersRequest, opts ...grpc.CallOption) (*OrdersResponse, error) {
+	out := new(OrdersResponse)
+	err := c.cc.Invoke(ctx, "/genproto.OrderService/GetCOOrders", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *orderServiceClient) GetNewOrders(ctx context.Context, in *OrdersRequest, opts ...grpc.CallOption) (*OrdersResponse, error) {
+	out := new(OrdersResponse)
+	err := c.cc.Invoke(ctx, "/genproto.OrderService/GetNewOrders", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *orderServiceClient) ChangeStatusStep(ctx context.Context, in *ChangeStatusStepRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+	out := new(empty.Empty)
+	err := c.cc.Invoke(ctx, "/genproto.OrderService/ChangeStatusStep", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // OrderServiceServer is the server API for OrderService service.
 type OrderServiceServer interface {
 	Create(context.Context, *Order) (*empty.Empty, error)
 	Get(context.Context, *GetRequest) (*Order, error)
-	GetAll(context.Context, *GetAllRequest) (*GetAllResponse, error)
+	GetAll(context.Context, *OrdersRequest) (*OrdersResponse, error)
 	Delete(context.Context, *DeleteRequest) (*empty.Empty, error)
 	AddCourier(context.Context, *AddCourierRequest) (*empty.Empty, error)
-	Update(context.Context, *UpdateRequest) (*empty.Empty, error)
+	Update(context.Context, *Order) (*empty.Empty, error)
 	//    rpc UpdateOrder(Order) returns (google.protobuf.Empty) {}
-	DeleteCourier(context.Context, *DeleteCourierRequest) (*empty.Empty, error)
+	RemoveCourier(context.Context, *RemoveCourierRequest) (*empty.Empty, error)
 	ChangeStatus(context.Context, *ChangeStatusRequest) (*empty.Empty, error)
+	GetCourierOrders(context.Context, *GetCourierOrdersRequest) (*OrdersResponse, error)
+	GetCOOrders(context.Context, *GetCOOrdersRequest) (*OrdersResponse, error)
+	GetNewOrders(context.Context, *OrdersRequest) (*OrdersResponse, error)
+	ChangeStatusStep(context.Context, *ChangeStatusStepRequest) (*empty.Empty, error)
 }
 
 // UnimplementedOrderServiceServer can be embedded to have forward compatible implementations.
@@ -557,7 +760,7 @@ func (*UnimplementedOrderServiceServer) Create(ctx context.Context, req *Order) 
 func (*UnimplementedOrderServiceServer) Get(ctx context.Context, req *GetRequest) (*Order, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
 }
-func (*UnimplementedOrderServiceServer) GetAll(ctx context.Context, req *GetAllRequest) (*GetAllResponse, error) {
+func (*UnimplementedOrderServiceServer) GetAll(ctx context.Context, req *OrdersRequest) (*OrdersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAll not implemented")
 }
 func (*UnimplementedOrderServiceServer) Delete(ctx context.Context, req *DeleteRequest) (*empty.Empty, error) {
@@ -566,14 +769,26 @@ func (*UnimplementedOrderServiceServer) Delete(ctx context.Context, req *DeleteR
 func (*UnimplementedOrderServiceServer) AddCourier(ctx context.Context, req *AddCourierRequest) (*empty.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddCourier not implemented")
 }
-func (*UnimplementedOrderServiceServer) Update(ctx context.Context, req *UpdateRequest) (*empty.Empty, error) {
+func (*UnimplementedOrderServiceServer) Update(ctx context.Context, req *Order) (*empty.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
 }
-func (*UnimplementedOrderServiceServer) DeleteCourier(ctx context.Context, req *DeleteCourierRequest) (*empty.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteCourier not implemented")
+func (*UnimplementedOrderServiceServer) RemoveCourier(ctx context.Context, req *RemoveCourierRequest) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveCourier not implemented")
 }
 func (*UnimplementedOrderServiceServer) ChangeStatus(ctx context.Context, req *ChangeStatusRequest) (*empty.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ChangeStatus not implemented")
+}
+func (*UnimplementedOrderServiceServer) GetCourierOrders(ctx context.Context, req *GetCourierOrdersRequest) (*OrdersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCourierOrders not implemented")
+}
+func (*UnimplementedOrderServiceServer) GetCOOrders(ctx context.Context, req *GetCOOrdersRequest) (*OrdersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCOOrders not implemented")
+}
+func (*UnimplementedOrderServiceServer) GetNewOrders(ctx context.Context, req *OrdersRequest) (*OrdersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetNewOrders not implemented")
+}
+func (*UnimplementedOrderServiceServer) ChangeStatusStep(ctx context.Context, req *ChangeStatusStepRequest) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ChangeStatusStep not implemented")
 }
 
 func RegisterOrderServiceServer(s *grpc.Server, srv OrderServiceServer) {
@@ -617,7 +832,7 @@ func _OrderService_Get_Handler(srv interface{}, ctx context.Context, dec func(in
 }
 
 func _OrderService_GetAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetAllRequest)
+	in := new(OrdersRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -629,7 +844,7 @@ func _OrderService_GetAll_Handler(srv interface{}, ctx context.Context, dec func
 		FullMethod: "/genproto.OrderService/GetAll",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrderServiceServer).GetAll(ctx, req.(*GetAllRequest))
+		return srv.(OrderServiceServer).GetAll(ctx, req.(*OrdersRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -671,7 +886,7 @@ func _OrderService_AddCourier_Handler(srv interface{}, ctx context.Context, dec 
 }
 
 func _OrderService_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateRequest)
+	in := new(Order)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -683,25 +898,25 @@ func _OrderService_Update_Handler(srv interface{}, ctx context.Context, dec func
 		FullMethod: "/genproto.OrderService/Update",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrderServiceServer).Update(ctx, req.(*UpdateRequest))
+		return srv.(OrderServiceServer).Update(ctx, req.(*Order))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OrderService_DeleteCourier_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteCourierRequest)
+func _OrderService_RemoveCourier_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveCourierRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(OrderServiceServer).DeleteCourier(ctx, in)
+		return srv.(OrderServiceServer).RemoveCourier(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/genproto.OrderService/DeleteCourier",
+		FullMethod: "/genproto.OrderService/RemoveCourier",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrderServiceServer).DeleteCourier(ctx, req.(*DeleteCourierRequest))
+		return srv.(OrderServiceServer).RemoveCourier(ctx, req.(*RemoveCourierRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -720,6 +935,78 @@ func _OrderService_ChangeStatus_Handler(srv interface{}, ctx context.Context, de
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OrderServiceServer).ChangeStatus(ctx, req.(*ChangeStatusRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrderService_GetCourierOrders_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCourierOrdersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrderServiceServer).GetCourierOrders(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/genproto.OrderService/GetCourierOrders",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrderServiceServer).GetCourierOrders(ctx, req.(*GetCourierOrdersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrderService_GetCOOrders_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCOOrdersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrderServiceServer).GetCOOrders(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/genproto.OrderService/GetCOOrders",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrderServiceServer).GetCOOrders(ctx, req.(*GetCOOrdersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrderService_GetNewOrders_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(OrdersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrderServiceServer).GetNewOrders(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/genproto.OrderService/GetNewOrders",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrderServiceServer).GetNewOrders(ctx, req.(*OrdersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _OrderService_ChangeStatusStep_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ChangeStatusStepRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrderServiceServer).ChangeStatusStep(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/genproto.OrderService/ChangeStatusStep",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrderServiceServer).ChangeStatusStep(ctx, req.(*ChangeStatusStepRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -753,12 +1040,28 @@ var _OrderService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _OrderService_Update_Handler,
 		},
 		{
-			MethodName: "DeleteCourier",
-			Handler:    _OrderService_DeleteCourier_Handler,
+			MethodName: "RemoveCourier",
+			Handler:    _OrderService_RemoveCourier_Handler,
 		},
 		{
 			MethodName: "ChangeStatus",
 			Handler:    _OrderService_ChangeStatus_Handler,
+		},
+		{
+			MethodName: "GetCourierOrders",
+			Handler:    _OrderService_GetCourierOrders_Handler,
+		},
+		{
+			MethodName: "GetCOOrders",
+			Handler:    _OrderService_GetCOOrders_Handler,
+		},
+		{
+			MethodName: "GetNewOrders",
+			Handler:    _OrderService_GetNewOrders_Handler,
+		},
+		{
+			MethodName: "ChangeStatusStep",
+			Handler:    _OrderService_ChangeStatusStep_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

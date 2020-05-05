@@ -1,7 +1,8 @@
 package repo
 
 import (
-	pb "bitbucket.org/alien_soft/courier_service/genproto/courier_service"
+	pb "genproto/courier_service"
+
 	_ "github.com/lib/pq"
 )
 
@@ -20,4 +21,5 @@ type (
 		// GetAllParks(page, limit uint64) ([]*pb.Park, uint64, error)
 		DeletePark(id string) error
 	}
+
 )
