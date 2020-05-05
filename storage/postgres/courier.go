@@ -218,7 +218,7 @@ func (cm *courierRepo) GetAllCouriers(page, limit uint64) ([]*pb.Courier, uint64
 	return couriers, count, nil
 }
 
-func (cm *courierRepo) GetAllCouriersByPhoneSearching(phone string, page, limit uint64) ([]*pb.Courier, uint64, error) {
+func (cm *courierRepo) SearchCouriersByPhone(phone string, page, limit uint64) ([]*pb.Courier, uint64, error) {
 	var (
 		count      uint64
 		createdAt  time.Time
