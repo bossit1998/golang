@@ -15,11 +15,10 @@ type (
 		Delete(id string) error
 
 		CreatePark(Park *pb.Park) (*pb.Park, error)
-		// UpdatePark(Park *pb.Park) (*pb.Distributor, error)
+		UpdatePark(Park *pb.Park) (*pb.Park, error)
 		GetPark(id string) (*pb.Park, error)
 		GetAllDistributorParks(page, limit uint64) ([]*pb.Park, uint64, error)
-		// GetAllParks(page, limit uint64) ([]*pb.Park, uint64, error)
+		GetAllParks(page, limit uint64) ([]*pb.Park, uint64, error)
 		DeletePark(id string) error
 	}
-
 )

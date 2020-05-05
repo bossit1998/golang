@@ -5,6 +5,7 @@ import (
 	"time"
 
 	pb "genproto/courier_service"
+
 	"bitbucket.org/alien_soft/courier_service/pkg/etc"
 	"bitbucket.org/alien_soft/courier_service/storage/repo"
 	"github.com/google/uuid"
@@ -253,40 +254,45 @@ func (cm *distributorRepo) CreatePark(park *pb.Park) (*pb.Park, error) {
 	return p, nil
 }
 
-// func (cm *distributorRepo) UpdatePark(park *pb.Park) (*pb.Park, error) {
+func (cm *distributorRepo) UpdatePark(park *pb.Park) (*pb.Park, error) {
+	var address sql.NullString = etc.NullString(park.Address)
 
-// 	tx, err := cm.db.Begin()
-// 	if err != nil {
-// 		return nil, err
-// 	}
+	tx, err := cm.db.Begin()
+	if err != nil {
+		return nil, err
+	}
 
-// 	updateQuery :=
-// 		`UPDATE distributors
-// 		SET
-// 			phone=$1,
-// 			name=$2
-// 		WHERE id=$3`
+	updateQuery :=
+		`UPDATE parks
+		SET
+			name=$1,
+			location=st_makepoint($2, $3),
+			address=$4
+		WHERE id=$5`
 
-// 	_, err = tx.Exec(
-// 		updateQuery,
-// 		park.GetName(),
-// 		park.GetId(),
-// 	)
+	_, err = tx.Exec(
+		updateQuery,
+		park.GetName(),
+		park.GetLocation().GetLong(),
+		park.GetLocation().GetLat(),
+		address,
+		park.GetId(),
+	)
 
-// 	if err != nil {
-// 		tx.Rollback()
-// 		return nil, err
-// 	}
+	if err != nil {
+		tx.Rollback()
+		return nil, err
+	}
 
-// 	tx.Commit()
+	tx.Commit()
 
-// 	p, err := cm.GetPark(park.GetId())
-// 	if err != nil {
-// 		return nil, err
-// 	}
+	p, err := cm.GetPark(park.GetId())
+	if err != nil {
+		return nil, err
+	}
 
-// 	return p, nil
-// }
+	return p, nil
+}
 
 func (cm *distributorRepo) GetPark(id string) (*pb.Park, error) {
 	var (
@@ -395,61 +401,61 @@ func (cm *distributorRepo) GetAllDistributorParks(page, limit uint64) ([]*pb.Par
 	return parks, count, nil
 }
 
-// func (cm *distributorRepo) GetAllParks(page, limit uint64) ([]*pb.Park, uint64, error) {
-// 	var (
-// 		count      uint64
-// 		createdAt  time.Time
-// 		layoutDate string = "2006-01-02 15:04:05"
-// 		parks      []*pb.Park
-// 	)
+func (cm *distributorRepo) GetAllParks(page, limit uint64) ([]*pb.Park, uint64, error) {
+	var (
+		count      uint64
+		createdAt  time.Time
+		layoutDate string = "2006-01-02 15:04:05"
+		parks      []*pb.Park
+	)
 
-// 	offset := (page - 1) * limit
-// 	query := `
-// 		SELECT  id,
-// 				access_token,
-// 				name,
-// 				phone,
-// 				created_at,
-// 				is_active
-// 		FROM parks
-// 		WHERE deleted_at=NULL
-// 		ORDER BY created_at DESC
-// 		LIMIT $1 OFFSET $2`
-// 	rows, err := cm.db.Queryx(query, limit, offset)
+	offset := (page - 1) * limit
+	query := `
+		SELECT  id,
+				access_token,
+				name,
+				phone,
+				created_at,
+				is_active
+		FROM parks
+		WHERE deleted_at=NULL
+		ORDER BY created_at DESC
+		LIMIT $1 OFFSET $2`
+	rows, err := cm.db.Queryx(query, limit, offset)
 
-// 	if err != nil {
-// 		return nil, 0, err
-// 	}
+	if err != nil {
+		return nil, 0, err
+	}
 
-// 	for rows.Next() {
-// 		var p pb.Park
-// 		err = rows.Scan(
-// 			&p.Id,
+	for rows.Next() {
+		var p pb.Park
+		err = rows.Scan(
+			&p.Id,
 
-// 			&p.Name,
+			&p.Name,
 
-// 			&createdAt,
-// 			&p.IsActive,
-// 		)
+			&createdAt,
+			&p.IsActive,
+		)
 
-// 		if err != nil {
-// 			return nil, 0, err
-// 		}
-// 		p.CreatedAt = createdAt.Format(layoutDate)
-// 		parks = append(parks, &p)
-// 	}
+		if err != nil {
+			return nil, 0, err
+		}
+		p.CreatedAt = createdAt.Format(layoutDate)
+		parks = append(parks, &p)
+	}
 
-// 	row := cm.db.QueryRow(`
-// 		SELECT count(1)
-// 		FROM parks
-// 		WHERE deleted_at=NULL`,
-// 	)
-// 	err = row.Scan(
-// 		&count,
-// 	)
+	row := cm.db.QueryRow(`
+		SELECT count(1)
+		FROM parks
+		WHERE deleted_at=NULL`,
+	)
+	err = row.Scan(
+		&count,
+	)
 
-// 	return parks, count, nil
-// }
+	return parks, count, nil
+}
 
 func (cm *distributorRepo) DeletePark(id string) error {
 	_, err := cm.db.Exec(`
