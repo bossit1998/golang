@@ -10,6 +10,7 @@ import (
 	"google.golang.org/grpc/status"
 
 	pb "genproto/courier_service"
+
 	l "bitbucket.org/alien_soft/courier_service/pkg/logger"
 	"bitbucket.org/alien_soft/courier_service/service/grpc_client"
 	"bitbucket.org/alien_soft/courier_service/storage"
@@ -138,7 +139,7 @@ func (s *CourierService) UpdateToken(ctx context.Context, req *pb.UpdateTokenReq
 
 // BlockCourier ...
 func (s *CourierService) BlockCourier(ctx context.Context, req *pb.BlockCourierRequest) (*gpb.Empty, error) {
-	err := s.storage.Courier().Delete(req.Id)
+	err := s.storage.Courier().BlockCourier(req.Id)
 	if err == sql.ErrNoRows {
 		s.logger.Error("Error while blocking courier, Not found", l.Any("req", req))
 		return nil, status.Error(codes.NotFound, "Not found")
@@ -151,7 +152,7 @@ func (s *CourierService) BlockCourier(ctx context.Context, req *pb.BlockCourierR
 
 // UnblockCourier ...
 func (s *CourierService) UnblockCourier(ctx context.Context, req *pb.UnblockCourierRequest) (*gpb.Empty, error) {
-	err := s.storage.Courier().Delete(req.Id)
+	err := s.storage.Courier().UnblockCourier(req.Id)
 	if err == sql.ErrNoRows {
 		s.logger.Error("Error while unblocking courier, Not found", l.Any("req", req))
 		return nil, status.Error(codes.NotFound, "Not found")
