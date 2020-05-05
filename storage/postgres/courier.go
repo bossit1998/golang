@@ -6,7 +6,8 @@ import (
 
 	"bitbucket.org/alien_soft/courier_service/pkg/etc"
 
-	pb "bitbucket.org/alien_soft/courier_service/genproto/courier_service"
+	pb "genproto/courier_service"
+
 	"bitbucket.org/alien_soft/courier_service/storage/repo"
 	"github.com/google/uuid"
 	"github.com/jmoiron/sqlx"
@@ -229,18 +230,15 @@ func (cm *courierRepo) GetAllCouriersByPhone(phone string, page, limit uint64) (
 
 	query := `
 		SELECT  id,
-				access_token,
-				distributor_id,
 				phone,
 				first_name,
-				last_name,
-				created_at,
-				is_active
+				last_name
 		FROM couriers
-		WHERE phone LIKE %$1% 
+		WHERE phone LIKE '%' || $1 || '%'
 		ORDER BY created_at DESC 
 		LIMIT $2 OFFSET $3`
 	rows, err := cm.db.Queryx(query, phone, limit, offset)
+
 
 	if err != nil {
 		return nil, 0, err
@@ -250,13 +248,9 @@ func (cm *courierRepo) GetAllCouriersByPhone(phone string, page, limit uint64) (
 		var c pb.Courier
 		err = rows.Scan(
 			&c.Id,
-			&c.AccessToken,
-			&c.DistributorId,
 			&c.Phone,
 			&c.FirstName,
 			&c.LastName,
-			&createdAt,
-			&c.IsActive,
 		)
 
 		if err != nil {
@@ -269,8 +263,7 @@ func (cm *courierRepo) GetAllCouriersByPhone(phone string, page, limit uint64) (
 	row := cm.db.QueryRow(`
 		SELECT count(1) 
 		FROM couriers
-		WHERE deleted_at IS NULL`,
-	)
+		WHERE phone LIKE '%' || $1 || '%'`, phone)
 	err = row.Scan(
 		&count,
 	)

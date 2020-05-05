@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	pb "bitbucket.org/alien_soft/courier_service/genproto/courier_service"
+	pb "genproto/courier_service"
 	l "bitbucket.org/alien_soft/courier_service/pkg/logger"
 	"bitbucket.org/alien_soft/courier_service/service/grpc_client"
 	"bitbucket.org/alien_soft/courier_service/storage"
