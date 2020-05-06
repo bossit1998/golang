@@ -10,6 +10,7 @@ import (
 	"google.golang.org/grpc/status"
 
 	pb "genproto/courier_service"
+
 	l "bitbucket.org/alien_soft/courier_service/pkg/logger"
 	"bitbucket.org/alien_soft/courier_service/service/grpc_client"
 	"bitbucket.org/alien_soft/courier_service/storage"
@@ -120,20 +121,19 @@ func (s *DistributorService) CreatePark(ctx context.Context, req *pb.Park) (*pb.
 }
 
 func (s *DistributorService) UpdatePark(ctx context.Context, req *pb.Park) (*pb.UpdateParkResponse, error) {
-	// Distributor, err := s.storage.Distributor().Update(req)
+	Park, err := s.storage.Distributor().UpdatePark(req)
 
-	// if err == sql.ErrNoRows {
-	// 	s.logger.Error("Error while updating distributor, Not Found", l.Any("req", req))
-	// 	return nil, status.Error(codes.NotFound, "Not found")
-	// } else if err != nil {
-	// 	s.logger.Error("Error while updating distributor", l.Error(err), l.Any("req", req))
-	// 	return nil, status.Error(codes.Internal, "Internal server error")
-	// }
+	if err == sql.ErrNoRows {
+		s.logger.Error("Error while updating park, Not Found", l.Any("req", req))
+		return nil, status.Error(codes.NotFound, "Not found")
+	} else if err != nil {
+		s.logger.Error("Error while updating park", l.Error(err), l.Any("req", req))
+		return nil, status.Error(codes.Internal, "Internal server error")
+	}
 
-	// return &pb.UpdateDistributorResponse{
-	// 	Distributor: Distributor,
-	// }, nil
-	return nil, nil
+	return &pb.UpdateParkResponse{
+		Park: Park,
+	}, nil
 }
 
 func (s *DistributorService) GetPark(ctx context.Context, req *pb.GetParkRequest) (*pb.GetParkResponse, error) {
@@ -190,13 +190,13 @@ func (s *DistributorService) GetAllParks(ctx context.Context, req *pb.GetAllPark
 }
 
 func (s *DistributorService) DeletePark(ctx context.Context, req *pb.DeleteParkRequest) (*gpb.Empty, error) {
-	// err := s.storage.Distributor().Delete(req.Id)
-	// if err == sql.ErrNoRows {
-	// 	s.logger.Error("Error while deleting distributor, Not found", l.Any("req", req))
-	// 	return nil, status.Error(codes.NotFound, "Not found")
-	// } else if err != nil {
-	// 	s.logger.Error("Error while deleting distributor", l.Error(err), l.Any("req", req))
-	// 	return nil, status.Error(codes.Internal, "Internal server error")
-	// }
+	err := s.storage.Distributor().DeletePark(req.Id)
+	if err == sql.ErrNoRows {
+		s.logger.Error("Error while deleting park, Not found", l.Any("req", req))
+		return nil, status.Error(codes.NotFound, "Not found")
+	} else if err != nil {
+		s.logger.Error("Error while deleting park", l.Error(err), l.Any("req", req))
+		return nil, status.Error(codes.Internal, "Internal server error")
+	}
 	return &gpb.Empty{}, nil
 }
