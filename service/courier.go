@@ -303,11 +303,11 @@ func (s *CourierService) DeleteCourierVehicle(ctx context.Context, req *pb.Delet
 	return &gpb.Empty{}, nil
 }
 
-// GetAllCouriersByPhone is function for searching by phone all couriers
-func (s *CourierService) GetAllCouriersByPhone(ctx context.Context, req *pb.GetAllCouriersByPhoneRequest) (*pb.GetAllCouriersByPhoneResponse, error) {
+// SearchCouriersByPhone is function for searching by phone all couriers
+func (s *CourierService) SearchCouriersByPhone(ctx context.Context, req *pb.SearchCouriersByPhoneRequest) (*pb.SearchCouriersByPhoneResponse, error) {
 	var couriers []*pb.Courier
 
-	couriers, count, err := s.storage.Courier().GetAllCouriersByPhone(req.Phone, req.Page, req.Limit)
+	couriers, count, err := s.storage.Courier().SearchCouriersByPhone(req.Phone, req.Page, req.Limit)
 	if err == sql.ErrNoRows {
 		s.logger.Error("Error while getting all couriers, Not found", l.Any("req", req))
 		return nil, status.Error(codes.NotFound, "Not found")
@@ -316,7 +316,7 @@ func (s *CourierService) GetAllCouriersByPhone(ctx context.Context, req *pb.GetA
 		return nil, status.Error(codes.Internal, "Internal server error")
 	}
 
-	return &pb.GetAllCouriersByPhoneResponse{
+	return &pb.SearchCouriersByPhoneResponse{
 		Couriers: couriers,
 		Count:    count,
 	}, nil
