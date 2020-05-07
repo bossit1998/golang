@@ -9,10 +9,23 @@ CREATE TABLE IF NOT EXISTS distributors (
      is_active BOOLEAN NOT NULL DEFAULT TRUE
 );
 
+CREATE TABLE IF NOT EXISTS parks (
+     id uuid PRIMARY KEY,
+     distributor_id uuid NOT NULL REFERENCES distributors(id),
+     name VARCHAR(100) NOT NULL,
+     location GEOMETRY NOT NULL,
+     address VARCHAR,
+     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+     updated_at TIMESTAMP,
+     deleted_at TIMESTAMP,
+     is_active BOOLEAN NOT NULL DEFAULT TRUE
+);
+
 CREATE TABLE IF NOT EXISTS couriers (
      id uuid PRIMARY KEY,
      access_token VARCHAR NOT NULL UNIQUE,
      distributor_id uuid NOT NULL REFERENCES distributors(id),
+     park_id uuid NOT NULL REFERENCES parks(id),
      phone VARCHAR(100) NOT NULL,
      first_name VARCHAR(100) NOT NULL,
      last_name VARCHAR(100) NOT NULL,
