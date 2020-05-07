@@ -43,7 +43,7 @@ func (cm *courierRepo) Create(courier *pb.Courier) (*pb.Courier, error) {
 			park_id
 		)
 		VALUES
-		($1, $2, $3, $4, $5, $6)`
+		($1, $2, $3, $4, $5, $6, $7)`
 
 	_, err = tx.Exec(
 		insertNew,
