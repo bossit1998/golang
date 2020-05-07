@@ -39,7 +39,8 @@ func (cm *courierRepo) Create(courier *pb.Courier) (*pb.Courier, error) {
 			distributor_id,
 			phone,
 			first_name,
-			last_name
+			last_name,
+			park_id
 		)
 		VALUES
 		($1, $2, $3, $4, $5, $6)`
@@ -52,6 +53,7 @@ func (cm *courierRepo) Create(courier *pb.Courier) (*pb.Courier, error) {
 		courier.GetPhone(),
 		courier.GetFirstName(),
 		courier.GetLastName(),
+		courier.GetParkId(),
 	)
 
 	if err != nil {
@@ -81,14 +83,16 @@ func (cm *courierRepo) Update(courier *pb.Courier) (*pb.Courier, error) {
 		 SET
 			phone=$1,
 			first_name=$2,
-			last_name=$3
-		WHERE id=$4`
+			last_name=$3,
+			park_id=$4
+		WHERE id=$5`
 
 	_, err = tx.Exec(
 		updateQuery,
 		courier.GetPhone(),
 		courier.GetFirstName(),
 		courier.GetLastName(),
+		courier.GetParkId(),
 		courier.GetId(),
 	)
 
@@ -130,7 +134,8 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 				first_name,
 				last_name,
 				created_at,
-				is_active
+				is_active,
+				park_id
 		FROM couriers
 		WHERE `+column+`=$1`, id,
 	)
@@ -144,6 +149,7 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 		&courier.LastName,
 		&createdAt,
 		&courier.IsActive,
+		&courier.ParkId,
 	)
 	if err != nil {
 		return nil, err
@@ -175,7 +181,8 @@ func (cm *courierRepo) GetAllCouriers(page, limit uint64) ([]*pb.Courier, uint64
 				first_name,
 				last_name,
 				created_at,
-				is_active
+				is_active,
+				park_id
 		FROM couriers
 		WHERE deleted_at IS NULL 
 		ORDER BY created_at DESC 
@@ -197,6 +204,7 @@ func (cm *courierRepo) GetAllCouriers(page, limit uint64) ([]*pb.Courier, uint64
 			&c.LastName,
 			&createdAt,
 			&c.IsActive,
+			&c.ParkId,
 		)
 
 		if err != nil {
@@ -238,7 +246,6 @@ func (cm *courierRepo) SearchCouriersByPhone(phone string, page, limit uint64) (
 		ORDER BY created_at DESC 
 		LIMIT $2 OFFSET $3`
 	rows, err := cm.db.Queryx(query, phone, limit, offset)
-
 
 	if err != nil {
 		return nil, 0, err
@@ -309,7 +316,8 @@ func (cm *courierRepo) GetAllDistributorCouriers(dId string, page, limit uint64)
 				first_name,
 				last_name,
 				created_at,
-				is_active
+				is_active,
+				park_id
 		FROM couriers
 		WHERE distributor_id=$1 AND deleted_at IS NULL 
 		ORDER BY created_at DESC 
@@ -330,6 +338,7 @@ func (cm *courierRepo) GetAllDistributorCouriers(dId string, page, limit uint64)
 			&c.LastName,
 			&createdAt,
 			&c.IsActive,
+			&c.ParkId,
 		)
 
 		if err != nil {
