@@ -307,17 +307,27 @@ func (s *CourierService) DeleteCourierVehicle(ctx context.Context, req *pb.Delet
 func (s *CourierService) SearchCouriersByPhone(ctx context.Context, req *pb.SearchCouriersByPhoneRequest) (*pb.SearchCouriersByPhoneResponse, error) {
 	var couriers []*pb.Courier
 
-	couriers, count, err := s.storage.Courier().SearchCouriersByPhone(req.Phone, req.Page, req.Limit)
+	couriers, err := s.storage.Courier().SearchCouriersByPhone(req.Phone)
 	if err == sql.ErrNoRows {
-		s.logger.Error("Error while getting all couriers, Not found", l.Any("req", req))
+		s.logger.Error("Error while getting all couriers by phone, Not found", l.Any("req", req))
 		return nil, status.Error(codes.NotFound, "Not found")
 	} else if err != nil {
-		s.logger.Error("Error while getting all couriers", l.Error(err), l.Any("req", req))
+		s.logger.Error("Error while getting all couriers by phone", l.Error(err), l.Any("req", req))
 		return nil, status.Error(codes.Internal, "Internal server error")
 	}
 
 	return &pb.SearchCouriersByPhoneResponse{
 		Couriers: couriers,
-		Count:    count,
 	}, nil
+}
+
+// Courier vendors
+func (s *CourierService) SaveCourierVendors(ctx context.Context, req *pb.SaveCourierVendorsRequest) (*gpb.Empty, error) {
+	err := s.storage.Courier().SaveCourierVendors(req.CourierId, req.VendorIds)
+	if err != nil {
+		s.logger.Error("Error while saving courier vendors", l.Error(err), l.Any("req", req))
+		return nil, status.Error(codes.Internal, err.Error())
+	}
+
+	return &gpb.Empty{}, nil
 }

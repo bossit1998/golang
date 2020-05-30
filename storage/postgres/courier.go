@@ -24,7 +24,6 @@ func NewCourierRepo(db *sqlx.DB) repo.CourierStorageI {
 
 //courier
 func (cm *courierRepo) Create(courier *pb.Courier) (*pb.Courier, error) {
-
 	tx, err := cm.db.Begin()
 	if err != nil {
 		return nil, err
@@ -226,15 +225,12 @@ func (cm *courierRepo) GetAllCouriers(page, limit uint64) ([]*pb.Courier, uint64
 	return couriers, count, nil
 }
 
-func (cm *courierRepo) SearchCouriersByPhone(phone string, page, limit uint64) ([]*pb.Courier, uint64, error) {
+func (cm *courierRepo) SearchCouriersByPhone(phone string) ([]*pb.Courier, error) {
 	var (
-		count      uint64
 		createdAt  time.Time
 		layoutDate string = "2006-01-02 15:04:05"
 		couriers   []*pb.Courier
 	)
-
-	offset := (page - 1) * limit
 
 	query := `
 		SELECT  id,
@@ -243,12 +239,11 @@ func (cm *courierRepo) SearchCouriersByPhone(phone string, page, limit uint64) (
 				last_name
 		FROM couriers
 		WHERE phone LIKE '%' || $1 || '%'
-		ORDER BY created_at DESC 
-		LIMIT $2 OFFSET $3`
-	rows, err := cm.db.Queryx(query, phone, limit, offset)
+		ORDER BY created_at DESC`
+	rows, err := cm.db.Queryx(query, phone)
 
 	if err != nil {
-		return nil, 0, err
+		return nil, err
 	}
 
 	for rows.Next() {
@@ -261,21 +256,13 @@ func (cm *courierRepo) SearchCouriersByPhone(phone string, page, limit uint64) (
 		)
 
 		if err != nil {
-			return nil, 0, err
+			return nil, err
 		}
 		c.CreatedAt = createdAt.Format(layoutDate)
 		couriers = append(couriers, &c)
 	}
 
-	row := cm.db.QueryRow(`
-		SELECT count(1) 
-		FROM couriers
-		WHERE phone LIKE '%' || $1 || '%'`, phone)
-	err = row.Scan(
-		&count,
-	)
-
-	return couriers, count, nil
+	return couriers, nil
 }
 
 func (cm *courierRepo) ExistsCourier(phoneNumber string) (bool, error) {
@@ -781,6 +768,46 @@ func (cm *courierRepo) UpdateToken(id, access string) error {
 	if rows == 0 {
 		return sql.ErrNoRows
 	}
+
+	return nil
+}
+
+
+func (cm *courierRepo) SaveCourierVendors(courier_id string, vendor_ids []string) error {
+	tx, err := cm.db.Begin()
+	if err != nil {
+		return err
+	}
+
+	_, err = cm.db.Exec(`
+		DELETE FROM courier_vendors WHERE courier_id=$1`, courier_id,
+	)
+	if err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	for _, vendor_id := range vendor_ids {
+		query := `INSERT INTO courier_vendors
+			(
+				courier_id,
+				vendor_id
+			)
+			VALUES ($1, $2)`
+
+		_, err = tx.Exec(
+			query,
+			courier_id,
+			vendor_id,
+		)
+		
+		if err != nil {
+			tx.Rollback()
+			return err
+		}
+	}
+
+	tx.Commit()
 
 	return nil
 }
