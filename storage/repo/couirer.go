@@ -11,7 +11,7 @@ type CourierStorageI interface {
 	Update(courier *pb.Courier) (*pb.Courier, error)
 	GetCourier(id string) (*pb.Courier, error)
 	GetAllCouriers(page, limit uint64) ([]*pb.Courier, uint64, error)
-	SearchCouriersByPhone(phone string, page, limit uint64) ([]*pb.Courier, uint64, error)
+	SearchCouriersByPhone(phone string) ([]*pb.Courier, error)
 	ExistsCourier(phoneNumber string) (bool, error)
 	GetAllDistributorCouriers(dId string, page, limit uint64) ([]*pb.Courier, uint64, error)
 	Delete(id string) error
@@ -29,4 +29,6 @@ type CourierStorageI interface {
 	GetAllCourierVehicles(courierId string) ([]*pb.CourierVehicle, error)
 	GetAllVehicles(page, limit uint64) ([]*pb.CourierVehicle, error)
 	DeleteCourierVehicle(id string) error
+
+	SaveCourierVendors(courier_id string, vendor_ids []string) error
 }
