@@ -8,7 +8,6 @@ import (
 	pb "genproto/courier_service"
 	"bitbucket.org/alien_soft/courier_service/pkg/logger"
 	"bitbucket.org/alien_soft/courier_service/service"
-	"bitbucket.org/alien_soft/courier_service/service/grpc_client"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 	"google.golang.org/grpc"
@@ -39,14 +38,8 @@ func main() {
 		return
 	}
 
-	client, err := grpc_client.New(cfg)
-	if err != nil {
-		log.Error("error while connecting other services")
-		return
-	}
-
-	courierService := service.NewCourierService(connDb, client, log)
-	distributorService := service.NewDistributorService(connDb, client, log)
+	courierService := service.NewCourierService(connDb, log)
+	distributorService := service.NewDistributorService(connDb, log)
 
 	lis, err := net.Listen("tcp", cfg.RPCPort)
 	if err != nil {

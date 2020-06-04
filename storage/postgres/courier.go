@@ -3,6 +3,7 @@ package postgres
 import (
 	"database/sql"
 	"time"
+	"fmt"
 
 	"bitbucket.org/alien_soft/courier_service/pkg/etc"
 
@@ -773,41 +774,131 @@ func (cm *courierRepo) UpdateToken(id, access string) error {
 }
 
 
-func (cm *courierRepo) SaveCourierVendors(courier_id string, vendor_ids []string) error {
+func (cm *courierRepo) CreateBranchCourier(branchId string, courierId string) error {
 	tx, err := cm.db.Begin()
 	if err != nil {
 		return err
 	}
 
-	_, err = cm.db.Exec(`
-		DELETE FROM courier_vendors WHERE courier_id=$1`, courier_id,
+	query := `INSERT INTO branch_couriers
+		(
+			branch_id,
+			courier_id
+		)
+		VALUES ($1, $2)`
+
+	_, err = tx.Exec(
+		query,
+		branchId,
+		courierId,
 	)
+		
 	if err != nil {
 		tx.Rollback()
 		return err
 	}
+	
+	tx.Commit()
 
-	for _, vendor_id := range vendor_ids {
-		query := `INSERT INTO courier_vendors
-			(
-				courier_id,
-				vendor_id
-			)
-			VALUES ($1, $2)`
+	return nil
+}
 
-		_, err = tx.Exec(
-			query,
-			courier_id,
-			vendor_id,
-		)
-		
-		if err != nil {
-			tx.Rollback()
-			return err
-		}
+func (cm *courierRepo) GetAllBranchCouriers(branchId string, page, limit uint64) ([]*pb.Courier, uint64, error) {
+	var (
+		count      uint64
+		createdAt  time.Time
+		layoutDate string = "2006-01-02 15:04:05"
+		couriers   []*pb.Courier
+	)
+
+	offset := (page - 1) * limit
+
+	query := `
+		SELECT  c.id,
+				c.access_token,
+				c.phone,
+				c.first_name,
+				c.last_name,
+				c.created_at,
+				c.is_active,
+		FROM couriers as c
+		INNER JOIN branch_couriers as bc ON bc.courier_id=c.id
+		WHERE bc.branch_id=$1 AND c.deleted_at IS NULL 
+		ORDER BY c.created_at DESC 
+		LIMIT $2 OFFSET $3`
+
+	rows, err := cm.db.Queryx(query, branchId, limit, offset)
+
+	if err != nil {
+		return nil, 0, err
 	}
 
-	tx.Commit()
+	for rows.Next() {
+		var c pb.Courier
+		err = rows.Scan(
+			&c.Id,
+			&c.AccessToken,
+			&c.Phone,
+			&c.FirstName,
+			&c.LastName,
+			&createdAt,
+			&c.IsActive,
+		)
+
+		if err != nil {
+			return nil, 0, err
+		}
+		c.CreatedAt = createdAt.Format(layoutDate)
+		couriers = append(couriers, &c)
+	}
+
+	row := cm.db.QueryRow(`
+		SELECT count(1) 
+		FROM couriers as c
+		INNER JOIN branch_couriers as bc ON bc.courier_id=c.id
+		WHERE bc.branch_id=$1 AND c.deleted_at IS NULL`, branchId)
+	err = row.Scan(
+		&count,
+	)
+
+	return couriers, count, nil
+}
+
+func (cm *courierRepo) GetAllCourierBranches(courierId string) ([]string, error) {
+	var branchIds   []string
+	
+	query := `
+		SELECT branch_id	
+		FROM branch_couriers
+		WHERE courier_id=$1`
+
+	rows, err := cm.db.Queryx(query, courierId)
+
+	if err != nil {
+		return nil, err
+	}
+
+	for rows.Next() {
+		var id string 
+		err = rows.Scan(&id)
+
+		if err != nil {
+			return nil, err
+		}
+		
+		branchIds = append(branchIds, id)
+	}
+
+	return branchIds, nil
+}
+
+func (cm *courierRepo) DeleteBranchCourier(branchId string, courierId string) error {
+	_, err := cm.db.Exec(`
+		DELETE from branch_couriers WHERE branch_id=$1 and courier_id=$2`, branchId, courierId,
+	)
+	if err != nil {
+		return err
+	}
 
 	return nil
 }

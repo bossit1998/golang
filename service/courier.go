@@ -12,7 +12,6 @@ import (
 	pb "genproto/courier_service"
 
 	l "bitbucket.org/alien_soft/courier_service/pkg/logger"
-	"bitbucket.org/alien_soft/courier_service/service/grpc_client"
 	"bitbucket.org/alien_soft/courier_service/storage"
 )
 
@@ -20,15 +19,13 @@ import (
 type CourierService struct {
 	storage storage.StorageI
 	logger  l.Logger
-	client  *grpc_client.GrpcClient
 }
 
 // NewCourierService ...
-func NewCourierService(db *sqlx.DB, client *grpc_client.GrpcClient, log l.Logger) *CourierService {
+func NewCourierService(db *sqlx.DB, log l.Logger) *CourierService {
 	return &CourierService{
 		storage: storage.NewStoragePg(db),
 		logger:  log,
-		client:  client,
 	}
 }
 
@@ -321,13 +318,63 @@ func (s *CourierService) SearchCouriersByPhone(ctx context.Context, req *pb.Sear
 	}, nil
 }
 
-// Courier vendors
-func (s *CourierService) SaveCourierVendors(ctx context.Context, req *pb.SaveCourierVendorsRequest) (*gpb.Empty, error) {
-	err := s.storage.Courier().SaveCourierVendors(req.CourierId, req.VendorIds)
+// Create branch courier
+func (s *CourierService) CreateBranchCourier(ctx context.Context, req *pb.CreateBranchCourierRequest) (*gpb.Empty, error) {
+	err := s.storage.Courier().CreateBranchCourier(req.BranchId, req.CourierId)
 	if err != nil {
-		s.logger.Error("Error while saving courier vendors", l.Error(err), l.Any("req", req))
+		s.logger.Error("Error while creating branch courier", l.Error(err), l.Any("req", req))
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 
+	return &gpb.Empty{}, nil
+}
+
+// GetAllBranchCouriers ...
+func (s *CourierService) GetAllBranchCouriers(ctx context.Context, req *pb.GetAllBranchCouriersRequest) (*pb.GetAllBranchCouriersResponse, error) {
+	var couriers []*pb.Courier
+
+	couriers, count, err := s.storage.Courier().GetAllBranchCouriers(req.BranchId, req.Page, req.Limit)
+	if err == sql.ErrNoRows {
+		s.logger.Error("Error while getting all branch's couriers, Not found", l.Any("req", req))
+		return nil, status.Error(codes.NotFound, "Not found")
+	} else if err != nil {
+		s.logger.Error("Error while getting all branch's couriers", l.Error(err), l.Any("req", req))
+		return nil, status.Error(codes.Internal, "Internal server error")
+	}
+
+	return &pb.GetAllBranchCouriersResponse{
+		Couriers: couriers,
+		Count:    count,
+	}, nil
+}
+
+// GetAllCourierBranches ...
+func (s *CourierService) GetAllCourierBranches(ctx context.Context, req *pb.GetAllCourierBranchesRequest) (*pb.GetAllCourierBranchesResponse, error) {
+	var branchIds []string
+
+	branchIds,  err := s.storage.Courier().GetAllCourierBranches(req.CourierId)
+	if err == sql.ErrNoRows {
+		s.logger.Error("Error while getting all courier's branches, Not found", l.Any("req", req))
+		return nil, status.Error(codes.NotFound, "Not found")
+	} else if err != nil {
+		s.logger.Error("Error while getting all courier's branches", l.Error(err), l.Any("req", req))
+		return nil, status.Error(codes.Internal, "Internal server error")
+	}
+
+	return &pb.GetAllCourierBranchesResponse{
+		BranchIds: branchIds,
+	}, nil
+}
+
+//Delete branch's courier
+func (s *CourierService) DeleteBranchCourier(ctx context.Context, req *pb.DeleteBranchCourierRequest) (*gpb.Empty, error) {
+	err := s.storage.Courier().DeleteBranchCourier(req.BranchId, req.CourierId)
+	if err == sql.ErrNoRows {
+		s.logger.Error("Error while deleting branch's courier, Not found", l.Any("req", req))
+		return nil, status.Error(codes.NotFound, "Not found")
+	} else if err != nil {
+		s.logger.Error("Error while deleting branch's courier", l.Error(err), l.Any("req", req))
+		return nil, status.Error(codes.Internal, "Internal server error")
+	}
 	return &gpb.Empty{}, nil
 }

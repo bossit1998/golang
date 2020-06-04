@@ -30,5 +30,8 @@ type CourierStorageI interface {
 	GetAllVehicles(page, limit uint64) ([]*pb.CourierVehicle, error)
 	DeleteCourierVehicle(id string) error
 
-	SaveCourierVendors(courier_id string, vendor_ids []string) error
+	CreateBranchCourier(courierId string, branchId string) error
+	GetAllBranchCouriers(branchId string, page, limit uint64)  ([]*pb.Courier, uint64, error)
+	GetAllCourierBranches(courierId string)  ([]string, error)
+	DeleteBranchCourier(branchId string, courierId string) error
 }

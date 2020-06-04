@@ -1,8 +1,8 @@
 CREATE TABLE IF NOT EXISTS distributors (
      id uuid PRIMARY KEY,
      access_token VARCHAR NOT NULL UNIQUE,
-     name VARCHAR(100) NOT NULL,
-     phone VARCHAR(100) NOT NULL,
+     name VARCHAR(100) NOT NULL UNIQUE,
+     phone VARCHAR(100) NOT NULL UNIQUE,
      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
      updated_at TIMESTAMP,
      deleted_at TIMESTAMP,
@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS distributors (
 CREATE TABLE IF NOT EXISTS parks (
      id uuid PRIMARY KEY,
      distributor_id uuid NOT NULL REFERENCES distributors(id),
-     name VARCHAR(100) NOT NULL,
+     name VARCHAR(100) NOT NULL UNIQUE,
      location GEOMETRY NOT NULL,
      address VARCHAR,
      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -24,9 +24,9 @@ CREATE TABLE IF NOT EXISTS parks (
 CREATE TABLE IF NOT EXISTS couriers (
      id uuid PRIMARY KEY,
      access_token VARCHAR NOT NULL UNIQUE,
-     distributor_id uuid NOT NULL REFERENCES distributors(id),
-     park_id uuid NOT NULL REFERENCES parks(id),
-     phone VARCHAR(100) NOT NULL,
+     distributor_id uuid REFERENCES distributors(id),
+     park_id uuid REFERENCES parks(id),
+     phone VARCHAR(100) NOT NULL UNIQUE,
      first_name VARCHAR(100) NOT NULL,
      last_name VARCHAR(100) NOT NULL,
      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
