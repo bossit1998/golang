@@ -24,6 +24,11 @@ func NewCourierRepo(db *sqlx.DB) repo.CourierStorageI {
 
 //courier
 func (cm *courierRepo) Create(courier *pb.Courier) (*pb.Courier, error) {
+	var (
+		distributorId  sql.NullString = etc.NullString(courier.DistributorId)
+		parkId sql.NullString = etc.NullString(courier.ParkId)
+	)
+
 	tx, err := cm.db.Begin()
 	if err != nil {
 		return nil, err
@@ -48,11 +53,11 @@ func (cm *courierRepo) Create(courier *pb.Courier) (*pb.Courier, error) {
 		insertNew,
 		courier.GetId(),
 		courier.GetAccessToken(),
-		courier.GetDistributorId(),
+		distributorId,
 		courier.GetPhone(),
 		courier.GetFirstName(),
 		courier.GetLastName(),
-		courier.GetParkId(),
+		parkId,
 	)
 
 	if err != nil {
@@ -71,6 +76,7 @@ func (cm *courierRepo) Create(courier *pb.Courier) (*pb.Courier, error) {
 }
 
 func (cm *courierRepo) Update(courier *pb.Courier) (*pb.Courier, error) {
+	var parkId sql.NullString = etc.NullString(courier.ParkId)
 
 	tx, err := cm.db.Begin()
 	if err != nil {
@@ -91,7 +97,7 @@ func (cm *courierRepo) Update(courier *pb.Courier) (*pb.Courier, error) {
 		courier.GetPhone(),
 		courier.GetFirstName(),
 		courier.GetLastName(),
-		courier.GetParkId(),
+		parkId,
 		courier.GetId(),
 	)
 
@@ -116,6 +122,7 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 		layoutDate string = "2006-01-02 15:04:05"
 		courier    pb.Courier
 		column     string
+		distributorId, parkId sql.NullString
 	)
 
 	_, err := uuid.Parse(id)
@@ -142,17 +149,20 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 	err = row.Scan(
 		&courier.Id,
 		&courier.AccessToken,
-		&courier.DistributorId,
+		&distributorId,
 		&courier.Phone,
 		&courier.FirstName,
 		&courier.LastName,
 		&createdAt,
 		&courier.IsActive,
-		&courier.ParkId,
+		&parkId,
 	)
 	if err != nil {
 		return nil, err
 	}
+
+	courier.DistributorId = etc.StringValue(distributorId)
+	courier.ParkId = etc.StringValue(parkId)
 
 	courier.CreatedAt = createdAt.Format(layoutDate)
 	if err != nil {
@@ -168,6 +178,7 @@ func (cm *courierRepo) GetAllCouriers(page, limit uint64) ([]*pb.Courier, uint64
 		createdAt  time.Time
 		layoutDate string = "2006-01-02 15:04:05"
 		couriers   []*pb.Courier
+		distributorId, parkId sql.NullString
 	)
 
 	offset := (page - 1) * limit
@@ -197,18 +208,20 @@ func (cm *courierRepo) GetAllCouriers(page, limit uint64) ([]*pb.Courier, uint64
 		err = rows.Scan(
 			&c.Id,
 			&c.AccessToken,
-			&c.DistributorId,
+			&distributorId,
 			&c.Phone,
 			&c.FirstName,
 			&c.LastName,
 			&createdAt,
 			&c.IsActive,
-			&c.ParkId,
+			&parkId,
 		)
 
 		if err != nil {
 			return nil, 0, err
 		}
+		c.DistributorId = etc.StringValue(distributorId)
+		c.ParkId = etc.StringValue(parkId)
 		c.CreatedAt = createdAt.Format(layoutDate)
 		couriers = append(couriers, &c)
 	}
@@ -811,7 +824,7 @@ func (cm *courierRepo) GetAllBranchCouriers(branchId string, page, limit uint64)
 	)
 
 	offset := (page - 1) * limit
-
+	
 	query := `
 		SELECT  c.id,
 				c.access_token,
@@ -819,7 +832,7 @@ func (cm *courierRepo) GetAllBranchCouriers(branchId string, page, limit uint64)
 				c.first_name,
 				c.last_name,
 				c.created_at,
-				c.is_active,
+				c.is_active
 		FROM couriers as c
 		INNER JOIN branch_couriers as bc ON bc.courier_id=c.id
 		WHERE bc.branch_id=$1 AND c.deleted_at IS NULL 
