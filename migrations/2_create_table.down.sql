@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS courier_vendors;
+DROP TABLE IF EXISTS branch_couriers;

@@ -3,7 +3,6 @@ package postgres
 import (
 	"database/sql"
 	"time"
-	"fmt"
 
 	"bitbucket.org/alien_soft/courier_service/pkg/etc"
 
