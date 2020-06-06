@@ -1,7 +1,26 @@
-image: docker:latest
+image: docker:19.03.8
 
 pipelines:
   branches:
+    staging:
+      - step:
+          name: Test DB migrations
+          image: migrate/migrate
+          script:
+            - source .build_info
+            - /migrate -path=migrations/ -database="$DELEVER_TEST_DATABASEURL&x-migrations-table=migrations_$APP" up
+      - step:
+          name: Deploy to Stating
+          services:
+            - docker
+          script:
+            - apk update && apk add make && apk add openssh
+            - docker login $DELEVER_REGISTRY --username $DELEVER_DOCKER_USERNAME --password $DELEVER_DOCKER_PASSWORD
+            - make build-image TAG=$BITBUCKET_BUILD_NUMBER ENV_TAG=test
+            - make push-image  TAG=$BITBUCKET_BUILD_NUMBER ENV_TAG=test
+            - source .build_info
+            - ssh delever@$DELEVER_TEST_HOST 'docker service update --with-registry-auth --image '$DELEVER_REGISTRY'/'$APP':'$BITBUCKET_BUILD_NUMBER' delever_'$APP''
+
     master:
       - step:
           name: Production DB migrations
@@ -20,5 +39,4 @@ pipelines:
             - make push-image  TAG=$BITBUCKET_BUILD_NUMBER
             - source .build_info
             - ssh delever@$DELEVER_PROD_HOST 'docker service update --with-registry-auth --image '$DELEVER_REGISTRY'/'$APP':'$BITBUCKET_BUILD_NUMBER' delever_'$APP''
-
 
