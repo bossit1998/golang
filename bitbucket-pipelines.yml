@@ -27,7 +27,7 @@ pipelines:
           image: maven:3.3.9
           script:
             - cd
-            - cd delever_api_tests
+            - cd /Delever/delever_api_tests
             - mvn clean test -DtestngFile=customerService.xml
       - step:
           name: Production DB migrations
