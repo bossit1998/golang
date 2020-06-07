@@ -10,6 +10,8 @@ pipelines:
             - source .build_info
             - /migrate -path=migrations/ -database="$DELEVER_TEST_DATABASEURL&x-migrations-table=migrations_$APP" up
       - step:
+          caches: 
+            - maven
           name: Deploy to Stating
           services:
             - docker
@@ -20,6 +22,7 @@ pipelines:
             - make push-image  TAG=$BITBUCKET_BUILD_NUMBER ENV_TAG=test
             - source .build_info
             - ssh delever@$DELEVER_TEST_HOST 'docker service update --with-registry-auth --image '$DELEVER_REGISTRY'/'$APP':'$BITBUCKET_BUILD_NUMBER' delever_'$APP''
+            - mvn clean test. -DtestngFile=customerService.xml
 
     master:
       - step:
