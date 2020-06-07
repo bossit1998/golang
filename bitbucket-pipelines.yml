@@ -28,7 +28,7 @@ pipelines:
           caches: 
             - maven
           script:
-            - cd /Alien_Soft/Delever/delever_api_tests
+            - cd delever_api_tests
             - mvn clean test -DtestngFile=customerService.xml
       - step:
           name: Production DB migrations
