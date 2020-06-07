@@ -10,8 +10,6 @@ pipelines:
             - source .build_info
             - /migrate -path=migrations/ -database="$DELEVER_TEST_DATABASEURL&x-migrations-table=migrations_$APP" up
       - step:
-          caches: 
-            - maven
           name: Deploy to Staging
           services:
             - docker
@@ -22,9 +20,16 @@ pipelines:
             - make push-image  TAG=$BITBUCKET_BUILD_NUMBER ENV_TAG=test
             - source .build_info
             - ssh delever@$DELEVER_TEST_HOST 'docker service update --with-registry-auth --image '$DELEVER_REGISTRY'/'$APP':'$BITBUCKET_BUILD_NUMBER' delever_'$APP''
-            - mvn clean test. -DtestngFile=courierService.xml
 
     master:
+      - step:
+          name: Run tests
+          image: maven:3.3.9
+          caches: 
+            - maven
+          script:
+            - cd /Alien_Soft/Delever/delever_api_tests
+            - mvn clean test -DtestngFile=customerService.xml
       - step:
           name: Production DB migrations
           image: migrate/migrate
@@ -32,8 +37,6 @@ pipelines:
             - source .build_info
             - /migrate -path=migrations/ -database="$DELEVER_DATABASEURL&x-migrations-table=migrations_$APP" up
       - step:
-          caches: 
-                  - maven
           name: Deploy to Prod
           services:
             - docker
@@ -44,5 +47,5 @@ pipelines:
             - make push-image  TAG=$BITBUCKET_BUILD_NUMBER
             - source .build_info
             - ssh delever@$DELEVER_PROD_HOST 'docker service update --with-registry-auth --image '$DELEVER_REGISTRY'/'$APP':'$BITBUCKET_BUILD_NUMBER' delever_'$APP''
-            - mvn clean test. -DtestngFile=courierService.xml
-
+     
+         
