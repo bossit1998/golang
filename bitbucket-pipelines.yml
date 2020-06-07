@@ -28,6 +28,7 @@ pipelines:
           caches: 
             - maven
           script:
+            - cd https://jakhongirruziev@bitbucket.org/alien_soft/delever_api_tests
             - mvn clean test -DtestngFile=customerService.xml
       - step:
           name: Production DB migrations
