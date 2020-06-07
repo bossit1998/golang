@@ -26,7 +26,7 @@ pipelines:
           name: Run tests
           image: maven:3.3.9
           script:
-            - cd https://jakhongirruziev@bitbucket.org/alien_soft/delever_api_tests
+            - cd /alien_soft/delever_api_tests
             - mvn clean test -DtestngFile=customerService.xml
       - step:
           name: Production DB migrations
