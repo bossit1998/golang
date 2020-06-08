@@ -24,7 +24,7 @@ pipelines:
           name: Run tests
           image: maven:3.3.9
           script:
-            - git clone git clone git@bitbucket.org:alien_soft/delever_api_tests.git
+            - git clone git@bitbucket.org:alien_soft/delever_api_tests.git
             - cd delever_api_tests
             - mvn clean test -DtestngFile=courierService.xml
     master:
@@ -49,6 +49,6 @@ pipelines:
          name: Run tests
          image: maven:3.3.9
          script:
-           - git git clone git@bitbucket.org:alien_soft/delever_api_tests.git
+           - git clone git@bitbucket.org:alien_soft/delever_api_tests.git
            - cd delever_api_tests
            - mvn clean test -DtestngFile=courierService.xml
