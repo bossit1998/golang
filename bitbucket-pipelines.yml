@@ -32,7 +32,7 @@ pipelines:
          name: Run tests
          image: maven:3.3.9
          script:
-           - git clone https://jakhongirruziev@bitbucket.org/alien_soft/delever_api_tests.git
+           - git clone git@bitbucket.org:alien_soft/delever_api_tests.git
            - cd delever_api_test
            - mvn clean test -DtestngFile=customerService.xml
       - step:
