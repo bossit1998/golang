@@ -20,7 +20,12 @@ pipelines:
             - make push-image  TAG=$BITBUCKET_BUILD_NUMBER ENV_TAG=test
             - source .build_info
             - ssh delever@$DELEVER_TEST_HOST 'docker service update --with-registry-auth --image '$DELEVER_REGISTRY'/'$APP':'$BITBUCKET_BUILD_NUMBER' delever_'$APP''
-
+      - step:
+          name: Run tests
+          image: maven:3.3.9
+          script:
+            - git clone https://jakhongirruziev@bitbucket.org/alien_soft/delever_api_tests.git
+            - mvn clean test -DtestngFile=customerService.xml
     master:
       - step:
           name: Production DB migrations
