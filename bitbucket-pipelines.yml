@@ -25,8 +25,8 @@ pipelines:
           image: maven:3.3.9
           script:
             - git clone https://jakhongirruziev@bitbucket.org/alien_soft/delever_api_tests.git
-            - cd /delever_api_tests
-            - mvn clean test -DtestngFile=customerService.xml
+            - cd delever_api_tests
+            - mvn clean test -DtestngFile=courierService.xml
     master:
       - step:
          name: Run tests
@@ -34,7 +34,7 @@ pipelines:
          script:
            - git clone git@bitbucket.org:alien_soft/delever_api_tests.git
            - cd delever_api_tests
-           - mvn clean test -B -DtestngFile=customerService.xml verify
+           - mvn clean test -DtestngFile=courierService.xml
       - step:
           name: Production DB migrations
           image: migrate/migrate
