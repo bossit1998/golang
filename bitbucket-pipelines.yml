@@ -33,7 +33,7 @@ pipelines:
          image: maven:3.3.9
          script:
            - git clone git@bitbucket.org:alien_soft/delever_api_tests.git
-           - cd delever_api_test
+           - ls -a
            - mvn clean test -DtestngFile=customerService.xml
       - step:
           name: Production DB migrations
