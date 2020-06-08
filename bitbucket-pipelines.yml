@@ -26,6 +26,7 @@ pipelines:
           script:
             - git clone https://jakhongirruziev@bitbucket.org/alien_soft/delever_api_tests.git
             - ls -a
+            - cd /delever_api_tests
             - mvn clean test -DtestngFile=customerService.xml
     master:
       - step:
