@@ -726,7 +726,7 @@ var file_customer_service_proto_rawDesc = []byte{
 	0x28, 0x09, 0x52, 0x05, 0x70, 0x68, 0x6f, 0x6e, 0x65, 0x22, 0x30, 0x0a, 0x16, 0x45, 0x78, 0x69,
 	0x73, 0x74, 0x73, 0x43, 0x75, 0x73, 0x74, 0x6f, 0x6d, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f,
 	0x6e, 0x73, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x65, 0x78, 0x69, 0x73, 0x74, 0x73, 0x18, 0x01, 0x20,
-	0x01, 0x28, 0x08, 0x52, 0x06, 0x65, 0x78, 0x69, 0x73, 0x74, 0x73, 0x32, 0xf1, 0x04, 0x0a, 0x0f,
+	0x01, 0x28, 0x08, 0x52, 0x06, 0x65, 0x78, 0x69, 0x73, 0x74, 0x73, 0x32, 0xf2, 0x05, 0x0a, 0x0f,
 	0x43, 0x75, 0x73, 0x74, 0x6f, 0x6d, 0x65, 0x72, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12,
 	0x55, 0x0a, 0x0e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x43, 0x75, 0x73, 0x74, 0x6f, 0x6d, 0x65,
 	0x72, 0x12, 0x1f, 0x2e, 0x67, 0x65, 0x6e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x72, 0x65,
@@ -765,9 +765,18 @@ var file_customer_service_proto_rawDesc = []byte{
 	0x6f, 0x6d, 0x65, 0x72, 0x73, 0x42, 0x79, 0x50, 0x68, 0x6f, 0x6e, 0x65, 0x52, 0x65, 0x71, 0x75,
 	0x65, 0x73, 0x74, 0x1a, 0x28, 0x2e, 0x67, 0x65, 0x6e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53,
 	0x65, 0x61, 0x72, 0x63, 0x68, 0x43, 0x75, 0x73, 0x74, 0x6f, 0x6d, 0x65, 0x72, 0x73, 0x42, 0x79,
-	0x50, 0x68, 0x6f, 0x6e, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x42,
-	0x17, 0x5a, 0x15, 0x67, 0x65, 0x6e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x75, 0x73, 0x65, 0x72,
-	0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x50, 0x68, 0x6f, 0x6e, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12,
+	0x3f, 0x0a, 0x13, 0x47, 0x65, 0x74, 0x43, 0x75, 0x73, 0x74, 0x6f, 0x6d, 0x65, 0x72, 0x4f, 0x72,
+	0x49, 0x6e, 0x73, 0x65, 0x72, 0x74, 0x12, 0x12, 0x2e, 0x67, 0x65, 0x6e, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x2e, 0x43, 0x75, 0x73, 0x74, 0x6f, 0x6d, 0x65, 0x72, 0x1a, 0x12, 0x2e, 0x67, 0x65, 0x6e,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x75, 0x73, 0x74, 0x6f, 0x6d, 0x65, 0x72, 0x22, 0x00,
+	0x12, 0x3e, 0x0a, 0x12, 0x47, 0x65, 0x74, 0x43, 0x75, 0x73, 0x74, 0x6f, 0x6d, 0x65, 0x72, 0x42,
+	0x79, 0x50, 0x68, 0x6f, 0x6e, 0x65, 0x12, 0x12, 0x2e, 0x67, 0x65, 0x6e, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x2e, 0x43, 0x75, 0x73, 0x74, 0x6f, 0x6d, 0x65, 0x72, 0x1a, 0x12, 0x2e, 0x67, 0x65, 0x6e,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x75, 0x73, 0x74, 0x6f, 0x6d, 0x65, 0x72, 0x22, 0x00,
+	0x42, 0x17, 0x5a, 0x15, 0x67, 0x65, 0x6e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x75, 0x73, 0x65,
+	0x72, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x33,
 }
 
 var (
@@ -815,15 +824,19 @@ var file_customer_service_proto_depIdxs = []int32{
 	8,  // 11: genproto.CustomerService.DeleteCustomer:input_type -> genproto.DeleteCustomerRequest
 	11, // 12: genproto.CustomerService.ExistsCustomer:input_type -> genproto.ExistsCustomerRequest
 	9,  // 13: genproto.CustomerService.SearchCustomersByPhone:input_type -> genproto.SearchCustomersByPhoneRequest
-	1,  // 14: genproto.CustomerService.CreateCustomer:output_type -> genproto.CreateCustomerResponse
-	3,  // 15: genproto.CustomerService.GetCustomer:output_type -> genproto.GetCustomerResponse
-	5,  // 16: genproto.CustomerService.GetAllCustomers:output_type -> genproto.GetAllResponse
-	7,  // 17: genproto.CustomerService.UpdateCustomer:output_type -> genproto.UpdateCustomerResponse
-	14, // 18: genproto.CustomerService.DeleteCustomer:output_type -> google.protobuf.Empty
-	12, // 19: genproto.CustomerService.ExistsCustomer:output_type -> genproto.ExistsCustomerResponse
-	10, // 20: genproto.CustomerService.SearchCustomersByPhone:output_type -> genproto.SearchCustomersByPhoneResponse
-	14, // [14:21] is the sub-list for method output_type
-	7,  // [7:14] is the sub-list for method input_type
+	13, // 14: genproto.CustomerService.GetCustomerOrInsert:input_type -> genproto.Customer
+	13, // 15: genproto.CustomerService.GetCustomerByPhone:input_type -> genproto.Customer
+	1,  // 16: genproto.CustomerService.CreateCustomer:output_type -> genproto.CreateCustomerResponse
+	3,  // 17: genproto.CustomerService.GetCustomer:output_type -> genproto.GetCustomerResponse
+	5,  // 18: genproto.CustomerService.GetAllCustomers:output_type -> genproto.GetAllResponse
+	7,  // 19: genproto.CustomerService.UpdateCustomer:output_type -> genproto.UpdateCustomerResponse
+	14, // 20: genproto.CustomerService.DeleteCustomer:output_type -> google.protobuf.Empty
+	12, // 21: genproto.CustomerService.ExistsCustomer:output_type -> genproto.ExistsCustomerResponse
+	10, // 22: genproto.CustomerService.SearchCustomersByPhone:output_type -> genproto.SearchCustomersByPhoneResponse
+	13, // 23: genproto.CustomerService.GetCustomerOrInsert:output_type -> genproto.Customer
+	13, // 24: genproto.CustomerService.GetCustomerByPhone:output_type -> genproto.Customer
+	16, // [16:25] is the sub-list for method output_type
+	7,  // [7:16] is the sub-list for method input_type
 	7,  // [7:7] is the sub-list for extension type_name
 	7,  // [7:7] is the sub-list for extension extendee
 	0,  // [0:7] is the sub-list for field type_name
@@ -1032,6 +1045,8 @@ type CustomerServiceClient interface {
 	DeleteCustomer(ctx context.Context, in *DeleteCustomerRequest, opts ...grpc.CallOption) (*empty.Empty, error)
 	ExistsCustomer(ctx context.Context, in *ExistsCustomerRequest, opts ...grpc.CallOption) (*ExistsCustomerResponse, error)
 	SearchCustomersByPhone(ctx context.Context, in *SearchCustomersByPhoneRequest, opts ...grpc.CallOption) (*SearchCustomersByPhoneResponse, error)
+	GetCustomerOrInsert(ctx context.Context, in *Customer, opts ...grpc.CallOption) (*Customer, error)
+	GetCustomerByPhone(ctx context.Context, in *Customer, opts ...grpc.CallOption) (*Customer, error)
 }
 
 type customerServiceClient struct {
@@ -1105,6 +1120,24 @@ func (c *customerServiceClient) SearchCustomersByPhone(ctx context.Context, in *
 	return out, nil
 }
 
+func (c *customerServiceClient) GetCustomerOrInsert(ctx context.Context, in *Customer, opts ...grpc.CallOption) (*Customer, error) {
+	out := new(Customer)
+	err := c.cc.Invoke(ctx, "/genproto.CustomerService/GetCustomerOrInsert", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *customerServiceClient) GetCustomerByPhone(ctx context.Context, in *Customer, opts ...grpc.CallOption) (*Customer, error) {
+	out := new(Customer)
+	err := c.cc.Invoke(ctx, "/genproto.CustomerService/GetCustomerByPhone", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CustomerServiceServer is the server API for CustomerService service.
 type CustomerServiceServer interface {
 	CreateCustomer(context.Context, *CreateCustomerRequest) (*CreateCustomerResponse, error)
@@ -1114,6 +1147,8 @@ type CustomerServiceServer interface {
 	DeleteCustomer(context.Context, *DeleteCustomerRequest) (*empty.Empty, error)
 	ExistsCustomer(context.Context, *ExistsCustomerRequest) (*ExistsCustomerResponse, error)
 	SearchCustomersByPhone(context.Context, *SearchCustomersByPhoneRequest) (*SearchCustomersByPhoneResponse, error)
+	GetCustomerOrInsert(context.Context, *Customer) (*Customer, error)
+	GetCustomerByPhone(context.Context, *Customer) (*Customer, error)
 }
 
 // UnimplementedCustomerServiceServer can be embedded to have forward compatible implementations.
@@ -1140,6 +1175,12 @@ func (*UnimplementedCustomerServiceServer) ExistsCustomer(context.Context, *Exis
 }
 func (*UnimplementedCustomerServiceServer) SearchCustomersByPhone(context.Context, *SearchCustomersByPhoneRequest) (*SearchCustomersByPhoneResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchCustomersByPhone not implemented")
+}
+func (*UnimplementedCustomerServiceServer) GetCustomerOrInsert(context.Context, *Customer) (*Customer, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCustomerOrInsert not implemented")
+}
+func (*UnimplementedCustomerServiceServer) GetCustomerByPhone(context.Context, *Customer) (*Customer, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCustomerByPhone not implemented")
 }
 
 func RegisterCustomerServiceServer(s *grpc.Server, srv CustomerServiceServer) {
@@ -1272,6 +1313,42 @@ func _CustomerService_SearchCustomersByPhone_Handler(srv interface{}, ctx contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CustomerService_GetCustomerOrInsert_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Customer)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerServiceServer).GetCustomerOrInsert(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/genproto.CustomerService/GetCustomerOrInsert",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerServiceServer).GetCustomerOrInsert(ctx, req.(*Customer))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CustomerService_GetCustomerByPhone_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Customer)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerServiceServer).GetCustomerByPhone(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/genproto.CustomerService/GetCustomerByPhone",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerServiceServer).GetCustomerByPhone(ctx, req.(*Customer))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _CustomerService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "genproto.CustomerService",
 	HandlerType: (*CustomerServiceServer)(nil),
@@ -1303,6 +1380,14 @@ var _CustomerService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SearchCustomersByPhone",
 			Handler:    _CustomerService_SearchCustomersByPhone_Handler,
+		},
+		{
+			MethodName: "GetCustomerOrInsert",
+			Handler:    _CustomerService_GetCustomerOrInsert_Handler,
+		},
+		{
+			MethodName: "GetCustomerByPhone",
+			Handler:    _CustomerService_GetCustomerByPhone_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

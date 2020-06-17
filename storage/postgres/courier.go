@@ -25,8 +25,9 @@ func NewCourierRepo(db *sqlx.DB) repo.CourierStorageI {
 //courier
 func (cm *courierRepo) Create(courier *pb.Courier) (*pb.Courier, error) {
 	var (
-		distributorId  sql.NullString = etc.NullString(courier.DistributorId)
-		parkId sql.NullString = etc.NullString(courier.ParkId)
+		distributorId sql.NullString = etc.NullString(courier.DistributorId)
+		parkId        sql.NullString = etc.NullString(courier.ParkId)
+		shipperId     sql.NullString = etc.NullString(courier.ShipperId)
 	)
 
 	tx, err := cm.db.Begin()
@@ -44,10 +45,11 @@ func (cm *courierRepo) Create(courier *pb.Courier) (*pb.Courier, error) {
 			phone,
 			first_name,
 			last_name,
-			park_id
+			park_id,
+			shipper_id
 		)
 		VALUES
-		($1, $2, $3, $4, $5, $6, $7)`
+		($1, $2, $3, $4, $5, $6, $7, $8)`
 
 	_, err = tx.Exec(
 		insertNew,
@@ -58,6 +60,7 @@ func (cm *courierRepo) Create(courier *pb.Courier) (*pb.Courier, error) {
 		courier.GetFirstName(),
 		courier.GetLastName(),
 		parkId,
+		shipperId,
 	)
 
 	if err != nil {
@@ -118,10 +121,10 @@ func (cm *courierRepo) Update(courier *pb.Courier) (*pb.Courier, error) {
 
 func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 	var (
-		createdAt  time.Time
-		layoutDate string = "2006-01-02 15:04:05"
-		courier    pb.Courier
-		column     string
+		createdAt             time.Time
+		layoutDate            string = "2006-01-02 15:04:05"
+		courier               pb.Courier
+		column                string
 		distributorId, parkId sql.NullString
 	)
 
@@ -174,10 +177,10 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 
 func (cm *courierRepo) GetAllCouriers(page, limit uint64) ([]*pb.Courier, uint64, error) {
 	var (
-		count      uint64
-		createdAt  time.Time
-		layoutDate string = "2006-01-02 15:04:05"
-		couriers   []*pb.Courier
+		count                 uint64
+		createdAt             time.Time
+		layoutDate            string = "2006-01-02 15:04:05"
+		couriers              []*pb.Courier
 		distributorId, parkId sql.NullString
 	)
 
@@ -785,7 +788,6 @@ func (cm *courierRepo) UpdateToken(id, access string) error {
 	return nil
 }
 
-
 func (cm *courierRepo) CreateBranchCourier(branchId string, courierId string) error {
 	tx, err := cm.db.Begin()
 	if err != nil {
@@ -804,12 +806,12 @@ func (cm *courierRepo) CreateBranchCourier(branchId string, courierId string) er
 		branchId,
 		courierId,
 	)
-		
+
 	if err != nil {
 		tx.Rollback()
 		return err
 	}
-	
+
 	tx.Commit()
 
 	return nil
@@ -824,7 +826,7 @@ func (cm *courierRepo) GetAllBranchCouriers(branchId string, page, limit uint64)
 	)
 
 	offset := (page - 1) * limit
-	
+
 	query := `
 		SELECT  c.id,
 				c.access_token,
@@ -877,8 +879,8 @@ func (cm *courierRepo) GetAllBranchCouriers(branchId string, page, limit uint64)
 }
 
 func (cm *courierRepo) GetAllCourierBranches(courierId string) ([]string, error) {
-	var branchIds   []string
-	
+	var branchIds []string
+
 	query := `
 		SELECT branch_id	
 		FROM branch_couriers
@@ -891,13 +893,13 @@ func (cm *courierRepo) GetAllCourierBranches(courierId string) ([]string, error)
 	}
 
 	for rows.Next() {
-		var id string 
+		var id string
 		err = rows.Scan(&id)
 
 		if err != nil {
 			return nil, err
 		}
-		
+
 		branchIds = append(branchIds, id)
 	}
 
