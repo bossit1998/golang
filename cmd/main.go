@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"net"
 
-	"bitbucket.org/alien_soft/courier_service/config"
 	pb "genproto/courier_service"
+
+	"bitbucket.org/alien_soft/courier_service/config"
 	"bitbucket.org/alien_soft/courier_service/pkg/logger"
 	"bitbucket.org/alien_soft/courier_service/service"
 	"github.com/jmoiron/sqlx"

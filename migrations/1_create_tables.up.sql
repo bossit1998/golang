@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS couriers (
      access_token VARCHAR NOT NULL UNIQUE,
      distributor_id uuid REFERENCES distributors(id),
      park_id uuid REFERENCES parks(id),
-     phone VARCHAR(100) NOT NULL UNIQUE,
+     phone VARCHAR(100) NOT NULL,
      first_name VARCHAR(100) NOT NULL,
      last_name VARCHAR(100) NOT NULL,
      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
