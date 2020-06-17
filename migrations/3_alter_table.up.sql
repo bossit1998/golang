@@ -1,0 +1,1 @@
+ALTER TABLE couriers add column shipper_id uuid;
