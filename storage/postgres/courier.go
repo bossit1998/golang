@@ -93,7 +93,7 @@ func (cm *courierRepo) Update(courier *pb.Courier) (*pb.Courier, error) {
 			first_name=$2,
 			last_name=$3,
 			park_id=$4
-		WHERE id=$5`
+		WHERE id=$5 AND deleted_at is NULL`
 
 	_, err = tx.Exec(
 		updateQuery,
@@ -146,7 +146,7 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 				is_active,
 				park_id
 		FROM couriers
-		WHERE `+column+`=$1`, id,
+		WHERE `+column+`=$1 AND deleted_at is NULL`, id,
 	)
 
 	err = row.Scan(
@@ -254,7 +254,7 @@ func (cm *courierRepo) SearchCouriersByPhone(phone string) ([]*pb.Courier, error
 				first_name,
 				last_name
 		FROM couriers
-		WHERE phone LIKE '%' || $1 || '%'
+		WHERE deleted_at is NULL AND phone LIKE '%' || $1 || '%'
 		ORDER BY created_at DESC`
 	rows, err := cm.db.Queryx(query, phone)
 
@@ -287,7 +287,7 @@ func (cm *courierRepo) ExistsCourier(phoneNumber string) (bool, error) {
 	row := cm.db.QueryRow(`
 		SELECT count(1) 
 		FROM couriers
-		WHERE phone = $1`, phoneNumber,
+		WHERE phone = $1 AND deleted_at is NULL`, phoneNumber,
 	)
 
 	err := row.Scan(&existsCourier)
@@ -364,7 +364,7 @@ func (cm *courierRepo) GetAllDistributorCouriers(dId string, page, limit uint64)
 
 func (cm *courierRepo) Delete(id string) error {
 
-	_, err := cm.db.Exec(`UPDATE couriers SET deleted_at=CURRENT_TIMESTAMP where id=$1`, id)
+	_, err := cm.db.Exec(`UPDATE couriers SET deleted_at=CURRENT_TIMESTAMP where id=$1 AND deleted_at is NULL`, id)
 	if err != nil {
 		return err
 	}
