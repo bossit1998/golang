@@ -1,0 +1,1 @@
+ALTER TABLE couriers drop column shipper_id;
