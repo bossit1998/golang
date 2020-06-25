@@ -175,7 +175,7 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 	return &courier, nil
 }
 
-func (cm *courierRepo) GetAllCouriers(page, limit uint64) ([]*pb.Courier, uint64, error) {
+func (cm *courierRepo) GetAllCouriers(shipperID string, page, limit uint64) ([]*pb.Courier, uint64, error) {
 	var (
 		count                 uint64
 		createdAt             time.Time
@@ -197,10 +197,11 @@ func (cm *courierRepo) GetAllCouriers(page, limit uint64) ([]*pb.Courier, uint64
 				is_active,
 				park_id
 		FROM couriers
-		WHERE deleted_at IS NULL 
+		WHERE shipper_id = $1
+		AND deleted_at IS NULL 
 		ORDER BY created_at DESC 
-		LIMIT $1 OFFSET $2`
-	rows, err := cm.db.Queryx(query, limit, offset)
+		LIMIT $2 OFFSET $3`
+	rows, err := cm.db.Queryx(query,shipperID, limit, offset)
 
 	if err != nil {
 		return nil, 0, err

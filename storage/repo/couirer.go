@@ -10,7 +10,7 @@ type CourierStorageI interface {
 	Create(courier *pb.Courier) (*pb.Courier, error)
 	Update(courier *pb.Courier) (*pb.Courier, error)
 	GetCourier(id string) (*pb.Courier, error)
-	GetAllCouriers(page, limit uint64) ([]*pb.Courier, uint64, error)
+	GetAllCouriers(shipperID string, page, limit uint64) ([]*pb.Courier, uint64, error)
 	SearchCouriersByPhone(phone string) ([]*pb.Courier, error)
 	ExistsCourier(phoneNumber string) (bool, error)
 	GetAllDistributorCouriers(dId string, page, limit uint64) ([]*pb.Courier, uint64, error)
