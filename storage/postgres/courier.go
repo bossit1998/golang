@@ -126,6 +126,7 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 		courier               pb.Courier
 		column                string
 		distributorId, parkId sql.NullString
+		shipperID sql.NullString
 	)
 
 	_, err := uuid.Parse(id)
@@ -160,7 +161,7 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 		&createdAt,
 		&courier.IsActive,
 		&parkId,
-		&courier.ShipperId,
+		&shipperID,
 	)
 	if err != nil {
 		return nil, err
@@ -168,6 +169,7 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 
 	courier.DistributorId = etc.StringValue(distributorId)
 	courier.ParkId = etc.StringValue(parkId)
+	courier.ShipperId = etc.StringValue(shipperID)
 
 	courier.CreatedAt = createdAt.Format(layoutDate)
 	if err != nil {
