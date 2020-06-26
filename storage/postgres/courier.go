@@ -235,7 +235,8 @@ func (cm *courierRepo) GetAllCouriers(shipperID string, page, limit uint64) ([]*
 	row := cm.db.QueryRow(`
 		SELECT count(1) 
 		FROM couriers
-		WHERE deleted_at IS NULL`,
+		WHERE shipper_id=$1 and deleted_at IS NULL`,
+		shipperID,
 	)
 	err = row.Scan(
 		&count,
