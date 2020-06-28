@@ -126,6 +126,7 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 		courier               pb.Courier
 		column                string
 		distributorId, parkId sql.NullString
+		shipperID sql.NullString
 	)
 
 	_, err := uuid.Parse(id)
@@ -144,7 +145,8 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 				last_name,
 				created_at,
 				is_active,
-				park_id
+				park_id,
+				shipper_id
 		FROM couriers
 		WHERE `+column+`=$1 AND deleted_at is NULL`, id,
 	)
@@ -159,6 +161,7 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 		&createdAt,
 		&courier.IsActive,
 		&parkId,
+		&shipperID,
 	)
 	if err != nil {
 		return nil, err
@@ -166,6 +169,7 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 
 	courier.DistributorId = etc.StringValue(distributorId)
 	courier.ParkId = etc.StringValue(parkId)
+	courier.ShipperId = etc.StringValue(shipperID)
 
 	courier.CreatedAt = createdAt.Format(layoutDate)
 	if err != nil {
@@ -175,7 +179,7 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 	return &courier, nil
 }
 
-func (cm *courierRepo) GetAllCouriers(page, limit uint64) ([]*pb.Courier, uint64, error) {
+func (cm *courierRepo) GetAllCouriers(shipperID string, page, limit uint64) ([]*pb.Courier, uint64, error) {
 	var (
 		count                 uint64
 		createdAt             time.Time
@@ -197,10 +201,11 @@ func (cm *courierRepo) GetAllCouriers(page, limit uint64) ([]*pb.Courier, uint64
 				is_active,
 				park_id
 		FROM couriers
-		WHERE deleted_at IS NULL 
+		WHERE shipper_id = $1
+		AND deleted_at IS NULL 
 		ORDER BY created_at DESC 
-		LIMIT $1 OFFSET $2`
-	rows, err := cm.db.Queryx(query, limit, offset)
+		LIMIT $2 OFFSET $3`
+	rows, err := cm.db.Queryx(query,shipperID, limit, offset)
 
 	if err != nil {
 		return nil, 0, err
@@ -232,7 +237,8 @@ func (cm *courierRepo) GetAllCouriers(page, limit uint64) ([]*pb.Courier, uint64
 	row := cm.db.QueryRow(`
 		SELECT count(1) 
 		FROM couriers
-		WHERE deleted_at IS NULL`,
+		WHERE shipper_id=$1 and deleted_at IS NULL`,
+		shipperID,
 	)
 	err = row.Scan(
 		&count,
@@ -241,7 +247,7 @@ func (cm *courierRepo) GetAllCouriers(page, limit uint64) ([]*pb.Courier, uint64
 	return couriers, count, nil
 }
 
-func (cm *courierRepo) SearchCouriersByPhone(phone string) ([]*pb.Courier, error) {
+func (cm *courierRepo) SearchCouriersByPhone(shipperID, phone string) ([]*pb.Courier, error) {
 	var (
 		createdAt  time.Time
 		layoutDate string = "2006-01-02 15:04:05"
@@ -254,9 +260,10 @@ func (cm *courierRepo) SearchCouriersByPhone(phone string) ([]*pb.Courier, error
 				first_name,
 				last_name
 		FROM couriers
-		WHERE deleted_at is NULL AND phone LIKE '%' || $1 || '%'
+		WHERE shipper_id = $1 
+		AND deleted_at is NULL AND phone LIKE '%' || $2 || '%'
 		ORDER BY created_at DESC`
-	rows, err := cm.db.Queryx(query, phone)
+	rows, err := cm.db.Queryx(query, shipperID, phone)
 
 	if err != nil {
 		return nil, err
