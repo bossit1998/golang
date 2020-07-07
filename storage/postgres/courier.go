@@ -126,6 +126,7 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 		courier               pb.Courier
 		column                string
 		distributorId, parkId sql.NullString
+		fcmToken              sql.NullString
 	)
 
 	_, err := uuid.Parse(id)
@@ -144,7 +145,8 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 				last_name,
 				created_at,
 				is_active,
-				park_id
+				park_id,
+				fcm_token
 		FROM couriers
 		WHERE `+column+`=$1 AND deleted_at is NULL`, id,
 	)
@@ -159,6 +161,7 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 		&createdAt,
 		&courier.IsActive,
 		&parkId,
+		&fcmToken,
 	)
 	if err != nil {
 		return nil, err
@@ -166,6 +169,7 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 
 	courier.DistributorId = etc.StringValue(distributorId)
 	courier.ParkId = etc.StringValue(parkId)
+	courier.FcmToken = etc.StringValue(fcmToken)
 
 	courier.CreatedAt = createdAt.Format(layoutDate)
 	if err != nil {
