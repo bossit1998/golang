@@ -147,7 +147,7 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 				created_at,
 				is_active,
 				park_id,
-				fcm_token
+				fcm_token,
 				shipper_id
 		FROM couriers
 		WHERE `+column+`=$1 AND deleted_at is NULL`, id,
