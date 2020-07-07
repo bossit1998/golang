@@ -352,7 +352,7 @@ func (s *CourierService) GetAllBranchCouriers(ctx context.Context, req *pb.GetAl
 func (s *CourierService) GetAllCourierBranches(ctx context.Context, req *pb.GetAllCourierBranchesRequest) (*pb.GetAllCourierBranchesResponse, error) {
 	var branchIds []string
 
-	branchIds,  err := s.storage.Courier().GetAllCourierBranches(req.CourierId)
+	branchIds, err := s.storage.Courier().GetAllCourierBranches(req.CourierId)
 	if err == sql.ErrNoRows {
 		s.logger.Error("Error while getting all courier's branches, Not found", l.Any("req", req))
 		return nil, status.Error(codes.NotFound, "Not found")
@@ -374,6 +374,19 @@ func (s *CourierService) DeleteBranchCourier(ctx context.Context, req *pb.Delete
 		return nil, status.Error(codes.NotFound, "Not found")
 	} else if err != nil {
 		s.logger.Error("Error while deleting branch's courier", l.Error(err), l.Any("req", req))
+		return nil, status.Error(codes.Internal, "Internal server error")
+	}
+	return &gpb.Empty{}, nil
+}
+
+//UpdateFCMToken
+func (s *CourierService) UpdateFCMToken(ctx context.Context, req *pb.UpdateFCMTokenRequest) (*gpb.Empty, error) {
+	err := s.storage.Courier().UpdateFCMToken(req.Id, req.FcmToken)
+	if err == sql.ErrNoRows {
+		s.logger.Error("Error while updating fcm token, Not found", l.Any("req", req))
+		return nil, status.Error(codes.NotFound, "Not found")
+	} else if err != nil {
+		s.logger.Error("Error while upating fcm token", l.Error(err), l.Any("req", req))
 		return nil, status.Error(codes.Internal, "Internal server error")
 	}
 	return &gpb.Empty{}, nil

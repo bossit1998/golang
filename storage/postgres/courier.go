@@ -916,3 +916,28 @@ func (cm *courierRepo) DeleteBranchCourier(branchId string, courierId string) er
 
 	return nil
 }
+
+func (cm *courierRepo) UpdateFCMToken(id, fcmToken string) error {
+	result, err := cm.db.Exec(`
+		UPDATE couriers
+		SET
+			fcm_token = $1
+		WHERE id = $2`,
+		fcmToken,
+		id,
+	)
+	if err != nil {
+		return err
+	}
+
+	rows, err := result.RowsAffected()
+	if err != nil {
+		return err
+	}
+
+	if rows == 0 {
+		return sql.ErrNoRows
+	}
+
+	return nil
+}
