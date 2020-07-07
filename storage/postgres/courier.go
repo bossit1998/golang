@@ -190,6 +190,7 @@ func (cm *courierRepo) GetAllCouriers(shipperID string, page, limit uint64) ([]*
 		layoutDate            string = "2006-01-02 15:04:05"
 		couriers              []*pb.Courier
 		distributorId, parkId sql.NullString
+		fcmToken              sql.NullString
 	)
 
 	offset := (page - 1) * limit
@@ -203,7 +204,8 @@ func (cm *courierRepo) GetAllCouriers(shipperID string, page, limit uint64) ([]*
 				last_name,
 				created_at,
 				is_active,
-				park_id
+				park_id,
+				fcm_token
 		FROM couriers
 		WHERE shipper_id = $1
 		AND deleted_at IS NULL 
@@ -227,12 +229,14 @@ func (cm *courierRepo) GetAllCouriers(shipperID string, page, limit uint64) ([]*
 			&createdAt,
 			&c.IsActive,
 			&parkId,
+			&fcmToken,
 		)
 
 		if err != nil {
 			return nil, 0, err
 		}
 		c.DistributorId = etc.StringValue(distributorId)
+		c.FcmToken = etc.StringValue(fcmToken)
 		c.ParkId = etc.StringValue(parkId)
 		c.CreatedAt = createdAt.Format(layoutDate)
 		couriers = append(couriers, &c)
@@ -834,6 +838,7 @@ func (cm *courierRepo) GetAllBranchCouriers(branchId string, page, limit uint64)
 		createdAt  time.Time
 		layoutDate string = "2006-01-02 15:04:05"
 		couriers   []*pb.Courier
+		fcmToken   sql.NullString
 	)
 
 	offset := (page - 1) * limit
@@ -845,7 +850,8 @@ func (cm *courierRepo) GetAllBranchCouriers(branchId string, page, limit uint64)
 				c.first_name,
 				c.last_name,
 				c.created_at,
-				c.is_active
+				c.is_active,
+				c.fcm_token
 		FROM couriers as c
 		INNER JOIN branch_couriers as bc ON bc.courier_id=c.id
 		WHERE bc.branch_id=$1 AND c.deleted_at IS NULL 
@@ -868,11 +874,13 @@ func (cm *courierRepo) GetAllBranchCouriers(branchId string, page, limit uint64)
 			&c.LastName,
 			&createdAt,
 			&c.IsActive,
+			&fcmToken,
 		)
 
 		if err != nil {
 			return nil, 0, err
 		}
+		c.FcmToken = etc.StringValue(fcmToken)
 		c.CreatedAt = createdAt.Format(layoutDate)
 		couriers = append(couriers, &c)
 	}
