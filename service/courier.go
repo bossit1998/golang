@@ -77,7 +77,7 @@ func (s *CourierService) GetCourier(ctx context.Context, req *pb.GetCourierReque
 func (s *CourierService) GetAllCouriers(ctx context.Context, req *pb.GetAllCouriersRequest) (*pb.GetAllCouriersResponse, error) {
 	var couriers []*pb.Courier
 
-	couriers, count, err := s.storage.Courier().GetAllCouriers(req.Page, req.Limit)
+	couriers, count, err := s.storage.Courier().GetAllCouriers(req.ShipperId, req.Page, req.Limit)
 	if err == sql.ErrNoRows {
 		s.logger.Error("Error while getting all couriers, Not found", l.Any("req", req))
 		return nil, status.Error(codes.NotFound, "Not found")
@@ -304,7 +304,7 @@ func (s *CourierService) DeleteCourierVehicle(ctx context.Context, req *pb.Delet
 func (s *CourierService) SearchCouriersByPhone(ctx context.Context, req *pb.SearchCouriersByPhoneRequest) (*pb.SearchCouriersByPhoneResponse, error) {
 	var couriers []*pb.Courier
 
-	couriers, err := s.storage.Courier().SearchCouriersByPhone(req.Phone)
+	couriers, err := s.storage.Courier().SearchCouriersByPhone(req.ShipperId, req.Phone)
 	if err == sql.ErrNoRows {
 		s.logger.Error("Error while getting all couriers by phone, Not found", l.Any("req", req))
 		return nil, status.Error(codes.NotFound, "Not found")
