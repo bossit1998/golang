@@ -18,6 +18,7 @@ type CourierStorageI interface {
 	BlockCourier(id string) error
 	UnblockCourier(id string) error
 	UpdateToken(id, access string) error
+	UpdateFCMToken(id, fcmToken string) error
 
 	CreateCourierDetails(cd *pb.CourierDetails) (*pb.CourierDetails, error)
 	UpdateCourierDetails(cd *pb.CourierDetails) (*pb.CourierDetails, error)
@@ -31,7 +32,7 @@ type CourierStorageI interface {
 	DeleteCourierVehicle(id string) error
 
 	CreateBranchCourier(courierId string, branchId string) error
-	GetAllBranchCouriers(branchId string, page, limit uint64)  ([]*pb.Courier, uint64, error)
-	GetAllCourierBranches(courierId string)  ([]string, error)
+	GetAllBranchCouriers(branchId string, page, limit uint64) ([]*pb.Courier, uint64, error)
+	GetAllCourierBranches(courierId string) ([]string, error)
 	DeleteBranchCourier(branchId string, courierId string) error
 }

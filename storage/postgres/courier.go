@@ -126,7 +126,11 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 		courier               pb.Courier
 		column                string
 		distributorId, parkId sql.NullString
+<<<<<<< HEAD
+		fcmToken              sql.NullString
+=======
 		shipperID sql.NullString
+>>>>>>> 068b1b86f48029014080297153c8494850533f3d
 	)
 
 	_, err := uuid.Parse(id)
@@ -146,7 +150,11 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 				created_at,
 				is_active,
 				park_id,
+<<<<<<< HEAD
+				fcm_token
+=======
 				shipper_id
+>>>>>>> 068b1b86f48029014080297153c8494850533f3d
 		FROM couriers
 		WHERE `+column+`=$1 AND deleted_at is NULL`, id,
 	)
@@ -161,7 +169,11 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 		&createdAt,
 		&courier.IsActive,
 		&parkId,
+<<<<<<< HEAD
+		&fcmToken,
+=======
 		&shipperID,
+>>>>>>> 068b1b86f48029014080297153c8494850533f3d
 	)
 	if err != nil {
 		return nil, err
@@ -169,7 +181,11 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 
 	courier.DistributorId = etc.StringValue(distributorId)
 	courier.ParkId = etc.StringValue(parkId)
+<<<<<<< HEAD
+	courier.FcmToken = etc.StringValue(fcmToken)
+=======
 	courier.ShipperId = etc.StringValue(shipperID)
+>>>>>>> 068b1b86f48029014080297153c8494850533f3d
 
 	courier.CreatedAt = createdAt.Format(layoutDate)
 	if err != nil {
@@ -919,6 +935,31 @@ func (cm *courierRepo) DeleteBranchCourier(branchId string, courierId string) er
 	)
 	if err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (cm *courierRepo) UpdateFCMToken(id, fcmToken string) error {
+	result, err := cm.db.Exec(`
+		UPDATE couriers
+		SET
+			fcm_token = $1
+		WHERE id = $2`,
+		fcmToken,
+		id,
+	)
+	if err != nil {
+		return err
+	}
+
+	rows, err := result.RowsAffected()
+	if err != nil {
+		return err
+	}
+
+	if rows == 0 {
+		return sql.ErrNoRows
 	}
 
 	return nil
