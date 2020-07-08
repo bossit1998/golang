@@ -936,7 +936,7 @@ func (cm *courierRepo) DeleteBranchCourier(branchId string, courierId string) er
 	return nil
 }
 
-func (cm *courierRepo) UpdateFCMToken(id, fcmToken string) error {
+func (cm *courierRepo) UpdateFcmToken(id, fcmToken string) error {
 	result, err := cm.db.Exec(`
 		UPDATE couriers
 		SET
