@@ -1,0 +1,1 @@
+ALTER TABLE couriers DROP COLUMN IF EXISTS fcm_token;

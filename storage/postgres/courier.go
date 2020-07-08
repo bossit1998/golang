@@ -126,7 +126,8 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 		courier               pb.Courier
 		column                string
 		distributorId, parkId sql.NullString
-		shipperID sql.NullString
+		fcmToken              sql.NullString
+		shipperID             sql.NullString
 	)
 
 	_, err := uuid.Parse(id)
@@ -146,6 +147,7 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 				created_at,
 				is_active,
 				park_id,
+				fcm_token,
 				shipper_id
 		FROM couriers
 		WHERE `+column+`=$1 AND deleted_at is NULL`, id,
@@ -161,6 +163,7 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 		&createdAt,
 		&courier.IsActive,
 		&parkId,
+		&fcmToken,
 		&shipperID,
 	)
 	if err != nil {
@@ -169,6 +172,7 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 
 	courier.DistributorId = etc.StringValue(distributorId)
 	courier.ParkId = etc.StringValue(parkId)
+	courier.FcmToken = etc.StringValue(fcmToken)
 	courier.ShipperId = etc.StringValue(shipperID)
 
 	courier.CreatedAt = createdAt.Format(layoutDate)
@@ -186,6 +190,7 @@ func (cm *courierRepo) GetAllCouriers(shipperID string, page, limit uint64) ([]*
 		layoutDate            string = "2006-01-02 15:04:05"
 		couriers              []*pb.Courier
 		distributorId, parkId sql.NullString
+		fcmToken              sql.NullString
 	)
 
 	offset := (page - 1) * limit
@@ -199,13 +204,14 @@ func (cm *courierRepo) GetAllCouriers(shipperID string, page, limit uint64) ([]*
 				last_name,
 				created_at,
 				is_active,
-				park_id
+				park_id,
+				fcm_token
 		FROM couriers
 		WHERE shipper_id = $1
 		AND deleted_at IS NULL 
 		ORDER BY created_at DESC 
 		LIMIT $2 OFFSET $3`
-	rows, err := cm.db.Queryx(query,shipperID, limit, offset)
+	rows, err := cm.db.Queryx(query, shipperID, limit, offset)
 
 	if err != nil {
 		return nil, 0, err
@@ -223,12 +229,14 @@ func (cm *courierRepo) GetAllCouriers(shipperID string, page, limit uint64) ([]*
 			&createdAt,
 			&c.IsActive,
 			&parkId,
+			&fcmToken,
 		)
 
 		if err != nil {
 			return nil, 0, err
 		}
 		c.DistributorId = etc.StringValue(distributorId)
+		c.FcmToken = etc.StringValue(fcmToken)
 		c.ParkId = etc.StringValue(parkId)
 		c.CreatedAt = createdAt.Format(layoutDate)
 		couriers = append(couriers, &c)
@@ -830,6 +838,7 @@ func (cm *courierRepo) GetAllBranchCouriers(branchId string, page, limit uint64)
 		createdAt  time.Time
 		layoutDate string = "2006-01-02 15:04:05"
 		couriers   []*pb.Courier
+		fcmToken   sql.NullString
 	)
 
 	offset := (page - 1) * limit
@@ -841,7 +850,8 @@ func (cm *courierRepo) GetAllBranchCouriers(branchId string, page, limit uint64)
 				c.first_name,
 				c.last_name,
 				c.created_at,
-				c.is_active
+				c.is_active,
+				c.fcm_token
 		FROM couriers as c
 		INNER JOIN branch_couriers as bc ON bc.courier_id=c.id
 		WHERE bc.branch_id=$1 AND c.deleted_at IS NULL 
@@ -864,11 +874,13 @@ func (cm *courierRepo) GetAllBranchCouriers(branchId string, page, limit uint64)
 			&c.LastName,
 			&createdAt,
 			&c.IsActive,
+			&fcmToken,
 		)
 
 		if err != nil {
 			return nil, 0, err
 		}
+		c.FcmToken = etc.StringValue(fcmToken)
 		c.CreatedAt = createdAt.Format(layoutDate)
 		couriers = append(couriers, &c)
 	}
@@ -919,6 +931,31 @@ func (cm *courierRepo) DeleteBranchCourier(branchId string, courierId string) er
 	)
 	if err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (cm *courierRepo) UpdateFcmToken(id, fcmToken string) error {
+	result, err := cm.db.Exec(`
+		UPDATE couriers
+		SET
+			fcm_token = $1
+		WHERE id = $2`,
+		fcmToken,
+		id,
+	)
+	if err != nil {
+		return err
+	}
+
+	rows, err := result.RowsAffected()
+	if err != nil {
+		return err
+	}
+
+	if rows == 0 {
+		return sql.ErrNoRows
 	}
 
 	return nil
