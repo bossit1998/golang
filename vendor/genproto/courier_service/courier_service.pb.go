@@ -532,7 +532,7 @@ func (x *UpdateTokenRequest) GetAccess() string {
 	return ""
 }
 
-type UpdateFCMTokenRequest struct {
+type UpdateFcmTokenRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -541,8 +541,8 @@ type UpdateFCMTokenRequest struct {
 	FcmToken string `protobuf:"bytes,2,opt,name=fcm_token,json=fcmToken,proto3" json:"fcm_token,omitempty"`
 }
 
-func (x *UpdateFCMTokenRequest) Reset() {
-	*x = UpdateFCMTokenRequest{}
+func (x *UpdateFcmTokenRequest) Reset() {
+	*x = UpdateFcmTokenRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_courier_service_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -550,13 +550,13 @@ func (x *UpdateFCMTokenRequest) Reset() {
 	}
 }
 
-func (x *UpdateFCMTokenRequest) String() string {
+func (x *UpdateFcmTokenRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*UpdateFCMTokenRequest) ProtoMessage() {}
+func (*UpdateFcmTokenRequest) ProtoMessage() {}
 
-func (x *UpdateFCMTokenRequest) ProtoReflect() protoreflect.Message {
+func (x *UpdateFcmTokenRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_courier_service_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -568,19 +568,19 @@ func (x *UpdateFCMTokenRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use UpdateFCMTokenRequest.ProtoReflect.Descriptor instead.
-func (*UpdateFCMTokenRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use UpdateFcmTokenRequest.ProtoReflect.Descriptor instead.
+func (*UpdateFcmTokenRequest) Descriptor() ([]byte, []int) {
 	return file_courier_service_proto_rawDescGZIP(), []int{10}
 }
 
-func (x *UpdateFCMTokenRequest) GetId() string {
+func (x *UpdateFcmTokenRequest) GetId() string {
 	if x != nil {
 		return x.Id
 	}
 	return ""
 }
 
-func (x *UpdateFCMTokenRequest) GetFcmToken() string {
+func (x *UpdateFcmTokenRequest) GetFcmToken() string {
 	if x != nil {
 		return x.FcmToken
 	}
@@ -1788,8 +1788,8 @@ var file_courier_service_proto_rawDesc = []byte{
 	0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02,
 	0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x16, 0x0a, 0x06,
 	0x61, 0x63, 0x63, 0x65, 0x73, 0x73, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x61, 0x63,
-	0x63, 0x65, 0x73, 0x73, 0x22, 0x44, 0x0a, 0x15, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x46, 0x43,
-	0x4d, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a,
+	0x63, 0x65, 0x73, 0x73, 0x22, 0x44, 0x0a, 0x15, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x46, 0x63,
+	0x6d, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a,
 	0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x1b, 0x0a,
 	0x09, 0x66, 0x63, 0x6d, 0x5f, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09,
 	0x52, 0x08, 0x66, 0x63, 0x6d, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x22, 0x73, 0x0a, 0x20, 0x47, 0x65,
@@ -1961,8 +1961,8 @@ var file_courier_service_proto_rawDesc = []byte{
 	0x6f, 0x6b, 0x65, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e, 0x67, 0x6f,
 	0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x45, 0x6d,
 	0x70, 0x74, 0x79, 0x22, 0x00, 0x12, 0x4b, 0x0a, 0x0e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x46,
-	0x43, 0x4d, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x12, 0x1f, 0x2e, 0x67, 0x65, 0x6e, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x46, 0x43, 0x4d, 0x54, 0x6f, 0x6b, 0x65,
+	0x63, 0x6d, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x12, 0x1f, 0x2e, 0x67, 0x65, 0x6e, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x46, 0x63, 0x6d, 0x54, 0x6f, 0x6b, 0x65,
 	0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c,
 	0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79,
 	0x22, 0x00, 0x12, 0x5a, 0x0a, 0x14, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x43, 0x6f, 0x75, 0x72,
@@ -2072,7 +2072,7 @@ var file_courier_service_proto_goTypes = []interface{}{
 	(*ExistsCourierRequest)(nil),              // 7: genproto.ExistsCourierRequest
 	(*ExistsCourierResponse)(nil),             // 8: genproto.ExistsCourierResponse
 	(*UpdateTokenRequest)(nil),                // 9: genproto.UpdateTokenRequest
-	(*UpdateFCMTokenRequest)(nil),             // 10: genproto.UpdateFCMTokenRequest
+	(*UpdateFcmTokenRequest)(nil),             // 10: genproto.UpdateFcmTokenRequest
 	(*GetAllDistributorCouriersRequest)(nil),  // 11: genproto.GetAllDistributorCouriersRequest
 	(*GetAllDistributorCouriersResponse)(nil), // 12: genproto.GetAllDistributorCouriersResponse
 	(*BlockCourierRequest)(nil),               // 13: genproto.BlockCourierRequest
@@ -2126,7 +2126,7 @@ var file_courier_service_proto_depIdxs = []int32{
 	13, // 21: genproto.CourierService.BlockCourier:input_type -> genproto.BlockCourierRequest
 	14, // 22: genproto.CourierService.UnblockCourier:input_type -> genproto.UnblockCourierRequest
 	9,  // 23: genproto.CourierService.UpdateToken:input_type -> genproto.UpdateTokenRequest
-	10, // 24: genproto.CourierService.UpdateFCMToken:input_type -> genproto.UpdateFCMTokenRequest
+	10, // 24: genproto.CourierService.UpdateFcmToken:input_type -> genproto.UpdateFcmTokenRequest
 	35, // 25: genproto.CourierService.CreateCourierDetails:input_type -> genproto.CourierDetails
 	35, // 26: genproto.CourierService.UpdateCourierDetails:input_type -> genproto.CourierDetails
 	17, // 27: genproto.CourierService.GetCourierDetails:input_type -> genproto.GetCourierDetailsRequest
@@ -2150,7 +2150,7 @@ var file_courier_service_proto_depIdxs = []int32{
 	37, // 45: genproto.CourierService.BlockCourier:output_type -> google.protobuf.Empty
 	37, // 46: genproto.CourierService.UnblockCourier:output_type -> google.protobuf.Empty
 	37, // 47: genproto.CourierService.UpdateToken:output_type -> google.protobuf.Empty
-	37, // 48: genproto.CourierService.UpdateFCMToken:output_type -> google.protobuf.Empty
+	37, // 48: genproto.CourierService.UpdateFcmToken:output_type -> google.protobuf.Empty
 	15, // 49: genproto.CourierService.CreateCourierDetails:output_type -> genproto.CreateCourierDetailsResponse
 	16, // 50: genproto.CourierService.UpdateCourierDetails:output_type -> genproto.UpdateCourierDetailsResponse
 	18, // 51: genproto.CourierService.GetCourierDetails:output_type -> genproto.GetCourierDetailsResponse
@@ -2299,7 +2299,7 @@ func file_courier_service_proto_init() {
 			}
 		}
 		file_courier_service_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateFCMTokenRequest); i {
+			switch v := v.(*UpdateFcmTokenRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2629,7 +2629,7 @@ type CourierServiceClient interface {
 	BlockCourier(ctx context.Context, in *BlockCourierRequest, opts ...grpc.CallOption) (*empty.Empty, error)
 	UnblockCourier(ctx context.Context, in *UnblockCourierRequest, opts ...grpc.CallOption) (*empty.Empty, error)
 	UpdateToken(ctx context.Context, in *UpdateTokenRequest, opts ...grpc.CallOption) (*empty.Empty, error)
-	UpdateFCMToken(ctx context.Context, in *UpdateFCMTokenRequest, opts ...grpc.CallOption) (*empty.Empty, error)
+	UpdateFcmToken(ctx context.Context, in *UpdateFcmTokenRequest, opts ...grpc.CallOption) (*empty.Empty, error)
 	CreateCourierDetails(ctx context.Context, in *CourierDetails, opts ...grpc.CallOption) (*CreateCourierDetailsResponse, error)
 	UpdateCourierDetails(ctx context.Context, in *CourierDetails, opts ...grpc.CallOption) (*UpdateCourierDetailsResponse, error)
 	GetCourierDetails(ctx context.Context, in *GetCourierDetailsRequest, opts ...grpc.CallOption) (*GetCourierDetailsResponse, error)
@@ -2743,9 +2743,9 @@ func (c *courierServiceClient) UpdateToken(ctx context.Context, in *UpdateTokenR
 	return out, nil
 }
 
-func (c *courierServiceClient) UpdateFCMToken(ctx context.Context, in *UpdateFCMTokenRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+func (c *courierServiceClient) UpdateFcmToken(ctx context.Context, in *UpdateFcmTokenRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
 	out := new(empty.Empty)
-	err := c.cc.Invoke(ctx, "/genproto.CourierService/UpdateFCMToken", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/genproto.CourierService/UpdateFcmToken", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -2881,7 +2881,7 @@ type CourierServiceServer interface {
 	BlockCourier(context.Context, *BlockCourierRequest) (*empty.Empty, error)
 	UnblockCourier(context.Context, *UnblockCourierRequest) (*empty.Empty, error)
 	UpdateToken(context.Context, *UpdateTokenRequest) (*empty.Empty, error)
-	UpdateFCMToken(context.Context, *UpdateFCMTokenRequest) (*empty.Empty, error)
+	UpdateFcmToken(context.Context, *UpdateFcmTokenRequest) (*empty.Empty, error)
 	CreateCourierDetails(context.Context, *CourierDetails) (*CreateCourierDetailsResponse, error)
 	UpdateCourierDetails(context.Context, *CourierDetails) (*UpdateCourierDetailsResponse, error)
 	GetCourierDetails(context.Context, *GetCourierDetailsRequest) (*GetCourierDetailsResponse, error)
@@ -2931,8 +2931,8 @@ func (*UnimplementedCourierServiceServer) UnblockCourier(context.Context, *Unblo
 func (*UnimplementedCourierServiceServer) UpdateToken(context.Context, *UpdateTokenRequest) (*empty.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateToken not implemented")
 }
-func (*UnimplementedCourierServiceServer) UpdateFCMToken(context.Context, *UpdateFCMTokenRequest) (*empty.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateFCMToken not implemented")
+func (*UnimplementedCourierServiceServer) UpdateFcmToken(context.Context, *UpdateFcmTokenRequest) (*empty.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateFcmToken not implemented")
 }
 func (*UnimplementedCourierServiceServer) CreateCourierDetails(context.Context, *CourierDetails) (*CreateCourierDetailsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateCourierDetails not implemented")
@@ -3158,20 +3158,20 @@ func _CourierService_UpdateToken_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
-func _CourierService_UpdateFCMToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateFCMTokenRequest)
+func _CourierService_UpdateFcmToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateFcmTokenRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CourierServiceServer).UpdateFCMToken(ctx, in)
+		return srv.(CourierServiceServer).UpdateFcmToken(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/genproto.CourierService/UpdateFCMToken",
+		FullMethod: "/genproto.CourierService/UpdateFcmToken",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CourierServiceServer).UpdateFCMToken(ctx, req.(*UpdateFCMTokenRequest))
+		return srv.(CourierServiceServer).UpdateFcmToken(ctx, req.(*UpdateFcmTokenRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -3455,8 +3455,8 @@ var _CourierService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _CourierService_UpdateToken_Handler,
 		},
 		{
-			MethodName: "UpdateFCMToken",
-			Handler:    _CourierService_UpdateFCMToken_Handler,
+			MethodName: "UpdateFcmToken",
+			Handler:    _CourierService_UpdateFcmToken_Handler,
 		},
 		{
 			MethodName: "CreateCourierDetails",

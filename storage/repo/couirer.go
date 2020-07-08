@@ -18,7 +18,7 @@ type CourierStorageI interface {
 	BlockCourier(id string) error
 	UnblockCourier(id string) error
 	UpdateToken(id, access string) error
-	UpdateFCMToken(id, fcmToken string) error
+	UpdateFcmToken(id, fcmToken string) error
 
 	CreateCourierDetails(cd *pb.CourierDetails) (*pb.CourierDetails, error)
 	UpdateCourierDetails(cd *pb.CourierDetails) (*pb.CourierDetails, error)

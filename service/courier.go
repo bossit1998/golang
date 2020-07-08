@@ -380,8 +380,8 @@ func (s *CourierService) DeleteBranchCourier(ctx context.Context, req *pb.Delete
 }
 
 //UpdateFCMToken
-func (s *CourierService) UpdateFCMToken(ctx context.Context, req *pb.UpdateFCMTokenRequest) (*gpb.Empty, error) {
-	err := s.storage.Courier().UpdateFCMToken(req.Id, req.FcmToken)
+func (s *CourierService) UpdateFcmToken(ctx context.Context, req *pb.UpdateFcmTokenRequest) (*gpb.Empty, error) {
+	err := s.storage.Courier().UpdateFcmToken(req.Id, req.FcmToken)
 	if err == sql.ErrNoRows {
 		s.logger.Error("Error while updating fcm token, Not found", l.Any("req", req))
 		return nil, status.Error(codes.NotFound, "Not found")
