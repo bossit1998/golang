@@ -1,54 +1,57 @@
 image: docker:19.03.8
-
 pipelines:
   branches:
-    staging:
-      - step:
-          name: Test DB migrations
-          image: migrate/migrate
-          script:
-            - source .build_info
-            - /migrate -path=migrations/ -database="$DELEVER_TEST_DATABASEURL&x-migrations-table=migrations_$APP" up
-      - step:
-          name: Deploy to Staging
-          services:
-            - docker
-          script:
-            - apk update && apk add make && apk add openssh
-            - docker login $DELEVER_REGISTRY --username $DELEVER_DOCKER_USERNAME --password $DELEVER_DOCKER_PASSWORD
-            - make build-image TAG=$BITBUCKET_BUILD_NUMBER ENV_TAG=test
-            - make push-image  TAG=$BITBUCKET_BUILD_NUMBER ENV_TAG=test
-            - source .build_info
-            - ssh delever@$DELEVER_TEST_HOST 'docker service update --with-registry-auth --image '$DELEVER_REGISTRY'/'$APP':'$BITBUCKET_BUILD_NUMBER' delever_'$APP''
-      - step:
-          name: Run tests
-          image: maven:3.3.9
-          script:
-            - git clone git@bitbucket.org:alien_soft/delever_api_tests.git
-            - cd delever_api_tests
-            - mvn clean test -DtestngFile=courierService.xml
     master:
-      - step:
-          name: Production DB migrations
-          image: migrate/migrate
-          script:
-            - source .build_info
-            - /migrate -path=migrations/ -database="$DELEVER_DATABASEURL&x-migrations-table=migrations_$APP" up
-      - step:
-          name: Deploy to Prod
-          services:
-            - docker
-          script:
-            - apk update && apk add make && apk add openssh
-            - docker login $DELEVER_REGISTRY --username $DELEVER_DOCKER_USERNAME --password $DELEVER_DOCKER_PASSWORD
-            - make build-image TAG=$BITBUCKET_BUILD_NUMBER
-            - make push-image  TAG=$BITBUCKET_BUILD_NUMBER
-            - source .build_info
-            - ssh delever@$DELEVER_PROD_HOST 'docker service update --with-registry-auth --image '$DELEVER_REGISTRY'/'$APP':'$BITBUCKET_BUILD_NUMBER' delever_'$APP''
-      - step:
-         name: Run tests
-         image: maven:3.3.9
-         script:
-           - git clone git@bitbucket.org:alien_soft/delever_api_tests.git
-           - cd delever_api_tests
-           - mvn clean test -DtestngFile=courierService.xml
+    - step:
+        image: migrate/migrate
+        name: Production DB migrations
+        script:
+        - source .build_info
+        - /migrate -path=migrations/ -database="$DELEVER_DATABASEURL&x-migrations-table=migrations_$APP"
+          up
+    - step:
+        name: Deploy to Prod
+        script:
+        - apk update && apk add make && apk add openssh
+        - docker login $REGISTRY --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
+        - make build-image TAG=$BITBUCKET_BUILD_NUMBER REGISTRY=$REGISTRY
+        - make push-image  TAG=$BITBUCKET_BUILD_NUMBER REGISTRY=$REGISTRY
+        - source .build_info
+        - ssh delever@$DELEVER_PROD_HOST 'docker service update --with-registry-auth
+          --image '$REGISTRY'/'$APP':'$BITBUCKET_BUILD_NUMBER' delever_'$APP''
+        services:
+        - docker
+    - step:
+        image: maven:3.3.9
+        name: Run tests
+        script:
+        - git clone git@bitbucket.org:alien_soft/delever_api_tests.git
+        - cd delever_api_tests
+        - mvn clean test -DtestngFile=courierService.xml
+    staging:
+    - step:
+        image: migrate/migrate
+        name: Test DB migrations
+        script:
+        - source .build_info
+        - /migrate -path=migrations/ -database="$DELEVER_TEST_DATABASEURL&x-migrations-table=migrations_$APP"
+          up
+    - step:
+        name: Deploy to Staging
+        script:
+        - apk update && apk add make && apk add openssh
+        - docker login $REGISTRY --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
+        - make build-image TAG=$BITBUCKET_BUILD_NUMBER ENV_TAG=test REGISTRY=$REGISTRY
+        - make push-image  TAG=$BITBUCKET_BUILD_NUMBER ENV_TAG=test REGISTRY=$REGISTRY
+        - source .build_info
+        - ssh delever@$DELEVER_TEST_HOST 'docker service update --with-registry-auth
+          --image '$REGISTRY'/'$APP':'$BITBUCKET_BUILD_NUMBER' delever_'$APP''
+        services:
+        - docker
+    - step:
+        image: maven:3.3.9
+        name: Run tests
+        script:
+        - git clone git@bitbucket.org:alien_soft/delever_api_tests.git
+        - cd delever_api_tests
+        - mvn clean test -DtestngFile=courierService.xml
