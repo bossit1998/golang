@@ -19,6 +19,8 @@ RUN export CGO_ENABLED=0 && \
 
 FROM alpine
 COPY --from=builder courier_service .
+RUN apk add --no-cache tzdata
+ENV TZ Asia/Tashkent
 ENTRYPOINT ["/courier_service"]
 
 
