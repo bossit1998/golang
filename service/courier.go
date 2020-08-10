@@ -255,6 +255,20 @@ func (s *CourierService) UpdateCourierVehicle(ctx context.Context, req *pb.Couri
 	}, nil
 }
 
+func (s *CourierService) GetCourierActiveVehicle(ctx context.Context, req *pb.GetCourierActiveVehicleRequest) (*pb.CourierVehicle, error) {
+	var cv *pb.CourierVehicle
+	cv, err := s.storage.Courier().GetCourierActiveVehicle(req.CourierId)
+	if err == sql.ErrNoRows {
+		s.logger.Error("Error while getting an courier vehicle, Not found", l.Any("req", req))
+		return nil, status.Error(codes.NotFound, "Not found")
+	} else if err != nil {
+		s.logger.Error("Error while getting courier vehicle", l.Error(err), l.Any("req", req))
+		return nil, status.Error(codes.Internal, "Internal server error")
+	}
+
+	return cv, nil
+}
+
 func (s *CourierService) GetCourierVehicle(ctx context.Context, req *pb.GetCourierVehicleRequest) (*pb.GetCourierVehicleResponse, error) {
 	var cv *pb.CourierVehicle
 	cv, err := s.storage.Courier().GetCourierVehicle(req.Id)

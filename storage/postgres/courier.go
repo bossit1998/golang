@@ -566,8 +566,17 @@ func (cm *courierRepo) GetCourierDetails(courierId string) (*pb.CourierDetails, 
 
 //courier vehicle
 func (cm *courierRepo) CreateCourierVehicle(cv *pb.CourierVehicle) (*pb.CourierVehicle, error) {
-
 	tx, err := cm.db.Begin()
+	if err != nil {
+		return nil, err
+	}
+
+	query := `UPDATE courier_vehicles SET is_active=false WHERE courier_id=$1`
+
+	_, err = tx.Exec(
+		query,
+		cv.GetCourierId(),
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -613,7 +622,6 @@ func (cm *courierRepo) CreateCourierVehicle(cv *pb.CourierVehicle) (*pb.CourierV
 }
 
 func (cm *courierRepo) UpdateCourierVehicle(cv *pb.CourierVehicle) (*pb.CourierVehicle, error) {
-
 	tx, err := cm.db.Begin()
 	if err != nil {
 		return nil, err
@@ -668,6 +676,42 @@ func (cm *courierRepo) GetCourierVehicle(id string) (*pb.CourierVehicle, error) 
 	)
 
 	err = row.Scan(
+		&cv.Id,
+		&cv.CourierId,
+		&cv.Model,
+		&cv.VehicleNumber,
+		&createdAt,
+		&cv.IsActive,
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	cv.CreatedAt = createdAt.Format(layout)
+
+	return &cv, nil
+}
+
+func (cm *courierRepo) GetCourierActiveVehicle(courierId string) (*pb.CourierVehicle, error) {
+	var (
+		layout    string = "2006-01-02 15:04:05"
+		createdAt time.Time
+		cv        pb.CourierVehicle
+	)
+
+	row := cm.db.QueryRow(`
+		SELECT  id,
+				courier_id,
+				model,
+				vehicle_number,
+				created_at,
+				is_active
+		FROM courier_vehicles
+		WHERE courier_id=$1 and is_active=true LIMIT 1`,
+		courierId,
+	)
+
+	err := row.Scan(
 		&cv.Id,
 		&cv.CourierId,
 		&cv.Model,
