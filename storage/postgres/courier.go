@@ -93,7 +93,7 @@ func (cm *courierRepo) Update(courier *pb.Courier) (*pb.Courier, error) {
 			first_name=$2,
 			last_name=$3,
 			park_id=$4
-		WHERE id=$5 AND deleted_at is NULL`
+		WHERE id=$5 AND deleted_at=0`
 
 	_, err = tx.Exec(
 		updateQuery,
@@ -150,7 +150,7 @@ func (cm *courierRepo) GetCourier(id string) (*pb.Courier, error) {
 				fcm_token,
 				shipper_id
 		FROM couriers
-		WHERE `+column+`=$1 AND deleted_at is NULL`, id,
+		WHERE `+column+`=$1 AND deleted_at=0`, id,
 	)
 
 	err = row.Scan(
@@ -208,7 +208,7 @@ func (cm *courierRepo) GetAllCouriers(shipperID string, page, limit uint64) ([]*
 				fcm_token
 		FROM couriers
 		WHERE shipper_id = $1
-		AND deleted_at IS NULL 
+		AND deleted_at=0 
 		ORDER BY created_at DESC 
 		LIMIT $2 OFFSET $3`
 	rows, err := cm.db.Queryx(query, shipperID, limit, offset)
@@ -245,7 +245,7 @@ func (cm *courierRepo) GetAllCouriers(shipperID string, page, limit uint64) ([]*
 	row := cm.db.QueryRow(`
 		SELECT count(1) 
 		FROM couriers
-		WHERE shipper_id=$1 and deleted_at IS NULL`,
+		WHERE shipper_id=$1 and deleted_at=0`,
 		shipperID,
 	)
 	err = row.Scan(
@@ -269,7 +269,7 @@ func (cm *courierRepo) SearchCouriersByPhone(shipperID, phone string) ([]*pb.Cou
 				last_name
 		FROM couriers
 		WHERE shipper_id = $1 
-		AND deleted_at is NULL AND phone LIKE '%' || $2 || '%'
+		AND deleted_at=0 AND phone LIKE '%' || $2 || '%'
 		ORDER BY created_at DESC`
 	rows, err := cm.db.Queryx(query, shipperID, phone)
 
@@ -302,7 +302,7 @@ func (cm *courierRepo) ExistsCourier(phoneNumber string) (bool, error) {
 	row := cm.db.QueryRow(`
 		SELECT count(1) 
 		FROM couriers
-		WHERE phone = $1 AND deleted_at is NULL`, phoneNumber,
+		WHERE phone = $1 AND deleted_at=0`, phoneNumber,
 	)
 
 	err := row.Scan(&existsCourier)
@@ -337,7 +337,7 @@ func (cm *courierRepo) GetAllDistributorCouriers(dId string, page, limit uint64)
 				is_active,
 				park_id
 		FROM couriers
-		WHERE distributor_id=$1 AND deleted_at IS NULL 
+		WHERE distributor_id=$1 AND deleted_at=0 
 		ORDER BY created_at DESC 
 		LIMIT $2 OFFSET $3`
 	rows, err := cm.db.Queryx(query, dId, limit, offset)
@@ -369,7 +369,7 @@ func (cm *courierRepo) GetAllDistributorCouriers(dId string, page, limit uint64)
 	row := cm.db.QueryRow(`
 		SELECT count(1) 
 		FROM couriers
-		WHERE distributor_id=$1 AND deleted_at IS NULL`, dId)
+		WHERE distributor_id=$1 AND deleted_at=0`, dId)
 	err = row.Scan(
 		&count,
 	)
@@ -379,7 +379,7 @@ func (cm *courierRepo) GetAllDistributorCouriers(dId string, page, limit uint64)
 
 func (cm *courierRepo) Delete(id string) error {
 
-	_, err := cm.db.Exec(`UPDATE couriers SET deleted_at=CURRENT_TIMESTAMP where id=$1 AND deleted_at is NULL`, id)
+	_, err := cm.db.Exec(`UPDATE couriers SET deleted_at=date_part('epoch', CURRENT_TIMESTAMP)::int where id=$1 AND deleted_at=0`, id)
 	if err != nil {
 		return err
 	}
@@ -742,7 +742,7 @@ func (cm *courierRepo) GetAllCourierVehicles(courierId string) ([]*pb.CourierVeh
 				created_at,
 				is_active
 		FROM courier_vehicles
-		WHERE courier_id=$1 AND deleted_at IS NULL`, courierId)
+		WHERE courier_id=$1 AND deleted_at=0`, courierId)
 
 	if err != nil {
 		return nil, err
@@ -898,7 +898,7 @@ func (cm *courierRepo) GetAllBranchCouriers(branchId string, page, limit uint64)
 				c.fcm_token
 		FROM couriers as c
 		INNER JOIN branch_couriers as bc ON bc.courier_id=c.id
-		WHERE bc.branch_id=$1 AND c.deleted_at IS NULL 
+		WHERE bc.branch_id=$1 AND c.deleted_at=0 
 		ORDER BY c.created_at DESC 
 		LIMIT $2 OFFSET $3`
 
@@ -933,7 +933,7 @@ func (cm *courierRepo) GetAllBranchCouriers(branchId string, page, limit uint64)
 		SELECT count(1) 
 		FROM couriers as c
 		INNER JOIN branch_couriers as bc ON bc.courier_id=c.id
-		WHERE bc.branch_id=$1 AND c.deleted_at IS NULL`, branchId)
+		WHERE bc.branch_id=$1 AND c.deleted_at=0`, branchId)
 	err = row.Scan(
 		&count,
 	)
