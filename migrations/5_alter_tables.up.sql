@@ -1,4 +1,4 @@
-drop index couriers_u1
+drop index couriers_u1;
 
 do $$
     begin
